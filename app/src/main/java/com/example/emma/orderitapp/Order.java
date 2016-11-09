@@ -1,10 +1,10 @@
-package com.example.scott.rest;
+package com.example.emma.orderitapp;
 
 import java.util.ArrayList;
 import com.example.scott.rest.MenuItem;
 
 /**
- * Restaurant order object is an array of menu items.
+ * An Order object is an arraylist of menu items.
  */
 
 public class Order {
