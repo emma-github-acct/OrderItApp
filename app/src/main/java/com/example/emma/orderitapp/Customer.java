@@ -25,6 +25,6 @@ public class Customer {
     public void  setAddress(String address){this.address = address;}
     public String getAddress() {return address;}
 
-    public void  setVegetarian(String address){this.vegetarian = vegetarian;}
+    public void  setVegetarian(boolean vegetarian){this.vegetarian = vegetarian;}
     public boolean getVegetarian() {return vegetarian;}
 }
