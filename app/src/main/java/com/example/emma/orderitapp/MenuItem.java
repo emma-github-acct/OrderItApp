@@ -1,7 +1,7 @@
-package com.example.scott.rest;
+package com.example.emma.orderitapp;
 
 /**
- * Created by Scott on 11/9/2016.
+ * Model for a menu item scanned.
  */
 
 public class MenuItem
