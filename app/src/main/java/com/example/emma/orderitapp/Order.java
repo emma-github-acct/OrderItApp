@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com.example.scott.rest.MenuItem;
 
 /**
- * An Order object is an arraylist of menu items.
+ * An Order object is an arraylist of menu items which have been scanned.
  */
 
 public class Order {
