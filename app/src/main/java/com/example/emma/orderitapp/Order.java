@@ -1,7 +1,7 @@
 package com.example.emma.orderitapp;
 
 import java.util.ArrayList;
-import com.example.scott.rest.MenuItem;
+import com.example.emma.orderitapp.MenuItem;
 
 /**
  * An Order object is an arraylist of menu items which have been scanned.
