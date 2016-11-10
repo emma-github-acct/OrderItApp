@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="Jane Doe"
+        android:inputType="text"
+        android:key="name_preference"
+        android:title="Customer Name"
+        />
+
+    <EditTextPreference
+        android:defaultValue="jDoe@gmail.com"
+        android:inputType="text"
+        android:key="email_preference"
+        android:title="Customer Email"
+        />
+
+    <CheckBoxPreference
+        android:key="veg_preference"
+        android:defaultValue="false"
+        android:summary="Are you a vegetarian?"
+        android:title="Vegetarian"
+        />
+
+</PreferenceScreen>
