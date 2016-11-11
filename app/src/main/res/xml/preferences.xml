@@ -19,7 +19,7 @@
         android:key="allergy_preference"
         android:title="Allergy"
         android:defaultValue="false"
-        android:summary="Do you have allergies"
+        android:summary="Do you have allergies?"
         />
 
 </PreferenceScreen>
