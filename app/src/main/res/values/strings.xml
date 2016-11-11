@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Order It App</string>
+    <string name="launch_button_text">Scan Your Brininess's QR Code</string>
 </resources>
