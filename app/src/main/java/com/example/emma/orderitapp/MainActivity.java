@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         customer.setName(prefs.getString("name_preference", "Jane Doe"));
         customer.setEmail(prefs.getString("email_preference", "jDoe@gmail.com"));
-        customer.setVegetarian(prefs.getBoolean("veg_preference", false));
+        customer.setAllergy(prefs.getBoolean("veg_preference", false));
 
 
     }
