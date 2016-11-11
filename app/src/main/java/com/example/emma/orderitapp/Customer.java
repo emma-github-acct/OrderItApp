@@ -10,7 +10,7 @@ public class Customer {
     private String email;
     private String phone;
     private String address;
-    private boolean vegetarian;
+    private boolean allergy;
 
 
     public void  setName(String name){this.name = name;}
@@ -25,6 +25,6 @@ public class Customer {
     public void  setAddress(String address){this.address = address;}
     public String getAddress() {return address;}
 
-    public void  setVegetarian(boolean vegetarian){this.vegetarian = vegetarian;}
-    public boolean getVegetarian() {return vegetarian;}
+    public void  setAllergy(boolean allergy){this.allergy = allergy;}
+    public boolean getAllergy() {return allergy;}
 }
