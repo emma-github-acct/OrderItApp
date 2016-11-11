@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class Restaurant extends Business{
 
-    private String type = "Restaurant";
+    private final String TYPE = "Restaurant";
 
     // Constructor
     public Restaurant() {
 
     }
 
-    public String getType() {return type;}
+    public String getType() {return TYPE;}
 
 
 }

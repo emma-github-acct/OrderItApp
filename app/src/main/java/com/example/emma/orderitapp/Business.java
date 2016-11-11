@@ -38,8 +38,6 @@ public class Business {
     public void  setAddress(String address){this.address = address;}
     public String getAddress() {return address;}
 
-    public void  setTheme(String address){this.address = address;}
-    public String getTheme() {return address;}
 
     public ArrayList<String> getAttributes() {
         if( name != null) {

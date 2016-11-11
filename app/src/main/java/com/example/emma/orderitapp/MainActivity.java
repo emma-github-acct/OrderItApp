@@ -1,7 +1,6 @@
 package com.example.emma.orderitapp;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +10,10 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity implements Serializable{
+public class MainActivity extends AppCompatActivity {
 
     private Business business;
     private String businessType;
-
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -26,15 +24,16 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
     public void scanBusinessQR( View view ) {
         //instantiateBusinessInfo();
-        /*
-        business.setName("java");
+
+        business.setType("Restaurant");
+        business.setName("Java Cafe");
         business.setPhone("908-456-8888");
-        business.setAddress("123 village lane wint park, FL");
-        setAppTheme();
-        */
+        business.setAddress("123 Holt Ave Winter Park, FL");
+        business.setEmail("JavaCafe@gmail.com");
         loadWelcomePage( null );
     }
 
+    //--------- NOT WORKING -----------------
     private void instantiateBusinessInfo() {
         this.business = new Business();
 
@@ -72,25 +71,24 @@ public class MainActivity extends AppCompatActivity implements Serializable{
                         business.setName(nextInput);
                         nextInput = mScan.next().trim();
 
-                    } else if (nextInput.equals("<Email>")) {
+                    }
+                    if (nextInput.equals("<Email>")) {
                         nextInput = mScan.next().trim();
                         business.setEmail(nextInput);
                         nextInput = mScan.next().trim();
 
-                    } else if (nextInput.equals("<PhoneNumber>")) {
+                    }
+                    if (nextInput.equals("<PhoneNumber>")) {
                         nextInput = mScan.next().trim();
                         business.setPhone(nextInput);
                         nextInput = mScan.next().trim();
 
-                    } else if (nextInput.equals("<Address>")) {
+                    }
+                    if (nextInput.equals("<Address>")) {
                         nextInput = mScan.next().trim();
                         business.setPhone(nextInput);
                         nextInput = mScan.next().trim();
 
-                    } else if (nextInput.equals("<AppTheme>")) {
-                        nextInput = mScan.next().trim();
-                        business.setTheme(nextInput);
-                        nextInput = mScan.next().trim();
                     }
                 }
             }
@@ -104,12 +102,16 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
     }
 
-    private void setAppTheme() {
-
-    }
-
     private void loadWelcomePage( View view ) {
-        startActivity( new Intent( getApplicationContext(), WelcomeActivity.class ) );
+
+        Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );
+        i.putExtra("Type", business.getType());
+        i.putExtra("Name", business.getName());
+        i.putExtra("Phone", business.getPhone());
+        i.putExtra("Address", business.getAddress());
+        i.putExtra("Email", business.getEmail());
+        startActivity(i);
+
     }
 
 
