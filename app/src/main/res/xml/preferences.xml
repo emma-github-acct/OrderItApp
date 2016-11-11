@@ -2,24 +2,24 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
-        android:defaultValue="Jane Doe"
-        android:inputType="text"
         android:key="name_preference"
         android:title="Customer Name"
+        android:defaultValue="Jane Doe"
+        android:inputType="text"
         />
 
     <EditTextPreference
-        android:defaultValue="jDoe@gmail.com"
-        android:inputType="text"
         android:key="email_preference"
         android:title="Customer Email"
+        android:defaultValue="jDoe@gmail.com"
+        android:inputType="text"
         />
 
     <CheckBoxPreference
-        android:key="veg_preference"
+        android:key="allergy_preference"
+        android:title="Allergy"
         android:defaultValue="false"
-        android:summary="Are you a vegetarian?"
-        android:title="Vegetarian"
+        android:summary="Do you have allergies"
         />
 
 </PreferenceScreen>
