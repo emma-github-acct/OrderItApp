@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Order It App</string>
-    <string name="launch_button_text">Scan Your Brininess's QR Code</string>
+
+    <string name="welcome_activity_label">Welcome! Start Ordering</string>
+
+    <!-- Error Strings-->
+    <string name="input_error">File Input Error</string>
 </resources>

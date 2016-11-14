@@ -11,6 +11,12 @@ public class Order {
 
     private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
 
+
+    // Constructor
+    public Order() {
+
+    }
+
     public void addItem(MenuItem item){
         // if (item already in list)
         // increment quantity

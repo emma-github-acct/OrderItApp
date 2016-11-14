@@ -4,13 +4,17 @@ package com.example.emma.orderitapp;
  * Model for a menu item scanned.
  */
 
-public class MenuItem
-
-{
+public class MenuItem {
     private String name;
     private String description;
     private String price;
     private String quantity;
+
+
+    // Constructor
+    public MenuItem() {
+
+    }
 
     public void  setName(String name){this.name = name;}
     public String getName() {return name;}

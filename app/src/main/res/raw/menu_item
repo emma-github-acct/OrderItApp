@@ -1,0 +1,13 @@
+<MenuItem>::
+<Init>::Grilled Cheese::.5::true::true::
+<Allergen>::dairy::
+<Allergen>::gluten::
+<Extra>::Extra Cheese ($.5)::.5::
+<Extra>::Add Ham ($1.00)::1.0::
+<Init>::Cuban Sandwich::.5::true::true::
+<Allergen>::dairy::
+<Allergen>::gluten::
+<Allergen>::soy::
+<Extra>::Spicy Mustard ($.5)::.5::
+<Extra>::Extra Pickles($2.00)::2.0::
+</MenuItem>::

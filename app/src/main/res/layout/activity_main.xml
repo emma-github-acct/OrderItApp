@@ -12,7 +12,17 @@
     tools:context="com.example.emma.orderitapp.MainActivity">
 
     <TextView
+        android:id="@+id/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/welcome_activity_label" />
+
+    <Button
+        android:id="@+id/LaunchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Welcome"
+        android:text="Start Scanning"
+        android:onClick="scanBusinessQR"/>
+
 </RelativeLayout>

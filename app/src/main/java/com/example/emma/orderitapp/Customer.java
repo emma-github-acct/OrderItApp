@@ -13,6 +13,11 @@ public class Customer {
     private boolean allergy;
 
 
+    // Constructor
+    public Customer() {
+
+    }
+
     public void  setName(String name){this.name = name;}
     public String getName() {return name;}
 
