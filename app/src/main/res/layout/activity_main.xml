@@ -15,14 +15,14 @@
         android:id="@+id/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Order It App!" />
+        android:text="@string/welcome_activity_label" />
 
     <Button
         android:id="@+id/LaunchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Welcome"
-        android:text="Scan Your Buisness QR Code"
+        android:text="Start Scanning"
         android:onClick="scanBusinessQR"/>
 
 </RelativeLayout>
