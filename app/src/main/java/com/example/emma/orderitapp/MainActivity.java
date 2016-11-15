@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         customer.setName(prefs.getString("name_preference", "Jane Doe"));
         customer.setEmail(prefs.getString("email_preference", "jDoe@gmail.com"));
         customer.setAllergy(prefs.getBoolean("allergy_preference", false));
-    }
     }
 
     public void scanBusinessQR( View view ) {

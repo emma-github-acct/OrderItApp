@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
+import android.view.View;
 
 
 import java.util.ArrayList;
@@ -117,8 +118,8 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    public void launchOrderingActivity() {
-
+    public void launchOrderingActivity( View view) {
+        System.out.println("Button Pressed");
     }
 
 }
