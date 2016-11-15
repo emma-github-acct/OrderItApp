@@ -14,12 +14,23 @@ public class MainActivity extends AppCompatActivity {
 
     private Business business;
     private String businessType;
+    private SharedPreferences prefs;
+    private Customer customer;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         business = new Business();
+        customer = new Customer();
+
+        // Set Customer information from Preferences
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        customer.setName(prefs.getString("name_preference", "Jane Doe"));
+        customer.setEmail(prefs.getString("email_preference", "jDoe@gmail.com"));
+        customer.setAllergy(prefs.getBoolean("allergy_preference", false));
+    }
     }
 
     public void scanBusinessQR( View view ) {
