@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         business.setPhone("908-456-8888");
         business.setAddress("123 Holt Ave Winter Park, FL");
         business.setEmail("JavaCafe@gmail.com");
+
+        // Where
         loadWelcomePage( null );
     }
 

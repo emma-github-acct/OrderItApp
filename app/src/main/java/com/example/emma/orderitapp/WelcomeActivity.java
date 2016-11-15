@@ -27,16 +27,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private final int COLUMN_COUNT = 1;
     private int windowWidth;
     private ArrayList<String> attributes;
-    private StyleManager styleManager;
-    private int textStyle;
-    private int buttonStyle;
-
+    private LayoutManager layoutManager;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_layout);
-        styleManager = new StyleManager();
 
         // ******** Get Business Info Passed in Intent  ******** //
         Bundle bundle = getIntent().getExtras();
@@ -50,20 +45,19 @@ public class WelcomeActivity extends AppCompatActivity {
         business.setEmail( bundle.getString("Email") );
         attributes = business.getAttributes();
 
-        // Set up Styles and Layouts
-        setupStyles();
+        // Load correct Layout
+        layoutManager = new LayoutManager();
+        if ( layoutManager.hasWelcomeLayout( business.getName() )){
+            setContentView( layoutManager.getWelcomeLayout( business.getName() ) );
+        }
+        else {
+            setContentView(R.layout.activity_main);
+            Toast.makeText( this, "Error has occured try again", Toast.LENGTH_LONG ).show();
+        }
+
+        // Layouts
         setupLayout();
 
-    }
-
-    // ****************** Set Up Styles  for the Welcome Activity ****************************//
-    private void setupStyles() {
-        if ( styleManager.hasTextStyle( business.getName() )) {
-            textStyle = styleManager.getTextStyle( business.getName() );
-        }
-        if ( styleManager.hasButtonStyle( business.getName() )) {
-            buttonStyle = styleManager.getButtonStyle( business.getName() );
-        }
     }
 
     // ************* Set Up General Layout for the Welcome Activity ****************************//
@@ -99,7 +93,6 @@ public class WelcomeActivity extends AppCompatActivity {
             for (int i = 0; i < attributes.size(); i++) {
 
                 TextView t = new TextView( this );
-                t.setTextAppearance( textStyle );
                 t.setText( attributes.get( i ));
 
                 // Set the view, the width and its height
@@ -111,7 +104,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
             // Style the launchOrderingActivityButton
             Button b = (Button) findViewById( R.id.launchOrderingActivityButton );
-            b.setTextAppearance( buttonStyle );
 
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
@@ -119,6 +111,8 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void launchOrderingActivity( View view) {
+
+        // check layout manager
         System.out.println("Button Pressed");
     }
 
