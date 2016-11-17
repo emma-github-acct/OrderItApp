@@ -28,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private int windowWidth;
     private ArrayList<String> attributes;
     private LayoutManager layoutManager;
+    private String businessName;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -45,24 +46,25 @@ public class WelcomeActivity extends AppCompatActivity {
         business.setEmail( bundle.getString("Email") );
         attributes = business.getAttributes();
 
+        // Set business name for LayoutManager Keys
+        businessName = business.getName();
+
         // Load correct Layout
         layoutManager = new LayoutManager();
-        if ( layoutManager.hasWelcomeLayout( business.getName() )){
-            setContentView( layoutManager.getWelcomeLayout( business.getName() ) );
+
+        if ( ! layoutManager.hasWelcomeLayout( businessName )) {
+            Toast.makeText( this, R.string.layout_error, Toast.LENGTH_LONG ).show();
         }
-        else {
-            setContentView(R.layout.activity_main);
-            Toast.makeText( this, "Error has occured try again", Toast.LENGTH_LONG ).show();
-        }
+        // Defaults to main activity if no custom layout
+        setContentView( layoutManager.getWelcomeLayout( businessName ));
 
         // Layouts
         setupLayout();
-
     }
 
-    // ************* Set Up General Layout for the Welcome Activity ****************************//
+    //  Set Up General Layout for the Welcome Activity
     private void setupLayout() {
-        welcomeLayout = (LinearLayout) findViewById( R.id.WelcomeLayout );
+        welcomeLayout = (LinearLayout) findViewById( R.id.businessInfoView );
 
         // Setup welcomeLayout params
         params = new LinearLayout.LayoutParams(
@@ -80,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setupBusinessInfo( );
     }
 
-    // ************* Programmatically Set Up Grid to display Business Info in activity ********** //
+    // Programmatically Set Up Grid to display Business Info in activity
     private void setupBusinessInfo() {
 
         businessGrid = new GridLayout( this );
@@ -94,16 +96,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 TextView t = new TextView( this );
                 t.setText( attributes.get( i ));
+                t.setTextAppearance( layoutManager.getTextStyle( businessName ));
 
                 // Set the view, the width and its height
                 businessGrid.addView( t, windowWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
-
             businessGrid.setLayoutParams( params );
             welcomeLayout.addView( businessGrid );
-
-            // Style the launchOrderingActivityButton
-            Button b = (Button) findViewById( R.id.launchOrderingActivityButton );
 
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();

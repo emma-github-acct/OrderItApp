@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Order It App</string>
 
-    <string name="welcome_activity_label">Welcome! Start Ordering</string>
+    <!-- Opening Page Main Activity Strings-->
+    <string name="welcome_activity_label">Business Information</string>
+
+    <!-- Welcome Strings: Welcome Activity Strings-->
+    <string name="launch_ordering_label">Click here to start ordering!</string>
+    <string name="launch_ordering_aid">If this is the correct business selection, please click on the button below</string>
+    <string name="back_button_label">Go Back</string>
 
     <!-- Error Strings-->
-    <string name="input_error">File Input Error</string>
+    <string name="layout_error">Sorry! This Business is not registered</string>
 </resources>
