@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/WelcomeLayout">
+    android:id="@+id/JavaCafeWelcomeLayout">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:scaleType="fitStart"/>
+
+    <LinearLayout
+        android:id="@+id/businessInfoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <Button
         style="@style/JavaCafeButtonStyle"
         android:id="@+id/launchOrderingActivityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:text="@string/welcome_activity_label"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp"
+        android:text="@string/launch_ordering_label"
         android:onClick="launchOrderingActivity"/>
 
-</LinearLayout>
+    <Button
+        style="@style/JavaCafeButtonStyle"
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/back_button_label"
+        android:onClick="launchMainActivity"/>
+
+</RelativeLayout>
