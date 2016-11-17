@@ -1,5 +1,6 @@
 package com.example.emma.orderitapp;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -109,10 +110,14 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    public void launchOrderingActivity( View view) {
+    public void launchOrderingActivity( View view ) {
 
         // check layout manager
         System.out.println("Button Pressed");
+    }
+
+    public void launchMainActivity( View view ){
+        startActivity( new Intent( getApplicationContext( ), MainActivity.class));
     }
 
 }

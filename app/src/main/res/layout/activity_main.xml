@@ -11,18 +11,53 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.emma.orderitapp.MainActivity">
 
+    <!-- Header -->
+    <ImageView
+        android:id="@+id/titleCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"/>
+
     <TextView
         android:id="@+id/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_activity_label" />
+        android:textColor="@color/lightBlue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:textStyle="bold"
+        android:textSize="40dp"
+        android:text="@string/app_name" />
 
+    <!-- Start Scanning Button -->
     <Button
         android:id="@+id/LaunchButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Welcome"
-        android:text="Start Scanning"
-        android:onClick="scanBusinessQR"/>
+        android:layout_below="@+id/titleCircle"
+        android:text="@string/start_scanning"
+        android:textSize="40dp"
+        android:onClick="scanBusinessQR"
+        android:textColor="@color/darkBlue"
+        android:backgroundTint="@color/lightBlue"
+        android:layout_marginTop="100dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blue_rectangle"
+        android:layout_below="@id/LaunchButton"
+        android:layout_margin="20dp"/>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_feedback_white_24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/LaunchButton"
+        android:layout_alignParentBottom="true"
+        android:padding="40dp"/>
 
 </RelativeLayout>
