@@ -9,7 +9,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -129,5 +129,58 @@ public class MainActivity extends AppCompatActivity {
     public void startSettings(View v) {
         startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
     }
+
+    // onClick handler for checkout button
+    public void startCheckout(View v) {
+        startActivity(new Intent(getApplicationContext(), Checkout.class));
+    }
+
+    //
+    public void startHistory(View v) {
+        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+    }
+
+    //
+    public void startScan(View v) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+
+    /**
+     *
+     * @param menu
+     * @return
+     */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; adds items to the action bar
+        // if it is present
+        getMenuInflater().inflate(
+                R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_scan:
+                startScan(null);
+                return true;
+            case R.id.menu_checkout:
+                startCheckout(null);
+                return true;
+            case R.id.menu_history:
+                startHistory(null);
+                return true;
+            case R.id.menu_settings:
+                startSettings(null);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }

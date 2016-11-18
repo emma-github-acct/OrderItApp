@@ -1,0 +1,19 @@
+package com.example.emma.orderitapp;
+
+/**
+ * Query order database to display past orders.
+ *
+ */
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class OrderHistory extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_history);
+    }
+}
