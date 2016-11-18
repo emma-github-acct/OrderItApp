@@ -1,7 +1,6 @@
 package com.example.emma.orderitapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
@@ -14,16 +13,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private String businessType;
     private SharedPreferences prefs;
+    private business business;
 
 
     @Override
@@ -33,20 +30,14 @@ public class MainActivity extends AppCompatActivity {
         showTitle();
 
 
-        // Set Customer information from Preferences
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Customer.setName(prefs.getString("name_preference", "Jane Doe"));
-        Customer.setEmail(prefs.getString("email_preference", "jDoe@gmail.com"));
-        Customer.setAllergy(prefs.getBoolean("allergy_preference", false));
 
-        // Set Business info
-
-        Business.setType("Restaurant");
-        Business.setName("Java Cafe");
-        Business.setPhone("908-456-8888");
-        Business.setAddress("123 Holt Ave Winter Park, FL");
-        Business.setEmail("JavaCafe@gmail.com");
+        // Set business info
+        business = new business(this);
+        business.setType("Restaurant");
+        business.setName("Java Cafe");
+        business.setPhone("908-456-8888");
+        business.setAddress("123 Holt Ave Winter Park, FL");
+        business.setEmail("JavaCafe@gmail.com");
 
     }
 
@@ -54,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
     public void scanBusinessQR(View view) {
         //instantiateBusinessInfo();
 
-        Business.setType("Restaurant");
-        Business.setName("Java Cafe");
-        Business.setPhone("908-456-8888");
-        Business.setAddress("123 Holt Ave Winter Park, FL");
-        Business.setEmail("JavaCafe@gmail.com");
+        business.setType("Restaurant");
+        business.setName("Java Cafe");
+        business.setPhone("908-456-8888");
+        business.setAddress("123 Holt Ave Winter Park, FL");
+        business.setEmail("JavaCafe@gmail.com");
 
         // Where
         loadWelcomePage(null);
@@ -66,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadWelcomePage(View view) {
         Intent i = new Intent(getApplicationContext(), WelcomeActivity.class);
-        i.putExtra("Type", Business.getType());
-        i.putExtra("Name", Business.getName());
-        i.putExtra("Phone", Business.getPhone());
-        i.putExtra("Address", Business.getAddress());
-        i.putExtra("Email", Business.getEmail());
+        i.putExtra("Type", business.getType());
+        i.putExtra("Name", business.getName());
+        i.putExtra("Phone", business.getPhone());
+        i.putExtra("Address", business.getAddress());
+        i.putExtra("Email", business.getEmail());
         startActivity(i);
     }
 

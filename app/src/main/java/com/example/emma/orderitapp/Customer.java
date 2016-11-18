@@ -1,6 +1,8 @@
 package com.example.emma.orderitapp;
 
-import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * The Customer model object.
@@ -8,28 +10,39 @@ import android.app.Application;
 
 public class Customer{
 
-    private static String name;
-    private static String email;
-    private static String phone;
-    private static String address;
-    private static boolean allergy;
+    private String phone;
+    private String address;
+    private boolean allergy;
+    private SharedPreferences prefs;
 
 
     // Constructor
-    public Customer() {}
+    public Customer(Context c) {
+        PreferenceManager.setDefaultValues(c, R.xml.preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(c);
+    }
 
-    public static void  setName(String name1){name = name1;}
-    public static String getName() {return name;}
+    public void  setName(String name){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("name_preference", name);
+        editor.apply();
+    }
+    public String getName() {return prefs.getString("name_preference", "jDoe@gmail.com");}
 
-    public static void  setEmail(String email1){email = email1;}
-    public static String getEmail() {return email;}
 
-    public static void  setPhone(String phone1){phone = phone1;}
-    public static String getPhone() {return phone;}
+    public void  setEmail(String email){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("email_preference", email);
+        editor.apply();
+        }
+    public String getEmail() {return prefs.getString("email_preference", "jDoe@gmail.com");}
 
-    public static void  setAddress(String address1){address = address1;}
-    public static String getAddress() {return address;}
+    public void  setPhone(String phone1){phone = phone1;}
+    public String getPhone() {return phone;}
 
-    public static void  setAllergy(boolean allergy1){allergy = allergy1;}
-    public static boolean getAllergy() {return allergy;}
+    public void  setAddress(String address1){address = address1;}
+    public String getAddress() {return address;}
+
+    public void  setAllergy(boolean allergy1){allergy = allergy1;}
+    public boolean getAllergy() {return allergy;}
 }

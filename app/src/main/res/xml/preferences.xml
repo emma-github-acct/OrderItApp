@@ -22,4 +22,18 @@
         android:summary="Do you have allergies?"
         />
 
+    <EditTextPreference
+        android:key="business_name"
+        android:title="Business Name"
+        android:defaultValue="Java Cafe"
+        android:inputType="text"
+        />
+
+    <EditTextPreference
+        android:key="business_email"
+        android:title="Business Email"
+        android:defaultValue="javacafe@gmail.com"
+        android:inputType="text"
+        />
+
 </PreferenceScreen>

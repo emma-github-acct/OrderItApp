@@ -10,20 +10,25 @@ import android.widget.TextView;
 
 public class Checkout extends AppCompatActivity {
 
+    Customer customer;
+    com.example.emma.orderitapp.business business;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        customer = new Customer(this);
+        business = new business(this);
         TextView cNameView = (TextView) findViewById(R.id.name_label);
         TextView cEmailView = (TextView) findViewById(R.id.email_label);
-        cNameView.setText(Customer.getName());
-        cEmailView.setText(Customer.getEmail());
+        cNameView.setText(customer.getName());
+        cEmailView.setText(customer.getEmail());
 
         TextView rNameView = (TextView) findViewById(R.id.rest_name);
         TextView rEmailView = (TextView) findViewById(R.id.rest_email);
-        rNameView.setText(Business.getName());
-        rEmailView.setText(Business.getEmail());
+        rNameView.setText(business.getName());
+        rEmailView.setText(business.getEmail());
 
     }
 

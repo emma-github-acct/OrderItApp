@@ -1,21 +1,25 @@
 package com.example.emma.orderitapp;
 
-import java.util.ArrayList;
+import android.content.Context;
 
 /**
  * Restaurant model object.
  */
 
-public class Restaurant extends Business{
+public class Restaurant extends business{
 
     private final String TYPE = "Restaurant";
 
     // Constructor
-    public Restaurant() {
 
+
+
+
+    public Restaurant(Context c) {
+        super(c);
     }
 
-   //public String getType() {return TYPE;}
+   public String getType() {return TYPE;}
 
 
 }

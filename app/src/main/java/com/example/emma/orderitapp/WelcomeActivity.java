@@ -9,7 +9,6 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
 import android.view.View;
 
 
@@ -23,8 +22,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private LinearLayout welcomeLayout;
     private LinearLayout.LayoutParams params;
-    private Business business;
-    private GridLayout businessGrid; // displays Business Information
+    private com.example.emma.orderitapp.business business;
+    private GridLayout businessGrid; // displays business Information
     private final int COLUMN_COUNT = 1;
     private int windowWidth;
     private ArrayList<String> attributes;
@@ -35,11 +34,11 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
 
-        // ******** Get Business Info Passed in Intent  ******** //
+        // ******** Get business Info Passed in Intent  ******** //
         Bundle bundle = getIntent().getExtras();
         String type = bundle.getString("Type");
         if ( type.equals("Restaurant")){
-            business = new Restaurant();
+            business = new Restaurant(this);
         }
         business.setName( bundle.getString("Name") );
         business.setPhone( bundle.getString("Phone") );
@@ -79,11 +78,11 @@ public class WelcomeActivity extends AppCompatActivity {
         int paddingRight = welcomeLayout.getPaddingRight();
         windowWidth = size.x - paddingLeft - paddingRight;
 
-        // Programically Show Business Info
+        // Programically Show business Info
         setupBusinessInfo( );
     }
 
-    // Programmatically Set Up Grid to display Business Info in activity
+    // Programmatically Set Up Grid to display business Info in activity
     private void setupBusinessInfo() {
 
         businessGrid = new GridLayout( this );

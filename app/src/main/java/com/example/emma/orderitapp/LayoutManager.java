@@ -37,7 +37,7 @@ public class LayoutManager {
 
     /**
      * hasWelcomeLayout
-     * @param key -- Business Name
+     * @param key -- business Name
      * @return boolean
      */
     public boolean hasWelcomeLayout( String key ) {
@@ -52,7 +52,7 @@ public class LayoutManager {
 
     /**
      * hasOrderLayout
-     * @param key -- Business Name
+     * @param key -- business Name
      * @return boolean
      */
     public boolean hasOrderLayout( String key ) {
@@ -67,7 +67,7 @@ public class LayoutManager {
 
     /**
      * hasTextStyle
-     * @param key -- Business Name
+     * @param key -- business Name
      * @return boolean
      */
     public boolean hasTextStyle( String key ) {
@@ -82,7 +82,7 @@ public class LayoutManager {
 
     /**
      * getWelcomeLayout
-     * @param key -- Business Name
+     * @param key -- business Name
      * @return int -- value of layout id
      */
     public int getWelcomeLayout( String key ) {
@@ -97,7 +97,7 @@ public class LayoutManager {
 
     /**
      * getOrderLayout
-     * @param key -- Business Name
+     * @param key -- business Name
      * @return int -- value of layout id
      */
     public int getOrderLayout( String key ) {
@@ -112,7 +112,7 @@ public class LayoutManager {
 
     /**
      * getTextStyle
-     * @param key -- Business Name
+     * @param key -- business Name
      * @return int -- value of style id
      */
     public int getTextStyle( String key ) {

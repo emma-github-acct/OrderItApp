@@ -1,45 +1,62 @@
 package com.example.emma.orderitapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 
 /**
  * Created by Emma on 11/10/16.
  */
 
-public class Business {
+public class business {
 
-    private static String type;
-    private static String name;
-    private static String email;
-    private static String phone;
-    private static String address;
-    private static ArrayList<String> attributes;
+    private String type;
+    private String name;
+    private String email;
+    private String phone;
+    private String address;
+    private ArrayList<String> attributes;
+    private SharedPreferences prefs;
 
 
     // Constructor
-    public Business() {
-
-        attributes = new ArrayList<String>();
-
+    public business(Context c) {
+            PreferenceManager.setDefaultValues(c, R.xml.preferences, false);
+            prefs = PreferenceManager.getDefaultSharedPreferences(c);
+            attributes = new ArrayList<String>();
     }
 
-    public static void  setType(String type1){type = type1;}
-    public static String getType() {return type;}
-
-    public static void  setName(String name1){name = name1;}
-    public static String getName() {return name;}
-
-    public static void  setEmail(String email1){email = email1;}
-    public static String getEmail() {return email;}
-
-    public static void  setPhone(String phone1){phone = phone1;}
-    public static String getPhone() {return phone;}
-
-    public static void  setAddress(String address1){address = address1;}
-    public static String getAddress() {return address;}
+    public void  setType(String type1){type = type1;}
+    public String getType() {return type;}
 
 
-    public static ArrayList<String> getAttributes() {
+    public void  setName(String name){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("business_name", name);
+        editor.apply();
+        this.name = name;
+    }
+    public String getName() {return prefs.getString("business_name", "Java Cafe");}
+
+
+    public void  setEmail(String email){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("business_email", email);
+        editor.apply();
+        this.email = email;
+    }
+    public String getEmail() {return prefs.getString("business_email", "javacafe@gmail.com");}
+
+    public void  setPhone(String phone1){phone = phone1;}
+    public String getPhone() {return phone;}
+
+    public void  setAddress(String address1){address = address1;}
+    public String getAddress() {return address;}
+
+
+    public ArrayList<String> getAttributes() {
         if( name != null) {
             attributes.add(name);
         }
