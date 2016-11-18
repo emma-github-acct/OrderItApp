@@ -49,11 +49,24 @@ public class business {
     }
     public String getEmail() {return prefs.getString("business_email", "javacafe@gmail.com");}
 
-    public void  setPhone(String phone1){phone = phone1;}
-    public String getPhone() {return phone;}
 
-    public void  setAddress(String address1){address = address1;}
-    public String getAddress() {return address;}
+    public void  setAddress(String address){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("business_address", address);
+        editor.apply();
+        this.address = address;
+    }
+    public String getAddress() {return prefs.getString("business_address", "123 Elm st");}
+
+
+    public void  setPhone(String phone){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("business_phone", phone);
+        editor.apply();
+        this.phone = phone;
+    }
+    public String getPhone() {return prefs.getString("business_phone", "867-5309");}
+
 
 
     public ArrayList<String> getAttributes() {

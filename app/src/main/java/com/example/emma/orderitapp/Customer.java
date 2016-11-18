@@ -37,11 +37,23 @@ public class Customer{
         }
     public String getEmail() {return prefs.getString("email_preference", "jDoe@gmail.com");}
 
-    public void  setPhone(String phone1){phone = phone1;}
-    public String getPhone() {return phone;}
+    public void  setAddress(String address){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("address_preference", address);
+        editor.apply();
+        this.address = address;
+    }
+    public String getAddress() {return prefs.getString("address_preference", "123 Oak st");}
 
-    public void  setAddress(String address1){address = address1;}
-    public String getAddress() {return address;}
+
+    public void  setPhone(String phone){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("phone_preference", phone);
+        editor.apply();
+        this.phone = phone;
+    }
+    public String getPhone() {return prefs.getString("phone_preference", "111-1234");}
+
 
     public void  setAllergy(boolean allergy1){allergy = allergy1;}
     public boolean getAllergy() {return allergy;}
