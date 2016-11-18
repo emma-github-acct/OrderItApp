@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <PreferenceCategory
+        android:title="Customer Preferences"
+        android:key="customer_preferences">
     <EditTextPreference
         android:key="name_preference"
         android:title="Customer Name"
@@ -34,6 +36,14 @@
         android:defaultValue="false"
         android:summary="Do you have allergies?"
         />
+</PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Business Preferences"
+        android:key="business_preferences">
+
+
 
     <EditTextPreference
         android:key="business_name"
@@ -61,5 +71,5 @@
         android:defaultValue="867-5309"
         android:inputType="text"
         />
-
+</PreferenceCategory>
 </PreferenceScreen>

@@ -6,12 +6,16 @@ import android.preference.PreferenceManager;
 
 /**
  * The Customer model object.
+ * Name
+ * Address
+ * Phone
+ * Email
+ *
+ * Uses shared preferences to store data
  */
 
 public class Customer{
 
-    private String phone;
-    private String address;
     private boolean allergy;
     private SharedPreferences prefs;
 
@@ -41,7 +45,6 @@ public class Customer{
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("address_preference", address);
         editor.apply();
-        this.address = address;
     }
     public String getAddress() {return prefs.getString("address_preference", "123 Oak st");}
 
@@ -50,7 +53,6 @@ public class Customer{
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("phone_preference", phone);
         editor.apply();
-        this.phone = phone;
     }
     public String getPhone() {return prefs.getString("phone_preference", "111-1234");}
 

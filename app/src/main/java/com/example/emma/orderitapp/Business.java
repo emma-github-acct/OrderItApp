@@ -7,7 +7,13 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 
 /**
- * Created by Emma on 11/10/16.
+ * The Customer model object.
+ * Name
+ * Address
+ * Phone
+ * Email
+ *
+ * Uses shared preferences to store data
  */
 
 public class business {
