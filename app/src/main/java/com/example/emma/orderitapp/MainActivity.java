@@ -21,15 +21,15 @@ import android.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Business Business;
+
     private String businessType;
     private SharedPreferences prefs;
-    private Customer customer;
+
 
     @Override
-    protected void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         showTitle();
 
 
@@ -48,13 +48,10 @@ public class MainActivity extends AppCompatActivity {
         Business.setAddress("123 Holt Ave Winter Park, FL");
         Business.setEmail("JavaCafe@gmail.com");
 
-
-
     }
 
 
-
-    public void scanBusinessQR( View view ) {
+    public void scanBusinessQR(View view) {
         //instantiateBusinessInfo();
 
         Business.setType("Restaurant");
@@ -64,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
         Business.setEmail("JavaCafe@gmail.com");
 
         // Where
-        loadWelcomePage( null );
+        loadWelcomePage(null);
     }
 
-    private void loadWelcomePage( View view ) {
-        Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );
+    private void loadWelcomePage(View view) {
+        Intent i = new Intent(getApplicationContext(), WelcomeActivity.class);
         i.putExtra("Type", Business.getType());
         i.putExtra("Name", Business.getName());
         i.putExtra("Phone", Business.getPhone());
@@ -79,21 +76,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void showTitle() {
         // Create ShapeDrawable title circle
-        ShapeDrawable titleCircle = new ShapeDrawable( new OvalShape());
-        titleCircle.setIntrinsicHeight( 300 );
-        titleCircle.setIntrinsicWidth( 900 );
+        ShapeDrawable titleCircle = new ShapeDrawable(new OvalShape());
+        titleCircle.setIntrinsicHeight(300);
+        titleCircle.setIntrinsicWidth(900);
 
         // Create Paint for MAGIC 8 BALL
-        Paint ballPaint = new Paint( Paint.ANTI_ALIAS_FLAG );
-        int blue = getResources().getColor( R.color.blue );
-        int darkBlue = getResources().getColor( R.color.darkBlue );
-        RadialGradient radGrad = new RadialGradient( 450, 150, 100, blue, darkBlue, Shader.TileMode.MIRROR);
-        ballPaint.setShader( radGrad );
-        titleCircle.getPaint().set( ballPaint );
+        Paint ballPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        int blue = getResources().getColor(R.color.blue);
+        int darkBlue = getResources().getColor(R.color.darkBlue);
+        RadialGradient radGrad = new RadialGradient(450, 150, 100, blue, darkBlue, Shader.TileMode.MIRROR);
+        ballPaint.setShader(radGrad);
+        titleCircle.getPaint().set(ballPaint);
 
         // Set to ImageView
-        ImageView tc = ( ImageView )findViewById( R.id.titleCircle );
-        tc.setImageDrawable( titleCircle );
+        ImageView tc = (ImageView) findViewById(R.id.titleCircle);
+        tc.setImageDrawable(titleCircle);
 
         // Shake Title
         shakeTitle();
@@ -102,43 +99,42 @@ public class MainActivity extends AppCompatActivity {
 
     // Shake Title Circle
     private void shakeTitle() {
-        performImageAnimation( R.anim.shake, R.id.titleCircle );
+        performImageAnimation(R.anim.shake, R.id.titleCircle);
     }
 
-    private void performImageAnimation( int animationResourceID, int viewID ) {
-        Animation an = AnimationUtils.loadAnimation( this,animationResourceID );
-        an.setAnimationListener( new TweenAnimationListener());
-        ImageView image = ( ImageView ) findViewById( viewID );
-        image.startAnimation( an );
+    private void performImageAnimation(int animationResourceID, int viewID) {
+        Animation an = AnimationUtils.loadAnimation(this, animationResourceID);
+        an.setAnimationListener(new TweenAnimationListener());
+        ImageView image = (ImageView) findViewById(viewID);
+        image.startAnimation(an);
     }
 
     class TweenAnimationListener implements Animation.AnimationListener {
-        public void onAnimationStart( Animation animation ) {
+        public void onAnimationStart(Animation animation) {
             // Disable all buttons while animation is running
-            enableButtons( false );
+            enableButtons(false);
         }
 
-        public void onAnimationEnd( Animation animation ) {
+        public void onAnimationEnd(Animation animation) {
             // Enable all buttons once animation is over
             long duration = animation.getDuration();
-            enableButtons( true );
+            enableButtons(true);
         }
 
-        public void onAnimationRepeat( Animation animation ) {
+        public void onAnimationRepeat(Animation animation) {
             // what to do when animation loops
         }
 
-        private void enableButtons( boolean enabledState ) {
-            final Button scanButton = ( Button ) findViewById( R.id.LaunchButton );
-            scanButton.setEnabled( enabledState );
+        private void enableButtons(boolean enabledState) {
+            final Button scanButton = (Button) findViewById(R.id.LaunchButton);
+            scanButton.setEnabled(enabledState);
 
         }
     } // end listener class
 
 
     /**
-     *The code below handles menus
-     *
+     * The code below handles menus
      */
 
     @Override
@@ -174,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Below are the handlers that start new activities
+     *
      * @param v
      */
     public void startSettings(View v) {
