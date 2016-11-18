@@ -14,18 +14,45 @@ public class Checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
     }
 
+    /**
+     * Send order by email
+     * Threaded. Starts Receipt activity on result code.
+     * @param v
+     */
+
+
     public void sendOrder(View v) {
-        String [] addresses = {"sengle64@gmail.com"};
-        String subject = "order";
-        String body = "cheeseburger";
 
+        new Thread(new Runnable() {
+            public void run() {
+                String[] addresses = {"sengle64@gmail.com"};
+                String subject = "order";
+                String body = "cheeseburger";
 
-
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
-            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            intent.putExtra(Intent.EXTRA_TEXT, body);
-            if (intent.resolveActivity(getPackageManager()) != null) {startActivity(intent);}
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+                if (emailIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(emailIntent, 1);
+                }
+            }
+        }).start();
     }
+
+
+    /**
+     * Start Receipt activity
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        startActivity(new Intent(getApplicationContext(), Receipt.class));
+    }
+
 }
+

@@ -125,4 +125,9 @@ public class MainActivity extends AppCompatActivity {
     } // end listener class
 
 
+    // onClick handler for settings button
+    public void startSettings(View v) {
+        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+    }
+
 }
