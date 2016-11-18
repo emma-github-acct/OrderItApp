@@ -15,7 +15,7 @@ public class Restaurant extends Business{
 
     }
 
-    public String getType() {return TYPE;}
+   //public String getType() {return TYPE;}
 
 
 }

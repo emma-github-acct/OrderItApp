@@ -21,7 +21,7 @@ import android.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Business business;
+    private Business Business;
     private String businessType;
     private SharedPreferences prefs;
     private Customer customer;
@@ -30,27 +30,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
-        business = new Business();
-        customer = new Customer();
         showTitle();
 
 
         // Set Customer information from Preferences
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        customer.setName(prefs.getString("name_preference", "Jane Doe"));
-        customer.setEmail(prefs.getString("email_preference", "jDoe@gmail.com"));
-        customer.setAllergy(prefs.getBoolean("allergy_preference", false));
+        Customer.setName(prefs.getString("name_preference", "Jane Doe"));
+        Customer.setEmail(prefs.getString("email_preference", "jDoe@gmail.com"));
+        Customer.setAllergy(prefs.getBoolean("allergy_preference", false));
+
+        // Set Business info
+
+        Business.setType("Restaurant");
+        Business.setName("Java Cafe");
+        Business.setPhone("908-456-8888");
+        Business.setAddress("123 Holt Ave Winter Park, FL");
+        Business.setEmail("JavaCafe@gmail.com");
+
+
+
     }
+
+
 
     public void scanBusinessQR( View view ) {
         //instantiateBusinessInfo();
 
-        business.setType("Restaurant");
-        business.setName("Java Cafe");
-        business.setPhone("908-456-8888");
-        business.setAddress("123 Holt Ave Winter Park, FL");
-        business.setEmail("JavaCafe@gmail.com");
+        Business.setType("Restaurant");
+        Business.setName("Java Cafe");
+        Business.setPhone("908-456-8888");
+        Business.setAddress("123 Holt Ave Winter Park, FL");
+        Business.setEmail("JavaCafe@gmail.com");
 
         // Where
         loadWelcomePage( null );
@@ -58,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadWelcomePage( View view ) {
         Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );
-        i.putExtra("Type", business.getType());
-        i.putExtra("Name", business.getName());
-        i.putExtra("Phone", business.getPhone());
-        i.putExtra("Address", business.getAddress());
-        i.putExtra("Email", business.getEmail());
+        i.putExtra("Type", Business.getType());
+        i.putExtra("Name", Business.getName());
+        i.putExtra("Phone", Business.getPhone());
+        i.putExtra("Address", Business.getAddress());
+        i.putExtra("Email", Business.getEmail());
         startActivity(i);
     }
 
@@ -125,31 +136,9 @@ public class MainActivity extends AppCompatActivity {
     } // end listener class
 
 
-    // onClick handler for settings button
-    public void startSettings(View v) {
-        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-    }
-
-    // onClick handler for checkout button
-    public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), Checkout.class));
-    }
-
-    //
-    public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
-    }
-
-    //
-    public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
-
-
     /**
+     *The code below handles menus
      *
-     * @param menu
-     * @return
      */
 
     @Override
@@ -181,6 +170,28 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    /**
+     * Below are the handlers that start new activities
+     * @param v
+     */
+    public void startSettings(View v) {
+        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+    }
+
+    public void startCheckout(View v) {
+        startActivity(new Intent(getApplicationContext(), Checkout.class));
+    }
+
+    public void startHistory(View v) {
+        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+    }
+
+    public void startScan(View v) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+// End menu code
 
 
 }

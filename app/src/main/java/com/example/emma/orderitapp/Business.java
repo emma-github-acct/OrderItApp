@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class Business {
 
-    private String type;
-    private String name;
-    private String email;
-    private String phone;
-    private String address;
-    private ArrayList<String> attributes;
+    private static String type;
+    private static String name;
+    private static String email;
+    private static String phone;
+    private static String address;
+    private static ArrayList<String> attributes;
 
 
     // Constructor
@@ -23,23 +23,23 @@ public class Business {
 
     }
 
-    public void  setType(String name){this.type = name;}
-    public String getType() {return type;}
+    public static void  setType(String type1){type = type1;}
+    public static String getType() {return type;}
 
-    public void  setName(String name){this.name = name;}
-    public String getName() {return name;}
+    public static void  setName(String name1){name = name1;}
+    public static String getName() {return name;}
 
-    public void  setEmail(String email){this.email = email;}
-    public String getEmail() {return email;}
+    public static void  setEmail(String email1){email = email1;}
+    public static String getEmail() {return email;}
 
-    public void  setPhone(String phone){this.phone = phone;}
-    public String getPhone() {return phone;}
+    public static void  setPhone(String phone1){phone = phone1;}
+    public static String getPhone() {return phone;}
 
-    public void  setAddress(String address){this.address = address;}
-    public String getAddress() {return address;}
+    public static void  setAddress(String address1){address = address1;}
+    public static String getAddress() {return address;}
 
 
-    public ArrayList<String> getAttributes() {
+    public static ArrayList<String> getAttributes() {
         if( name != null) {
             attributes.add(name);
         }
