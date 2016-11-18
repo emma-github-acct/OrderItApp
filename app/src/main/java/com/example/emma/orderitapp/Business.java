@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 
 /**
- * The Customer model object.
+ * The Business model object.
  * Name
  * Address
  * Phone
