@@ -15,7 +15,7 @@ public class Checkout extends AppCompatActivity {
     Customer customer;
     com.example.emma.orderitapp.business business;
     Order order;
-
+    String orderData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,22 +24,20 @@ public class Checkout extends AppCompatActivity {
         customer = new Customer(this);
         business = new business(this);
         order = new Order(this);
-     //   TextView cNameView = (TextView) findViewById(R.id.name_label);
-     //   TextView cEmailView = (TextView) findViewById(R.id.email_label);
-     //   cNameView.setText(customer.getName());
-     //   cEmailView.setText(customer.getEmail());
 
-        TextView rNameView = (TextView) findViewById(R.id.rest_name);
-        TextView rEmailView = (TextView) findViewById(R.id.rest_email);
-        rNameView.setText(business.getName());
-        rEmailView.setText(business.getEmail());
 
-        ArrayList<String> o = order.getOrder();
+        ArrayList<MenuItem> o = order.getOrder();
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
-        String orderData = "";
-        for ( String s : o ) {
-            orderData += s + "\n";
+        orderData = "Restaurant: " + business.getName() + "  " + business.getEmail() + "\n\n";
+        orderData += "Customer: " + customer.getName() + " " + customer.getEmail() +"\n\n";
+        orderData += "Item    Price    Quantity \n";
+
+        for (MenuItem i: o){
+            orderData += i.getName() + "  ";
+            orderData += i.getPrice() + "  ";
+            orderData += i.getQuantity() + "\n";
         }
+
         orderDisplay.setText( orderData);
 
 
@@ -57,9 +55,9 @@ public class Checkout extends AppCompatActivity {
 
         new Thread(new Runnable() {
             public void run() {
-                String[] addresses = {"sengle64@gmail.com"};
-                String subject = "order";
-                String body = "cheeseburger";
+                String[] addresses = {"sengle64@gmail.com"}; //{restaurant.getEmail(), customer.getEmail()}
+                String subject = "TakeOut Order";
+                String body = orderData;
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this

@@ -19,50 +19,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-
-
     <TextView
-        android:text="Restaurant"
+        android:text="Order Data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp"
-        android:id="@+id/textView4" />
-
-    <TextView
-        android:text="Restaurant Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="8dp"
-        android:id="@+id/rest_name" />
-
-    <TextView
-        android:text="Restaurant Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rest_name"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="3dp"
-        android:id="@+id/rest_email" />
-
-    <TextView
-        android:text="Order Items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rest_email"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp"
-        android:id="@+id/order_title" />
-
-    <TextView
-        android:text="Items list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/order_title"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
         android:id="@+id/order_items" />
 
 

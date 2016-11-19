@@ -10,8 +10,8 @@ import java.util.Date;
 import com.example.emma.orderitapp.MenuItem;
 
 /**
- * An Order object is currently an array list of strings.
- * Each string is an item composed of "Date Restaurant Item, Quantity, Price"
+ * An Order object is an array list of MenuItems.
+ *
  *
  * Methods:
  *
@@ -19,7 +19,7 @@ import com.example.emma.orderitapp.MenuItem;
  *
  * addItem(item, quantity, price)
  *
- * getOrder() returns a string array of items.
+ * getOrder() returns an arraylist of menu items.
  *
  *
  * to do: deleteItem method. Turn the string array into an
@@ -30,9 +30,11 @@ import com.example.emma.orderitapp.MenuItem;
 
 public class Order {
 
-    private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<String> itemsSA = new ArrayList<String>();
+    private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
     private  OrderDatabase dbManager;
-    Restaurant restaurant;
+    private Restaurant restaurant;
+    private int orderNumber;
 
 
     // Constructor
@@ -47,8 +49,6 @@ public class Order {
         //else
         String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         dbManager.insert(date, restaurant.getName(), item, quantity, price);
-        //
-        //items.add(item);
     }
 
     public void deleteItem(MenuItem item){
@@ -56,9 +56,24 @@ public class Order {
 
     }
 
-    public ArrayList<String> getOrder(){
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<MenuItem> getOrder(){
         String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        items = dbManager.selectByColumn( "date", date);
+        itemsSA = dbManager.selectByColumn( "date", date);
+        MenuItem item = new MenuItem();
+        for ( String s : itemsSA) {
+            String[] sa = s.split("::");
+            item.setPrice(sa[4]);
+            item.setName(sa[2]);
+            item.setQuantity(sa[3]);
+            //restaurant.setName(sa[1]);
+            //date = sa[0];
+            items.add(item);
+        }
         return items;
     }
 }

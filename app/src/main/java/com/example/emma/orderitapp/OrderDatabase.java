@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public class OrderDatabase extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "SavedOrders1";
+    public static final String DATABASE_NAME = "SavedOrders2";
     public static final int DATABASE_VERSION = 1;
-    public static final String HISTORY_TABLE = "tblOrders1";
+    public static final String HISTORY_TABLE = "tblOrders2";
     public static final String ID = "id";
     public static final String DATE = "date";
     public static final String RESTAURANT = "restaurant";
@@ -50,6 +50,8 @@ public class OrderDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //db.delete(HISTORY_TABLE, null, null);
+
         // build the create table statement
         String sqlCreate = "create table " + HISTORY_TABLE + " ( "
                 + ID + " integer primary key autoincrement, "
@@ -119,7 +121,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
             while (!cursor.isAfterLast()) {
                 String oneRecord = "";
                 for (int i = 1; i < cursor.getColumnCount(); i++) {
-                    oneRecord += cursor.getString(i) + " ";
+                    oneRecord += cursor.getString(i) + "::";
                 }
                 historyList.add(oneRecord);
                 cursor.moveToNext();
