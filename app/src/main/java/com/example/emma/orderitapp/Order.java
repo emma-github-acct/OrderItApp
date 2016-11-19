@@ -24,6 +24,8 @@ import com.example.emma.orderitapp.MenuItem;
  *
  * to do: deleteItem method. Turn the string array into an
  * Item object with methods Item.getPrice, Item.getQuantity, etc.
+ *
+ *
  */
 
 public class Order {
