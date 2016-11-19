@@ -22,7 +22,8 @@
         <activity android:name=".Checkout" />
         <activity android:name=".Receipt" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".OrderHistory"></activity>
+        <activity android:name=".OrderHistory" />
+        <activity android:name=".ScanActivity"></activity>
     </application>
 
 </manifest>

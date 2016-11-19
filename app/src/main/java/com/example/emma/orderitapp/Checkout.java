@@ -8,10 +8,13 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Checkout extends AppCompatActivity {
 
     Customer customer;
     com.example.emma.orderitapp.business business;
+    Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +23,26 @@ public class Checkout extends AppCompatActivity {
 
         customer = new Customer(this);
         business = new business(this);
-        TextView cNameView = (TextView) findViewById(R.id.name_label);
-        TextView cEmailView = (TextView) findViewById(R.id.email_label);
-        cNameView.setText(customer.getName());
-        cEmailView.setText(customer.getEmail());
+        order = new Order(this);
+     //   TextView cNameView = (TextView) findViewById(R.id.name_label);
+     //   TextView cEmailView = (TextView) findViewById(R.id.email_label);
+     //   cNameView.setText(customer.getName());
+     //   cEmailView.setText(customer.getEmail());
 
         TextView rNameView = (TextView) findViewById(R.id.rest_name);
         TextView rEmailView = (TextView) findViewById(R.id.rest_email);
         rNameView.setText(business.getName());
         rEmailView.setText(business.getEmail());
+
+        ArrayList<String> o = order.getOrder();
+        TextView orderDisplay = (TextView) findViewById(R.id.order_items);
+        String orderData = "";
+        for ( String s : o ) {
+            orderData += s + "\n";
+        }
+        orderDisplay.setText( orderData);
+
+
 
     }
 
@@ -74,8 +88,7 @@ public class Checkout extends AppCompatActivity {
 
 
     /**
-     *The code below handles menus
-     *
+     * The code below handles menus
      */
 
     @Override
@@ -91,6 +104,9 @@ public class Checkout extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_start:
+                startMain(null);
+                return true;
             case R.id.menu_scan:
                 startScan(null);
                 return true;
@@ -111,6 +127,7 @@ public class Checkout extends AppCompatActivity {
 
     /**
      * Below are the handlers that start new activities
+     *
      * @param v
      */
     public void startSettings(View v) {
@@ -126,10 +143,13 @@ public class Checkout extends AppCompatActivity {
     }
 
     public void startScan(View v) {
+        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+    }
+
+    public void startMain(View v) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 // End menu code
-
 
 
 

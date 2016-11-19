@@ -28,17 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showTitle();
-
-
-
-        // Set business info
         business = new business(this);
-        business.setType("Restaurant");
-        business.setName("Java Cafe");
-        business.setPhone("908-456-8888");
-        business.setAddress("123 Holt Ave Winter Park, FL");
-        business.setEmail("JavaCafe@gmail.com");
-
     }
 
 
@@ -141,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_start:
+                startMain(null);
+                return true;
             case R.id.menu_scan:
                 startScan(null);
                 return true;
@@ -177,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startScan(View v) {
+        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+    }
+
+    public void startMain(View v) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 // End menu code

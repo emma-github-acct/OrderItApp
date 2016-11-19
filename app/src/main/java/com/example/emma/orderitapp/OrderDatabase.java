@@ -1,11 +1,13 @@
 package com.example.emma.orderitapp;
 
 /**
- * Database of previous restaurant orders.
+ * Database of restaurant orders.
  * Stores Order id, date, restaurant, customer and total in a single table.
  */
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,14 +20,15 @@ import java.util.ArrayList;
 
 public class OrderDatabase extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "SavedOrders";
+    public static final String DATABASE_NAME = "SavedOrders1";
     public static final int DATABASE_VERSION = 1;
-    public static final String HISTORY_TABLE = "tblOrders";
+    public static final String HISTORY_TABLE = "tblOrders1";
     public static final String ID = "id";
     public static final String DATE = "date";
     public static final String RESTAURANT = "restaurant";
-    public static final String CUSTOMER = "customer";
-    public static final String TOTAL = "total";
+    public static final String ITEM = "item";
+    public static final String QUANTITY = "quantity";
+    public static final String PRICE = "price";
     private Context appContext;
 
 
@@ -52,8 +55,9 @@ public class OrderDatabase extends SQLiteOpenHelper {
                 + ID + " integer primary key autoincrement, "
                 + DATE + " text, "
                 + RESTAURANT + " text, "
-                + CUSTOMER + " text, "
-                + TOTAL + "text "
+                + ITEM + " text, "
+                + QUANTITY + " text,"
+                + PRICE + " text "
                 + ")";
         try {
             db.execSQL(sqlCreate);
@@ -71,6 +75,28 @@ public class OrderDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
+
+
+
+    public long insert(String date, String restaurant, String item, String quantity, String price) {
+        long newId = -1;
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(DATE, date);
+            values.put(RESTAURANT, restaurant);
+            values.put(ITEM, item);
+            values.put(QUANTITY, quantity);
+            values.put(PRICE, price);
+
+            newId = db.insert(HISTORY_TABLE, null, values);
+            db.close();
+        } catch (SQLException se) {
+            Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return newId;
+    }
 
 
     /**
