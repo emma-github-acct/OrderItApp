@@ -30,6 +30,7 @@ public class Checkout extends AppCompatActivity {
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
         orderData = "Restaurant: " + business.getName() + "  " + business.getEmail() + "\n\n";
         orderData += "Customer: " + customer.getName() + " " + customer.getEmail() +"\n\n";
+        orderData += "Order Number " + order.getOrderNumber() + "\n\n";
         orderData += "Item    Price    Quantity \n";
 
         for (MenuItem i: o){

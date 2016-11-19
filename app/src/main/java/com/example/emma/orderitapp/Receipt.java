@@ -12,12 +12,13 @@ public class Receipt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
+        Order o = new Order(this);
+        o.setOrderNumber();
     }
 
 
     /**
-     *The code below handles menus
-     *
+     * The code below handles menus
      */
 
     @Override
@@ -33,6 +34,9 @@ public class Receipt extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_start:
+                startMain(null);
+                return true;
             case R.id.menu_scan:
                 startScan(null);
                 return true;
@@ -53,6 +57,7 @@ public class Receipt extends AppCompatActivity {
 
     /**
      * Below are the handlers that start new activities
+     *
      * @param v
      */
     public void startSettings(View v) {
@@ -68,9 +73,15 @@ public class Receipt extends AppCompatActivity {
     }
 
     public void startScan(View v) {
+        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+    }
+
+    public void startMain(View v) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 // End menu code
+
+
 
 
 }

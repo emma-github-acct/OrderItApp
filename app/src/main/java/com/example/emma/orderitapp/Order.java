@@ -1,6 +1,8 @@
 package com.example.emma.orderitapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -34,13 +36,31 @@ public class Order {
     private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
     private  OrderDatabase dbManager;
     private Restaurant restaurant;
-    private int orderNumber;
-
+    private String orderNumber;
+    private SharedPreferences prefs;
 
     // Constructor
     public Order(Context c) {
         dbManager = new OrderDatabase(c);
         restaurant = new Restaurant(c);
+        PreferenceManager.setDefaultValues(c, R.xml.preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(c);
+        orderNumber = prefs.getString("order_number", "0");
+    }
+
+    public void setOrderNumber(){
+        int o = Integer.parseInt(orderNumber);
+        o++;
+        orderNumber = Integer.toString(o);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("order_number", orderNumber);
+        editor.apply();
+
+    }
+
+
+    public String getOrderNumber(){
+        return orderNumber;
     }
 
     public void addItem(String item, String quantity, String price){
@@ -48,7 +68,7 @@ public class Order {
         // increment quantity
         //else
         String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        dbManager.insert(date, restaurant.getName(), item, quantity, price);
+        dbManager.insert(date, restaurant.getName(), item, quantity, price, orderNumber);
     }
 
     public void deleteItem(MenuItem item){
@@ -63,7 +83,7 @@ public class Order {
      */
     public ArrayList<MenuItem> getOrder(){
         String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        itemsSA = dbManager.selectByColumn( "date", date);
+        itemsSA = dbManager.selectByColumn( "orderNumber", orderNumber);
         MenuItem item = new MenuItem();
         for ( String s : itemsSA) {
             String[] sa = s.split("::");

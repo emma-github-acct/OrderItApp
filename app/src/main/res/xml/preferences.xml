@@ -71,5 +71,12 @@
         android:defaultValue="867-5309"
         android:inputType="text"
         />
+
+        <EditTextPreference
+            android:key="order_number"
+            android:title="Order Number"
+            android:defaultValue="0"
+            android:inputType="text"
+            />
 </PreferenceCategory>
 </PreferenceScreen>
