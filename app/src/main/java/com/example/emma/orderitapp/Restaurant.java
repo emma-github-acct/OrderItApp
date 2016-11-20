@@ -6,7 +6,7 @@ import android.content.Context;
  * Restaurant model object.
  */
 
-public class Restaurant extends business{
+public class Restaurant extends Business{
 
     private final String TYPE = "Restaurant";
 

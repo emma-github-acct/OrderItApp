@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Uses shared preferences to store data
  */
 
-public class business {
+public class Business {
 
     private String type;
     private String name;
@@ -28,7 +28,7 @@ public class business {
 
 
     // Constructor
-    public business(Context c) {
+    public Business(Context c) {
             PreferenceManager.setDefaultValues(c, R.xml.preferences, false);
             prefs = PreferenceManager.getDefaultSharedPreferences(c);
             attributes = new ArrayList<String>();

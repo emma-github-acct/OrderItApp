@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Checkout extends AppCompatActivity {
+public class CheckoutActivity extends AppCompatActivity {
 
     Customer customer;
-    business business;
+    Business business;
     Order order;
 
     String orderData; //Text display and email body of the order.
@@ -29,7 +29,7 @@ public class Checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         customer = new Customer(this);
-        business = new business(this);
+        business = new Business(this);
         order = new Order(this);
 
 
@@ -89,7 +89,7 @@ public class Checkout extends AppCompatActivity {
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        startActivity(new Intent(getApplicationContext(), Receipt.class));
+        startActivity(new Intent(getApplicationContext(), ReceiptActivity.class));
     }
 
 
@@ -141,11 +141,11 @@ public class Checkout extends AppCompatActivity {
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), Checkout.class));
+        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
     }
 
     public void startScan(View v) {

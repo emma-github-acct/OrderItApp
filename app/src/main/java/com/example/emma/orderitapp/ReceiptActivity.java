@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-public class Receipt extends AppCompatActivity {
+public class ReceiptActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +71,11 @@ public class Receipt extends AppCompatActivity {
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), Checkout.class));
+        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
     }
 
     public void startScan(View v) {

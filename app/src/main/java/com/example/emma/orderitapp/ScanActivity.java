@@ -85,11 +85,11 @@ public class ScanActivity extends AppCompatActivity {
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), Checkout.class));
+        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
     }
 
     public void startScan(View v) {

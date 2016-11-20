@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String businessType;
     private SharedPreferences prefs;
-    private business business;
+    private Business business;
 
 
     @Override
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showTitle();
-        business = new business(this);
+        business = new Business(this);
     }
 
 
@@ -162,11 +162,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), Checkout.class));
+        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
     }
 
     public void startScan(View v) {

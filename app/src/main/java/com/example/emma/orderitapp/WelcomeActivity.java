@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private LinearLayout welcomeLayout;
     private LinearLayout.LayoutParams params;
-    private com.example.emma.orderitapp.business business;
+    private Business Business;
     private GridLayout businessGrid; // displays business Information
     private final int COLUMN_COUNT = 1;
     private int windowWidth;
@@ -39,16 +39,16 @@ public class WelcomeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String type = bundle.getString("Type");
         if ( type.equals("Restaurant")){
-            business = new Restaurant(this);
+            Business = new Restaurant(this);
         }
-        business.setName( bundle.getString("Name") );
-        business.setPhone( bundle.getString("Phone") );
-        business.setAddress( bundle.getString("Address") );
-        business.setEmail( bundle.getString("Email") );
-        attributes = business.getAttributes();
+        Business.setName( bundle.getString("Name") );
+        Business.setPhone( bundle.getString("Phone") );
+        Business.setAddress( bundle.getString("Address") );
+        Business.setEmail( bundle.getString("Email") );
+        attributes = Business.getAttributes();
 
         // Set business name for LayoutManager Keys
-        businessName = business.getName();
+        businessName = Business.getName();
 
         // Load correct Layout
         layoutManager = new LayoutManager();
@@ -170,11 +170,11 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), Checkout.class));
+        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistory.class));
+        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
     }
 
     public void startScan(View v) {
