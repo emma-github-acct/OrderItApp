@@ -5,6 +5,7 @@ package com.example.emma.orderitapp;
  */
 
 public class MenuItem {
+
     private String name;
     private String description;
     private String price;

@@ -1,8 +1,8 @@
 package com.example.emma.orderitapp;
 
 /**
- * Database of restaurant orders.
- * Stores Order id, date, restaurant, customer and total in a single table.
+ * Database of Take Out Orders.
+ * Stores Order number, date, restaurant, quantity and price in a single table.
  */
 
 import android.content.ContentValues;
@@ -80,7 +80,16 @@ public class OrderDatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
 
-
+    /**
+     *  Insert a Menu Item.
+     * @param date
+     * @param restaurant
+     * @param item
+     * @param quantity
+     * @param price
+     * @param orderNumber
+     * @return
+     */
 
     public long insert(String date, String restaurant, String item, String quantity, String price, String orderNumber) {
         long newId = -1;

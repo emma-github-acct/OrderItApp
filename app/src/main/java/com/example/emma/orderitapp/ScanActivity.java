@@ -1,5 +1,10 @@
 package com.example.emma.orderitapp;
 
+/**
+ * Controller for scanning Menu Items.
+ */
+
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +22,12 @@ public class ScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan);
         order = new Order(this);
     }
+
+
+    /**
+     * Debug code adds a menu item to the order.
+     * @param v
+     */
 
     public void itemScan(View v){
         String item = "Cheeseburger";

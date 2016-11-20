@@ -1,5 +1,11 @@
 package com.example.emma.orderitapp;
 
+/**
+ * Controller to display a View of the Receipt.
+ *
+ */
+
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

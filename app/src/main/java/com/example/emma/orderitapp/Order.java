@@ -12,17 +12,10 @@ import java.util.Date;
 import com.example.emma.orderitapp.MenuItem;
 
 /**
+ *
+ * Model of a Take Out Order.
+ *
  * An Order object is an array list of MenuItems.
- *
- *
- * Methods:
- *
- * Constructor Order(Context)
- *
- * addItem(item, quantity, price)
- *
- * getOrder() returns an arraylist of menu items.
- *
  *
  * to do: deleteItem method. Turn the string array into an
  * Item object with methods Item.getPrice, Item.getQuantity, etc.
@@ -32,14 +25,19 @@ import com.example.emma.orderitapp.MenuItem;
 
 public class Order {
 
-    private ArrayList<String> itemsSA = new ArrayList<String>();
+    // Order object is an arraylist of Menu Items.
     private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
-    private  OrderDatabase dbManager;
+
+    private OrderDatabase dbManager;
     private Restaurant restaurant;
     private String orderNumber;
     private SharedPreferences prefs;
 
-    // Constructor
+    /**
+     * Constructor
+     * @param c
+     */
+
     public Order(Context c) {
         dbManager = new OrderDatabase(c);
         restaurant = new Restaurant(c);
@@ -48,6 +46,11 @@ public class Order {
         orderNumber = prefs.getString("order_number", "0");
     }
 
+
+    /**
+     * Method: setOrderNumber increments the Order Number plus one.
+     */
+
     public void setOrderNumber(){
         int o = Integer.parseInt(orderNumber);
         o++;
@@ -55,13 +58,18 @@ public class Order {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("order_number", orderNumber);
         editor.apply();
-
     }
 
+    /**
+     * Method: getOrderNumber
+     * @return a string containing the current Order Number.
+     */
 
     public String getOrderNumber(){
         return orderNumber;
     }
+
+
 
     public void addItem(String item, String quantity, String price){
         // if (item already in list)
@@ -71,6 +79,8 @@ public class Order {
         dbManager.insert(date, restaurant.getName(), item, quantity, price, orderNumber);
     }
 
+
+
     public void deleteItem(MenuItem item){
         // remove item from list
 
@@ -78,11 +88,13 @@ public class Order {
 
 
     /**
-     *
-     * @return
+     * Method: getOrder
+     * @return an arraylist of Menu Items in the current Order.
      */
+
     public ArrayList<MenuItem> getOrder(){
-        String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        ArrayList<String> itemsSA = new ArrayList<String>();
         itemsSA = dbManager.selectByColumn( "orderNumber", orderNumber);
         MenuItem item = new MenuItem();
         for ( String s : itemsSA) {
@@ -90,8 +102,6 @@ public class Order {
             item.setPrice(sa[4]);
             item.setName(sa[2]);
             item.setQuantity(sa[3]);
-            //restaurant.setName(sa[1]);
-            //date = sa[0];
             items.add(item);
         }
         return items;

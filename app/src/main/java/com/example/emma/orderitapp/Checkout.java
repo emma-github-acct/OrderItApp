@@ -1,5 +1,10 @@
 package com.example.emma.orderitapp;
 
+/**
+ * Controller to display, confirm and email the Take Out Order.
+ *
+ */
+
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +18,11 @@ import java.util.ArrayList;
 public class Checkout extends AppCompatActivity {
 
     Customer customer;
-    com.example.emma.orderitapp.business business;
+    business business;
     Order order;
-    String orderData;
+
+    String orderData; //Text display and email body of the order.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

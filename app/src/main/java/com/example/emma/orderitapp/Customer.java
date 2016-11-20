@@ -31,6 +31,7 @@ public class Customer{
         editor.putString("name_preference", name);
         editor.apply();
     }
+
     public String getName() {return prefs.getString("name_preference", "jDoe@gmail.com");}
 
 
@@ -38,7 +39,8 @@ public class Customer{
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("email_preference", email);
         editor.apply();
-        }
+    }
+
     public String getEmail() {return prefs.getString("email_preference", "jDoe@gmail.com");}
 
     public void  setAddress(String address){
@@ -46,6 +48,7 @@ public class Customer{
         editor.putString("address_preference", address);
         editor.apply();
     }
+
     public String getAddress() {return prefs.getString("address_preference", "123 Oak st");}
 
 
@@ -54,9 +57,11 @@ public class Customer{
         editor.putString("phone_preference", phone);
         editor.apply();
     }
+
     public String getPhone() {return prefs.getString("phone_preference", "111-1234");}
 
 
     public void  setAllergy(boolean allergy1){allergy = allergy1;}
+
     public boolean getAllergy() {return allergy;}
 }

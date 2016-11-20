@@ -41,7 +41,8 @@
 
     <PreferenceCategory
         android:title="Business Preferences"
-        android:key="business_preferences">
+        android:key="business_preferences"
+        >
 
 
 
