@@ -11,11 +11,8 @@ public class MenuItem {
     private String price;
     private String quantity;
 
-
     // Constructor
-    public MenuItem() {
-
-    }
+    public MenuItem() {}
 
     public void  setName(String name){this.name = name;}
     public String getName() {return name;}

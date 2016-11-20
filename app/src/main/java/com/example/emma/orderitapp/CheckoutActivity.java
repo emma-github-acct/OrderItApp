@@ -32,7 +32,6 @@ public class CheckoutActivity extends AppCompatActivity {
         business = new Business(this);
         order = new Order(this);
 
-
         ArrayList<MenuItem> o = order.getOrder();
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
         orderData = "Restaurant: " + business.getName() + "  " + business.getEmail() + "\n\n";
@@ -45,11 +44,7 @@ public class CheckoutActivity extends AppCompatActivity {
             orderData += i.getPrice() + "  ";
             orderData += i.getQuantity() + "\n";
         }
-
         orderDisplay.setText( orderData);
-
-
-
     }
 
     /**

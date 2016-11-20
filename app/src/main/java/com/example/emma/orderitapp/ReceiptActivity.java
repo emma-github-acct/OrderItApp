@@ -5,7 +5,6 @@ package com.example.emma.orderitapp;
  *
  */
 
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ public class ReceiptActivity extends AppCompatActivity {
         o.setOrderNumber();
     }
 
-
     /**
      * The code below handles menus
      */
@@ -35,7 +33,6 @@ public class ReceiptActivity extends AppCompatActivity {
                 R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {

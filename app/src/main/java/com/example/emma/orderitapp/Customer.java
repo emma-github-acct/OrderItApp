@@ -19,7 +19,6 @@ public class Customer{
     private boolean allergy;
     private SharedPreferences prefs;
 
-
     // Constructor
     public Customer(Context c) {
         PreferenceManager.setDefaultValues(c, R.xml.preferences, false);

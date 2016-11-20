@@ -17,11 +17,9 @@ import android.content.SharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private String businessType;
     private SharedPreferences prefs;
     private Business business;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         showTitle();
         business = new Business(this);
     }
-
 
     public void scanBusinessQR(View view) {
         //instantiateBusinessInfo();

@@ -26,7 +26,6 @@ public class Business {
     private ArrayList<String> attributes;
     private SharedPreferences prefs;
 
-
     // Constructor
     public Business(Context c) {
             PreferenceManager.setDefaultValues(c, R.xml.preferences, false);

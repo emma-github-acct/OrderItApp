@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-
 public class OrderDatabase extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "SavedOrders3";
@@ -46,6 +45,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
 
     /**
      * Create database
+     *
      * @param db
      */
 
@@ -77,11 +77,12 @@ public class OrderDatabase extends SQLiteOpenHelper {
      */
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
-
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 
     /**
-     *  Insert a Menu Item.
+     * Insert a Menu Item.
+     *
      * @param date
      * @param restaurant
      * @param item
@@ -114,6 +115,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
 
     /**
      * Search database by column name and value.
+     *
      * @param columnName
      * @param columnValue
      * @return
