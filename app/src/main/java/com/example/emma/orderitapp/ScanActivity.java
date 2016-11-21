@@ -30,10 +30,11 @@ public class ScanActivity extends AppCompatActivity {
      */
 
     public void itemScan(View v){
-        String item = "Cheeseburger";
-        String quantity = "1";
-        String price = "1.00";
-        order.addItem(item, quantity, price);
+        MenuItem item = new MenuItem();
+        item.setName("Cheeseburger");
+        item.setQuantity("1");
+        item.setPrice("1.00");
+        order.addItem(item);
         Toast.makeText(this, "Item added.", Toast.LENGTH_LONG).show();
     }
 

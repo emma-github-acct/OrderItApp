@@ -69,14 +69,28 @@ public class Order {
     }
 
 
-    public void addItem(String item, String quantity, String price) {
-        // if (item already in list)
-        // increment quantity
-        //else
+    public void addItem(MenuItem newItem) {
+
+        // if item is already in the database then increment quantity
+        items = getOrder();
+        for(MenuItem oldItem : items) {
+            String name = oldItem.getName();
+            if (name.equals(newItem.getName())){
+                int newQuantity =
+                        Integer.parseInt(oldItem.getQuantity()) + Integer.parseInt(newItem.getQuantity());
+                newItem.setQuantity(Integer.toString(newQuantity));
+                dbManager.changeQuantity(newItem, orderNumber);
+                return;
+            }
+        }
+        // else add the item to the database
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        dbManager.insert(date, restaurant.getName(), item, quantity, price, orderNumber);
+        dbManager.insert(date, restaurant.getName(), newItem.getName(), newItem.getQuantity(), newItem.getPrice(), orderNumber);
     }
 
+    //public void updateItem(String item, String quantity, String price ){
+    //    dbManager.update(String item, String quantity, String price );
+    //}
 
     public void deleteItem(MenuItem item) {
         // remove item from list

@@ -112,6 +112,32 @@ public class OrderDatabase extends SQLiteOpenHelper {
         return newId;
     }
 
+    /**
+     * Change item quantity.
+     * @param item
+     * @param orderNumber
+     * @return
+     */
+
+    public long changeQuantity( MenuItem item, String orderNumber) {
+
+        long newId = -1;
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(QUANTITY, item.getQuantity());
+            newId = db.update(HISTORY_TABLE, values, ITEM + "= '" + item.getName() + "' AND " + ORDERNUMBER + "=" + orderNumber, null);
+            db.close();
+        } catch (SQLException se) {
+            Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return newId;
+    }
+
+
+
+
+
 
     /**
      * Search database by column name and value.
