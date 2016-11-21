@@ -93,6 +93,13 @@ public class CheckoutActivity extends AppCompatActivity {
      */
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_checkout).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; adds items to the action bar
         // if it is present
@@ -100,7 +107,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
@@ -110,9 +116,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_scan:
                 startScan(null);
-                return true;
-            case R.id.menu_checkout:
-                startCheckout(null);
                 return true;
             case R.id.menu_history:
                 startHistory(null);
@@ -133,10 +136,6 @@ public class CheckoutActivity extends AppCompatActivity {
      */
     public void startSettings(View v) {
         startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-    }
-
-    public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {

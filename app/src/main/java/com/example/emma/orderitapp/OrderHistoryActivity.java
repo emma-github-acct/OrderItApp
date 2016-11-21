@@ -27,6 +27,13 @@ public class OrderHistoryActivity extends AppCompatActivity {
      */
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_history).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; adds items to the action bar
         // if it is present
@@ -39,14 +46,14 @@ public class OrderHistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_start:
+                startMain(null);
+                return true;
             case R.id.menu_scan:
                 startScan(null);
                 return true;
             case R.id.menu_checkout:
                 startCheckout(null);
-                return true;
-            case R.id.menu_history:
-                startHistory(null);
                 return true;
             case R.id.menu_settings:
                 startSettings(null);
@@ -69,11 +76,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
-    public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+    public void startScan(View v) {
+        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
     }
 
-    public void startScan(View v) {
+    public void startMain(View v) {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 // End menu code

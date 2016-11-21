@@ -43,6 +43,13 @@ public class ScanActivity extends AppCompatActivity {
      */
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_scan).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; adds items to the action bar
         // if it is present
@@ -57,9 +64,6 @@ public class ScanActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_start:
                 startMain(null);
-                return true;
-            case R.id.menu_scan:
-                startScan(null);
                 return true;
             case R.id.menu_checkout:
                 startCheckout(null);
@@ -91,10 +95,6 @@ public class ScanActivity extends AppCompatActivity {
 
     public void startHistory(View v) {
         startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
-    }
-
-    public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
     }
 
     public void startMain(View v) {

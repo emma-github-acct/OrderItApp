@@ -116,6 +116,13 @@ public class MainActivity extends AppCompatActivity {
      */
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_start).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; adds items to the action bar
         // if it is present
@@ -128,9 +135,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_start:
-                startMain(null);
-                return true;
             case R.id.menu_scan:
                 startScan(null);
                 return true;
@@ -170,9 +174,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), ScanActivity.class));
     }
 
-    public void startMain(View v) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
 // End menu code
 
 
