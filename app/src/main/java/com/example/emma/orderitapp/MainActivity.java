@@ -1,5 +1,6 @@
 package com.example.emma.orderitapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private Business business;
     private String businessType;
@@ -34,17 +35,12 @@ public class MainActivity extends AppCompatActivity {
         customer.setAllergy(prefs.getBoolean("allergy_preference", false));
     }
 
-    public void scanBusinessQR( View view ) {
+    public void businessQRScan( View view ) {
         //instantiateBusinessInfo();
-
-        business.setType("Restaurant");
-        business.setName("Java Cafe");
-        business.setPhone("908-456-8888");
-        business.setAddress("123 Holt Ave Winter Park, FL");
-        business.setEmail("JavaCafe@gmail.com");
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderBusiness.class));
 
         // Where
-        loadWelcomePage( null );
+        //loadWelcomePage( null );
     }
 
     //--------- NOT WORKING -----------------
@@ -118,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 */
+    /*
     private void loadWelcomePage( View view ) {
 
         Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );
@@ -129,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
 
     }
+    */
 
 
 }

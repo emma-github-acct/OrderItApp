@@ -1,5 +1,6 @@
 package com.example.emma.orderitapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -15,11 +16,14 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import static android.R.attr.paddingLeft;
+import static android.R.attr.paddingRight;
+
 /**
  * Created by Emma on 11/11/16.
  */
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends Activity {
 
     private LinearLayout welcomeLayout;
     private LinearLayout.LayoutParams params;
@@ -29,12 +33,14 @@ public class WelcomeActivity extends AppCompatActivity {
     private int windowWidth;
     private ArrayList<String> attributes;
     private LayoutManager layoutManager;
+    private String businessName;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
 
-        // ******** Get Business Info Passed in Intent  ******** //
+        // ******** Get business Info Passed in Intent  ******** //
         Bundle bundle = getIntent().getExtras();
         String type = bundle.getString("Type");
         if ( type.equals("Restaurant")){
@@ -46,15 +52,12 @@ public class WelcomeActivity extends AppCompatActivity {
         business.setEmail( bundle.getString("Email") );
         attributes = business.getAttributes();
 
+        // Set business name for LayoutManager Keys
+        businessName = business.getName();
+
         // Load correct Layout
         layoutManager = new LayoutManager();
-        if ( layoutManager.hasWelcomeLayout( business.getName() )){
-            setContentView( layoutManager.getWelcomeLayout( business.getName() ) );
-        }
-        else {
-            setContentView(R.layout.activity_main);
-            Toast.makeText( this, "Error has occured try again", Toast.LENGTH_LONG ).show();
-        }
+        setContentView( R.layout.java_cafe_welcome_layout);
 
         // Layouts
         setupLayout();
@@ -115,6 +118,11 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
         // check layout manager
         System.out.println("Button Pressed");
+    }
+
+    public void businessQRScan (View view) {
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderBusiness.class));
+
     }
 
 }

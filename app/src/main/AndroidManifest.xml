@@ -29,6 +29,10 @@
             android:name=".QRCodeReaderRestaurant"
             android:label="Scan Menu Items">
         </activity>
+        <activity
+            android:name=".QRCodeReaderBusiness"
+            android:label="Scan Menu Items">
+        </activity>
     </application>
 
 </manifest>

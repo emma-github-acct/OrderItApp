@@ -23,6 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Welcome"
         android:text="Start Scanning"
-        android:onClick="scanBusinessQR"/>
+        android:onClick="businessQRScan"/>
 
 </RelativeLayout>
