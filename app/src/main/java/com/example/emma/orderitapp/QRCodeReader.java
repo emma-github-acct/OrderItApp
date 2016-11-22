@@ -72,11 +72,14 @@ public class QRCodeReader extends Activity {
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                if (ActivityCompat.checkSelfPermission(QRCodeReader.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.checkSelfPermission(QRCodeReader.this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
                     Log.w("PERMISSIONS", "Permission request");
 
                     ActivityCompat.requestPermissions(QRCodeReader.this, new String[]{Manifest.permission.CAMERA}, 0);
                 }
+
                 try {
                     Log.w("CAMERA SOURCE", "Camera started");
                     cameraSource.start(surfaceHolder);

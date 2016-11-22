@@ -1,5 +1,6 @@
 package com.example.emma.orderitapp;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -111,7 +112,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void launchOrderingActivity( View view) {
-
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
         // check layout manager
         System.out.println("Button Pressed");
     }

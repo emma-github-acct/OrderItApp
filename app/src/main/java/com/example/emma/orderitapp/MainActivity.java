@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //--------- NOT WORKING -----------------
+    /*
     private void instantiateBusinessInfo() {
         this.business = new Business();
 
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+*/
     private void loadWelcomePage( View view ) {
 
         Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );

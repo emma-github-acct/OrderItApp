@@ -28,4 +28,8 @@ public class MenuItem {
     public void  setQuantity(String quantity){this.quantity = quantity;}
     public String getQuantity() {return quantity;}
 
+    public String toString () {
+        return getName() + ":\n" + getDescription() + "\n" + "Price: " + getPrice();
+    }
+
 }
