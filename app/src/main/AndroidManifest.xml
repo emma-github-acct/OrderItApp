@@ -20,7 +20,6 @@
             android:label="@string/welcome_activity_label"
             android:theme="@style/AppTheme" />
         <activity android:name=".CheckoutActivity" />
-        <activity android:name=".ReceiptActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".ScanActivity"></activity>

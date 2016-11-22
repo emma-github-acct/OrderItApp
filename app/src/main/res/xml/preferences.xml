@@ -42,9 +42,8 @@
     <PreferenceCategory
         android:title="Business Preferences"
         android:key="business_preferences"
+        android:visibility="invisible"
         >
-
-
 
     <EditTextPreference
         android:key="business_name"

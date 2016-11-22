@@ -1,7 +1,6 @@
 package com.example.emma.orderitapp;
 
-import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -12,8 +11,11 @@ public class LayoutManager {
 
     // Tag Names for style types
     private final String WELCOME_TAG = "_Welcome";
-    private final String ORDER_TAG = "_Order";
+    private final String SCAN_TAG = "_Scan";
+    private final String CHECKOUT_TAG = "_Checkout";
+    private final String HISTORY_TAG = "_History";
     private final String TEXT_STYLE_TAG = "_TextStyle";
+    private ArrayList<String> tags;
     // Names of Businesses
     private final String JAVA = "Java Cafe";
 
@@ -26,55 +28,34 @@ public class LayoutManager {
     public LayoutManager() {
         layouts = new HashMap<String, Integer>();
         styles = new HashMap<String, Integer>();
+        tags = new ArrayList<String>();
 
         // adds layouts
-        layouts.put( JAVA + WELCOME_TAG, R.layout.java_cafe_welcome_layout );
-        //layouts.put( JAVA + ORDER_TAG, R.layout.java_cafe_order_layout );
+        layouts.put( JAVA + WELCOME_TAG, R.layout.activity_welcome_java_cafe);
+        layouts.put( JAVA + SCAN_TAG, R.layout.activity_scan_java_cafe);
+        layouts.put( JAVA + CHECKOUT_TAG, R.layout.activity_checkout_java_cafe);
+        layouts.put( JAVA + HISTORY_TAG, R.layout.activity_history_java_cafe);
 
         // adds styles
         styles.put( JAVA + TEXT_STYLE_TAG, R.style.JavaCafeTextStyle );
+
+        // adds tags to array
+        tags.add(WELCOME_TAG);
+        tags.add(SCAN_TAG);
+        tags.add(CHECKOUT_TAG);
+        tags.add(HISTORY_TAG);
     }
 
-    /**
-     * hasWelcomeLayout
-     * @param key -- business Name
-     * @return boolean
-     */
-    public boolean hasWelcomeLayout( String key ) {
-        String k = key + WELCOME_TAG;
-        if ( layouts.get( k ) == null ){
-            return false;
-
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * hasOrderLayout
-     * @param key -- business Name
-     * @return boolean
-     */
-    public boolean hasOrderLayout( String key ) {
-        String k = key + ORDER_TAG;
-        if ( layouts.get( k ) == null ){
-            return false;
-
-        } else {
-            return true;
-        }
-    }
 
     /**
      * hasTextStyle
-     * @param key -- business Name
+     * @param businessName -- business Name
      * @return boolean
      */
-    public boolean hasTextStyle( String key ) {
-        String k = key + TEXT_STYLE_TAG;
+    public boolean hasTextStyle( String businessName ) {
+        String k = businessName + TEXT_STYLE_TAG;
         if ( styles.get( k ) == null ){
             return false;
-
         } else {
             return true;
         }
@@ -82,41 +63,68 @@ public class LayoutManager {
 
     /**
      * getWelcomeLayout
-     * @param key -- business Name
+     * @param businessName -- business Name
      * @return int -- value of layout id
      */
-    public int getWelcomeLayout( String key ) {
-        String k = key + WELCOME_TAG;
+    public int getWelcomeLayout( String businessName ) {
+        String k = businessName + WELCOME_TAG;
         if ( layouts.get( k ) == null ){
             return R.layout.activity_main;
-
         } else {
             return layouts.get( k );
         }
     }
 
     /**
-     * getOrderLayout
-     * @param key -- business Name
+     * getScanLayout
+     * @param businessName -- business Name
      * @return int -- value of layout id
      */
-    public int getOrderLayout( String key ) {
-        String k = key + ORDER_TAG;
+    public int getScanLayout( String businessName ) {
+        String k = businessName + SCAN_TAG;
         if ( layouts.get( k ) == null ){
             return R.layout.activity_main;
-
         } else {
             return layouts.get( k );
         }
     }
+
+    /**
+     * getCheckoutLayout
+     * @param businessName -- business Name
+     * @return int -- value of layout id
+     */
+    public int getCheckoutLayout( String businessName ) {
+        String k = businessName + CHECKOUT_TAG;
+        if ( layouts.get( k ) == null ){
+            return R.layout.activity_main;
+        } else {
+            return layouts.get( k );
+        }
+    }
+
+    /**
+     * getHistoryLayout
+     * @param businessName -- business Name
+     * @return int -- value of layout id
+     */
+    public int getHistoryLayout( String businessName ) {
+        String k = businessName + HISTORY_TAG;
+        if ( layouts.get( k ) == null ){
+            return R.layout.activity_main;
+        } else {
+            return layouts.get( k );
+        }
+    }
+
 
     /**
      * getTextStyle
-     * @param key -- business Name
+     * @param businessName -- business Name
      * @return int -- value of style id
      */
-    public int getTextStyle( String key ) {
-        String k = key + TEXT_STYLE_TAG;
+    public int getTextStyle( String businessName ) {
+        String k = businessName + TEXT_STYLE_TAG;
         if ( styles.get( k ) == null ){
             return R.style.AppTheme;
 

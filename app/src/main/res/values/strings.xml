@@ -1,14 +1,28 @@
 <resources>
     <string name="app_name">Order It App</string>
 
-    <!-- Opening Page Main Activity Strings-->
+    <!-- Main Activity -->
     <string name="welcome_activity_label">Business Information</string>
     <string name="start_scanning">Start Scanning</string>
 
-    <!-- Welcome Strings: Welcome Activity Strings-->
+    <!-- Welcome Activity -->
     <string name="launch_ordering_label">Click here to start ordering!</string>
     <string name="launch_ordering_aid">If this is the correct business selection, please click on the button below</string>
     <string name="back_button_label">Go Back</string>
+
+    <!-- Scan Activity -->
+    <string name="scan_label">Scan</string>
+    <string name="checkout_label">Checkout</string>
+
+    <!-- History Activity -->
+    <string name="history_label">Order History</string>
+
+    <!-- Checkout Activity -->
+    <string name="order_data">Order Data</string>
+    <string name="email_label">Email Order</string>
+
+    <!-- Preferences -->
+    <string name="business_name_default">Java Cafe</string>
 
     <!-- Error Strings-->
     <string name="layout_error">Sorry! This Business is not registered</string>

@@ -23,13 +23,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private LinearLayout welcomeLayout;
     private LinearLayout.LayoutParams params;
-    private Business business;
     private GridLayout businessGrid; // displays business Information
     private final int COLUMN_COUNT = 1;
     private int windowWidth;
     private ArrayList<String> attributes;
     private LayoutManager layoutManager;
     private String businessName;
+    private Business business;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -52,11 +52,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // Load correct Layout
         layoutManager = new LayoutManager();
-
-        if ( ! layoutManager.hasWelcomeLayout( businessName )) {
-            Toast.makeText( this, R.string.layout_error, Toast.LENGTH_LONG ).show();
-        }
-        // Defaults to main activity if no custom layout
         setContentView( layoutManager.getWelcomeLayout( businessName ));
 
         // Layouts

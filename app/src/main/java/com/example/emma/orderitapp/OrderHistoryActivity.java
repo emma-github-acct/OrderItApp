@@ -7,17 +7,27 @@ package com.example.emma.orderitapp;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.View;
 
 public class OrderHistoryActivity extends AppCompatActivity {
 
+    private String businessName;
+    private Business business;
+    private LayoutManager layoutManager;
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_history);
+        this.business = new Business(this);
+        this.businessName = business.getName();
+        layoutManager = new LayoutManager();
+        setContentView( layoutManager.getHistoryLayout( businessName ));
     }
 
 

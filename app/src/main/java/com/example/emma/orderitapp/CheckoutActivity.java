@@ -6,30 +6,38 @@ package com.example.emma.orderitapp;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    Customer customer;
-    Business business;
-    Order order;
+    private Customer customer;
+    private Business business;
+    private Order order;
+    private String businessName;
+    private LayoutManager layoutManager;
+    private SharedPreferences prefs;
 
     String orderData; //Text display and email body of the order.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkout);
+        this.business = new Business(this);
+        this.businessName = business.getName();
+
+        layoutManager = new LayoutManager();
+        setContentView( layoutManager.getCheckoutLayout( businessName ));
 
         customer = new Customer(this);
-        business = new Business(this);
         order = new Order(this);
 
         ArrayList<MenuItem> o = order.getOrder();
@@ -53,7 +61,6 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param v
      */
 
-
     public void sendOrder(View v) {
 
         new Thread(new Runnable() {
@@ -72,6 +79,8 @@ public class CheckoutActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+        Toast.makeText( this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();
     }
 
 
@@ -83,8 +92,7 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param data
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        startActivity(new Intent(getApplicationContext(), ReceiptActivity.class));
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
 

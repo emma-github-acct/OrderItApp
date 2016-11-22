@@ -8,35 +8,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.emma.orderitapp.Checkout">
+    tools:context="com.example.emma.orderitapp.CheckoutActivity">
 
 
     <TextView
-        android:text="Checkout"
+        style="@style/JavaCafeTextStyle"
+        android:id="@+id/title"
+        android:text="@string/checkout_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Order Data"
+        style="@style/JavaCafeTextStyle"
+        android:id="@+id/order_items"
+        android:text="@string/order_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:id="@+id/order_items" />
-
-
-
-
+        android:layout_marginTop="15dp" />
 
     <Button
-        android:text="Email Order"
+        style="@style/JavaCafeButtonStyle"
+        android:id="@+id/button"
+        android:text="@string/email_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
         android:onClick="sendOrder"
         android:layout_marginStart="67dp"
         android:layout_marginBottom="47dp"

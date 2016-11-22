@@ -11,22 +11,20 @@
     tools:context="com.example.emma.orderitapp.ScanActivity">
 
     <Button
-        android:text="Scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/JavaCafeButtonStyle"
+        android:id="@+id/button2"
+        android:text="@string/scan_label"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="195dp"
-        android:onClick="itemScan"
-        android:id="@+id/button2" />
+        android:onClick="itemScan" />
 
     <Button
-        android:text="Checkout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/JavaCafeButtonStyle"
+        android:id="@+id/button3"
+        android:text="@string/checkout_label"
         android:layout_below="@+id/button2"
         android:layout_alignStart="@+id/button2"
         android:layout_marginTop="22dp"
-        android:onClick="startCheckout"
-        android:id="@+id/button3" />
+        android:onClick="startCheckout" />
 </RelativeLayout>
