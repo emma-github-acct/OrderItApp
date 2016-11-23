@@ -31,7 +31,7 @@ public class LayoutManager {
         tags = new ArrayList<String>();
 
         // adds layouts
-        layouts.put( JAVA + WELCOME_TAG, R.layout.activity_welcome_java_cafe);
+        layouts.put( JAVA + WELCOME_TAG, R.layout.activity_welcome_page_java_cafe);
         layouts.put( JAVA + SCAN_TAG, R.layout.activity_scan_java_cafe);
         layouts.put( JAVA + CHECKOUT_TAG, R.layout.activity_checkout_java_cafe);
         layouts.put( JAVA + HISTORY_TAG, R.layout.activity_history_java_cafe);
