@@ -2,16 +2,10 @@ package com.example.emma.orderitapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-
-import java.io.InputStream;
-import java.io.Serializable;
-import java.util.Scanner;
+import android.view.View;
 
 public class MainActivity extends Activity {
 

@@ -1,7 +1,5 @@
 package com.example.emma.orderitapp;
 
-import java.util.ArrayList;
-
 /**
  * Restaurant model object.
  */
