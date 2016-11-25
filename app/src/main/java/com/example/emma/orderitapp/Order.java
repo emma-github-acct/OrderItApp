@@ -11,6 +11,8 @@ import java.util.Date;
 
 import com.example.emma.orderitapp.MenuItem;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Model of a Take Out Order.
  * <p>
@@ -39,8 +41,8 @@ public class Order {
     public Order(Context c) {
         dbManager = new OrderDatabase(c);
         restaurant = new Restaurant(c);
-        PreferenceManager.setDefaultValues(c, R.xml.preferences, false);
-        prefs = PreferenceManager.getDefaultSharedPreferences(c);
+
+        prefs = c.getSharedPreferences("businessPreferences", MODE_PRIVATE);
         orderNumber = prefs.getString("order_number", "0");
     }
 
@@ -65,7 +67,7 @@ public class Order {
      */
 
     public String getOrderNumber() {
-        return orderNumber;
+        return prefs.getString("order_number","0");
     }
 
 
@@ -108,6 +110,8 @@ public class Order {
 
         ArrayList<String> itemsSA = new ArrayList<String>();
         itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
+
+        items.clear();
         MenuItem item = new MenuItem();
         for (String s : itemsSA) {
             String[] sa = s.split("::");

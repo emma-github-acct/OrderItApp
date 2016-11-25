@@ -22,37 +22,36 @@ public class CheckoutActivity extends AppCompatActivity {
     private Customer customer;
     private Business business;
     private Order order;
-    private String businessName;
     private LayoutManager layoutManager;
-    private SharedPreferences prefs;
 
-    String orderData; //Text display and email body of the order.
+    private String orderData; //Text display and email body of the order.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        this.business = new Business(this);
-        this.businessName = business.getName();
-
-        layoutManager = new LayoutManager();
-        setContentView( layoutManager.getCheckoutLayout( businessName ));
-
+        business = new Business(this);
         customer = new Customer(this);
         order = new Order(this);
+        layoutManager = new LayoutManager();
+        setContentView( layoutManager.getCheckoutLayout( business.getName() ));
 
-        ArrayList<MenuItem> o = order.getOrder();
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
         orderData = "Restaurant: " + business.getName() + "  " + business.getEmail() + "\n\n";
         orderData += "Customer: " + customer.getName() + " " + customer.getEmail() +"\n\n";
         orderData += "Order Number " + order.getOrderNumber() + "\n\n";
         orderData += "Item    Price    Quantity \n";
 
+        ArrayList<MenuItem> o = order.getOrder();
         for (MenuItem i: o){
             orderData += i.getName() + "  ";
             orderData += i.getPrice() + "  ";
             orderData += i.getQuantity() + "\n";
         }
         orderDisplay.setText( orderData);
+
+        // New Order
+        order.setOrderNumber();
     }
 
     /**

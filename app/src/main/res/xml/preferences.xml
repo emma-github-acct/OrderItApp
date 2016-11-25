@@ -1,82 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Customer Preferences"
-        android:key="customer_preferences">
-    <EditTextPreference
-        android:key="name_preference"
-        android:title="Customer Name"
-        android:defaultValue="Jane Doe"
-        android:inputType="text"
-        />
-
-    <EditTextPreference
-        android:key="email_preference"
-        android:title="Customer Email"
-        android:defaultValue="jDoe@gmail.com"
-        android:inputType="text"
-        />
-    <EditTextPreference
-        android:key="address_preference"
-        android:title="Customer Address"
-        android:defaultValue="123 oak st."
-        android:inputType="text"
-        />
-
-    <EditTextPreference
-        android:key="phone_preference"
-        android:title="Customer Phone"
-        android:defaultValue="111-1234"
-        android:inputType="text"
-        />
-
-    <CheckBoxPreference
-        android:key="allergy_preference"
-        android:title="Allergy"
-        android:defaultValue="false"
-        android:summary="Do you have allergies?"
-        />
-</PreferenceCategory>
-
-
-    <PreferenceCategory
-        android:title="Business Preferences"
-        android:key="business_preferences"
-        android:visibility="invisible"
-        >
-
-    <EditTextPreference
-        android:key="business_name"
-        android:title="Business Name"
-        android:defaultValue="Java Cafe"
-        android:inputType="text"
-        />
-
-    <EditTextPreference
-        android:key="business_email"
-        android:title="Business Email"
-        android:defaultValue="javacafe@gmail.com"
-        android:inputType="text"
-        />
-    <EditTextPreference
-        android:key="business_address"
-        android:title="Business Address"
-        android:defaultValue="123 elm st."
-        android:inputType="text"
-        />
-
-    <EditTextPreference
-        android:key="business_phone"
-        android:title="Business Phone"
-        android:defaultValue="867-5309"
-        android:inputType="text"
-        />
+        android:key="customer_preferences"
+        android:title="Customer Preferences">
+        <EditTextPreference
+            android:defaultValue="Jane Doe"
+            android:inputType="text"
+            android:key="name_preference"
+            android:title="Customer Name" />
 
         <EditTextPreference
-            android:key="order_number"
-            android:title="Order Number"
-            android:defaultValue="0"
+            android:defaultValue="jDoe@gmail.com"
             android:inputType="text"
-            />
-</PreferenceCategory>
+            android:key="email_preference"
+            android:title="Customer Email" />
+        <EditTextPreference
+            android:defaultValue="123 oak st."
+            android:inputType="text"
+            android:key="address_preference"
+            android:title="Customer Address" />
+
+        <EditTextPreference
+            android:defaultValue="111-1234"
+            android:inputType="text"
+            android:key="phone_preference"
+            android:title="Customer Phone" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="allergy_preference"
+            android:summary="Do you have allergies?"
+            android:title="Allergy" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
