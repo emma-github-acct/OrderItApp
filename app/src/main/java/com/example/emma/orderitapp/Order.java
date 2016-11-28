@@ -111,11 +111,14 @@ public class Order {
 
         ArrayList<String> itemsSA = new ArrayList<String>();
         itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
-        //MenuItem item = new MenuItem();
+        MenuItem item = new MenuItem();
         items.clear();
+
+        /* This is where the problem is, because of how it's reading from the database,
+         *  it's just setting the same values to the items,
+         *  so we get two identical MenuItems.
+         */
         for (int i = 0; i < itemsSA.size(); i++) {
-            MenuItem item = new MenuItem();
-            //String[] sa = s.split("::");
             item.setPrice(dbManager.getPrice(orderNumber));
             item.setName(dbManager.getName(orderNumber));
             item.setQuantity(dbManager.getQuantity(orderNumber));
