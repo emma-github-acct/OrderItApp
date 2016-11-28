@@ -17,7 +17,7 @@ public class LayoutManager {
     private final String TEXT_STYLE_TAG = "_TextStyle";
     private ArrayList<String> tags;
     // Names of Businesses
-    private final String JAVA = "Java Cafe";
+    private final String JAVA = "Keke's";
 
     // Layout HashMap
     private HashMap<String, Integer> layouts;

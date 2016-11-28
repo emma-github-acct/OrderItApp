@@ -7,6 +7,7 @@ package com.example.emma.orderitapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.MeasureUnit;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,19 +23,27 @@ public class CheckoutActivity extends AppCompatActivity {
     private Customer customer;
     private Business business;
     private Order order;
+    private String businessName;
     private LayoutManager layoutManager;
+    private SharedPreferences prefs;
 
     private String orderData; //Text display and email body of the order.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         business = new Business(this);
+        this.business = new Business(this);
+        this.businessName = business.getName();
+
+        Bundle bundle = getIntent().getExtras();
+
+        layoutManager = new LayoutManager();
+        //setContentView(R.layout.activity_checkout_java_cafe);
+        setContentView( layoutManager.getCheckoutLayout( businessName ));
+
         customer = new Customer(this);
         order = new Order(this);
-        layoutManager = new LayoutManager();
-        setContentView( layoutManager.getCheckoutLayout( business.getName() ));
 
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
         orderData = "Restaurant: " + business.getName() + "  " + business.getEmail() + "\n\n";
@@ -51,7 +60,7 @@ public class CheckoutActivity extends AppCompatActivity {
         orderDisplay.setText( orderData);
 
         // New Order
-        order.setOrderNumber();
+        //order.setOrderNumber();
     }
 
     /**

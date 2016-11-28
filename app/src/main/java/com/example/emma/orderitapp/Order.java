@@ -3,6 +3,7 @@ package com.example.emma.orderitapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -110,15 +111,20 @@ public class Order {
 
         ArrayList<String> itemsSA = new ArrayList<String>();
         itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
-
+        //MenuItem item = new MenuItem();
         items.clear();
-        MenuItem item = new MenuItem();
-        for (String s : itemsSA) {
-            String[] sa = s.split("::");
-            item.setPrice(sa[4]);
+        for (int i = 0; i < itemsSA.size(); i++) {
+            MenuItem item = new MenuItem();
+            //String[] sa = s.split("::");
+            item.setPrice(dbManager.getPrice(orderNumber));
+            item.setName(dbManager.getName(orderNumber));
+            item.setQuantity(dbManager.getQuantity(orderNumber));
+            /*
             item.setName(sa[2]);
             item.setQuantity(sa[3]);
+            */
             items.add(item);
+
         }
         return items;
     }

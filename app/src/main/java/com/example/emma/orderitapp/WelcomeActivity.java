@@ -108,7 +108,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public void launchOrderingActivity( View view ) {
 
         // check layout manager
-        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
         System.out.println("Button Pressed");
     }
 

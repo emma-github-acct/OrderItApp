@@ -27,7 +27,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
         this.business = new Business(this);
         this.businessName = business.getName();
         layoutManager = new LayoutManager();
-        setContentView( layoutManager.getHistoryLayout( businessName ));
+        setContentView(R.layout.activity_history_java_cafe);
+        //setContentView( layoutManager.getHistoryLayout( businessName ));
     }
 
 

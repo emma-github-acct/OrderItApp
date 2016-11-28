@@ -29,6 +29,12 @@ public class OrderDatabase extends SQLiteOpenHelper {
     public static final String QUANTITY = "quantity";
     public static final String PRICE = "price";
     public static final String ORDERNUMBER = "orderNumber";
+    private final int DATE_INDEX = 1;
+    private final int RESTAURANT_INDEX = 2;
+    private final int ITEM_INDEX = 3;
+    private final int QUANTITY_INDEX = 4;
+    private final int PRICE_INDEX = 5;
+    private final int ORDERNUMBER_INDEX = 6;
     private Context appContext;
 
 
@@ -92,7 +98,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
      * @return
      */
 
-    public long insert(String date, String restaurant, String item, String quantity, String price, String orderNumber) {
+    public void insert(String date, String restaurant, String item, String quantity, String price, String orderNumber) {
         long newId = -1;
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -109,7 +115,9 @@ public class OrderDatabase extends SQLiteOpenHelper {
         } catch (SQLException se) {
             Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
         }
-        return newId;
+        if (newId != -1) {
+            Toast.makeText(appContext, item + " added to order!", Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -119,7 +127,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
      * @return
      */
 
-    public long changeQuantity( MenuItem item, String orderNumber) {
+    public void changeQuantity( MenuItem item, String orderNumber) {
 
         long newId = -1;
         try {
@@ -131,12 +139,10 @@ public class OrderDatabase extends SQLiteOpenHelper {
         } catch (SQLException se) {
             Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
         }
-        return newId;
+        if (newId != -1) {
+            Toast.makeText(appContext, item.getName() + " increased quantity in order!", Toast.LENGTH_LONG).show();
+        }
     }
-
-
-
-
 
 
     /**
@@ -170,6 +176,71 @@ public class OrderDatabase extends SQLiteOpenHelper {
         }
         return historyList;
     }
+
+    public String getPrice (String orderNumber) {
+        String price = "";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor c = db.query(HISTORY_TABLE, new String[]{ID, DATE, RESTAURANT,
+                            ITEM, QUANTITY, PRICE, ORDERNUMBER}, ORDERNUMBER + "=" + orderNumber,
+                    null, null, null, null);
+
+            c.moveToFirst();
+
+            price = c.getString(PRICE_INDEX);
+
+            c.close();
+        }
+        catch (SQLException sqe) {
+            Toast.makeText(appContext, sqe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return price;
+    }
+
+    public String getName (String orderNumber) {
+        String itemName = "";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor c = db.query(HISTORY_TABLE, new String[]{ID, DATE, RESTAURANT,
+                            ITEM, QUANTITY, PRICE, ORDERNUMBER}, ORDERNUMBER + "=" + orderNumber,
+                    null, null, null, null);
+
+            c.moveToFirst();
+
+            itemName = c.getString(ITEM_INDEX);
+
+            c.close();
+        }
+        catch (SQLException sqe) {
+            Toast.makeText(appContext, sqe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return itemName;
+    }
+
+    public String getQuantity (String orderNumber) {
+        String quantity = "";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor c = db.query(HISTORY_TABLE, new String[]{ID, DATE, RESTAURANT,
+                            ITEM, QUANTITY, PRICE, ORDERNUMBER}, ORDERNUMBER + "=" + orderNumber,
+                    null, null, null, null);
+
+            c.moveToFirst();
+
+            quantity = c.getString(QUANTITY_INDEX);
+
+            c.close();
+        }
+        catch (SQLException sqe) {
+            Toast.makeText(appContext, sqe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return quantity;
+    }
+
+
 
 
 }

@@ -43,12 +43,7 @@ public class ScanActivity extends AppCompatActivity {
      */
 
     public void itemScan(View v){
-        MenuItem item = new MenuItem();
-        item.setName("Cheeseburger");
-        item.setQuantity("1");
-        item.setPrice("1.00");
-        order.addItem(item);
-        Toast.makeText(this, "Item added.", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, QRCodeReaderRestaurant.class));
     }
 
     /**

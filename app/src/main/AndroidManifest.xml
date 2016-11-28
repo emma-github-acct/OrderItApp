@@ -2,12 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.emma.orderitapp">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +28,9 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".QRCodeReaderBusiness"></activity>
+        <activity android:name=".QRCodeReaderRestaurant"></activity>
+
     </application>
 
 </manifest>

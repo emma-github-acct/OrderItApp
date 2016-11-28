@@ -32,14 +32,10 @@ public class MainActivity extends AppCompatActivity {
     public void scanBusinessQR(View view) {
         //instantiateBusinessInfo();
 
-        business.setType("Restaurant");
-        business.setName("Java Cafe");
-        business.setPhone("908-456-8888");
-        business.setAddress("123 Holt Ave Winter Park, FL");
-        business.setEmail("JavaCafe@gmail.com");
+        startActivity(new Intent(this, QRCodeReaderBusiness.class));
 
         // Where
-        loadWelcomePage(null);
+        //loadWelcomePage(null);
     }
 
     private void loadWelcomePage(View view) {
