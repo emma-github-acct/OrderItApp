@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -165,9 +166,9 @@ public class OrderDatabase extends SQLiteOpenHelper {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 MenuItem item = new MenuItem();
-                item.setPrice(cursor.getString(4));
-                item.setName(cursor.getString(2));
-                item.setQuantity(cursor.getString(3));
+                item.setPrice(cursor.getString(5));
+                item.setName(cursor.getString(3));
+                item.setQuantity(cursor.getString(4));
                 list.add(item);
                 cursor.moveToNext();
             }
@@ -244,7 +245,36 @@ public class OrderDatabase extends SQLiteOpenHelper {
         return quantity;
     }
 
+    public ArrayAdapter<String> fillAutoCompleteTextFields(Context context, String column) {
 
+        ArrayAdapter<String> adapter = null;
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            // select distinct values in column
+            Cursor cursor = db.query(true, HISTORY_TABLE, new String[]{column},
+                    null, null, null, null, column, null);
+
+            int numberOfRecords = cursor.getCount();
+            if (numberOfRecords > 0) {
+                cursor.moveToFirst();
+                String[] autoTextOptions = new String[numberOfRecords];
+                for (int i = 0; i < numberOfRecords; i++) {
+                    autoTextOptions[i] = cursor.getString(cursor.getColumnIndex(column));
+                    cursor.moveToNext();
+                }
+                adapter = new ArrayAdapter<String>(context,
+                        android.R.layout.simple_dropdown_item_1line,
+                        autoTextOptions);
+                db.close();
+            }
+        } catch (SQLException se) {
+            Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return adapter;
+
+
+    }
 
 
 }

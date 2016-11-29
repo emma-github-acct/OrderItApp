@@ -23,7 +23,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private Customer customer;
     private Business business;
     private Order order;
-    private String businessName;
+    
     private LayoutManager layoutManager;
     private SharedPreferences prefs;
 
@@ -33,14 +33,10 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         business = new Business(this);
-        this.business = new Business(this);
-        this.businessName = business.getName();
-
-        Bundle bundle = getIntent().getExtras();
-
+        
         layoutManager = new LayoutManager();
         //setContentView(R.layout.activity_checkout_java_cafe);
-        setContentView( layoutManager.getCheckoutLayout( businessName ));
+        setContentView( layoutManager.getCheckoutLayout( business.getName() ));
 
         customer = new Customer(this);
         order = new Order(this);

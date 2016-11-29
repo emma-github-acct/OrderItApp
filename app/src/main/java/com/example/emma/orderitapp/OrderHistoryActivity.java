@@ -13,23 +13,111 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import java.util.ArrayList;
 
 public class OrderHistoryActivity extends AppCompatActivity {
 
-    private String businessName;
     private Business business;
     private LayoutManager layoutManager;
     private SharedPreferences prefs;
+    OrderDatabase dbManager;
+
+    /**
+     * onCreate
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.business = new Business(this);
-        this.businessName = business.getName();
         layoutManager = new LayoutManager();
         setContentView(R.layout.activity_history_java_cafe);
-        //setContentView( layoutManager.getHistoryLayout( businessName ));
+
+        dbManager = new OrderDatabase( this );
+
+        ArrayAdapter dateAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.DATE );
+        if ( dateAdapter != null ) {
+            AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
+            dateEntry.setAdapter(dateAdapter);
+        }
+        ArrayAdapter subjectAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.ORDERNUMBER );
+        if ( subjectAdapter !=  null ) {
+            AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
+            subjectEntry.setAdapter(subjectAdapter);
+        }
     }
+
+    /**
+     * Search by Subject or Date
+     * @param v
+     */
+
+    public void showDataByColumn( View v ) {
+
+
+        //hide keyboard
+        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        if ( imm.isAcceptingText()) {
+            imm.hideSoftInputFromWindow(getCurrentFocus( ).getWindowToken(), 0);
+        }
+
+        ArrayList<MenuItem> results = new ArrayList<MenuItem>();
+        RadioButton rDateButton = (RadioButton)findViewById(R.id.radio_date);
+        RadioButton rSubjectButton = (RadioButton)findViewById(R.id.radio_subject);
+
+        // Search by Date
+        if ( rDateButton.isChecked( )) {
+            AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
+            String columnValue = dateEntry.getText( ).toString( );
+            if ( columnValue.isEmpty( ) ) {
+                Toast.makeText( this, "errorDate", Toast.LENGTH_LONG).show();
+            } else {
+                results = dbManager.selectByColumn( OrderDatabase.DATE, columnValue);
+                String header = OrderDatabase.DATE.toUpperCase( ) + ": " + columnValue;
+                //results.add( 0, header);
+                displayData( results);
+            }
+        }
+        // Search by Subject
+        else if ( rSubjectButton.isChecked( )){
+            AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
+            String columnValue = subjectEntry.getText( ).toString( );
+            if ( columnValue.isEmpty( ) ) {
+                Toast.makeText( this, "errorSubject", Toast.LENGTH_LONG).show();
+            } else {
+                results = dbManager.selectByColumn( OrderDatabase.ORDERNUMBER, columnValue);
+                String header = OrderDatabase.ORDERNUMBER.toUpperCase( ) + ": " + columnValue;
+                //results.add( 0, header);
+                displayData( results);
+            }
+        }
+
+    }
+
+    /**
+     * Display the search results.
+     * @param data
+     */
+
+    public void displayData( ArrayList<MenuItem> data) {
+        TextView historyDisplay = (TextView) findViewById(R.id.db_contents);
+        String historyData = "";
+        for ( MenuItem s : data ) {
+            historyData += s.getName() + " " + s.getQuantity() + " " + s.getPrice() + "\n";
+        }
+        historyDisplay.setText( historyData);
+    }
+
+
+
 
 
     /**
@@ -88,7 +176,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     }
 
     public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
     }
 
     public void startMain(View v) {

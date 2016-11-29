@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_order_history"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,14 +11,77 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.emma.orderitapp.OrderHistoryActivity">
 
+
     <TextView
+        android:id="@+id/title"
         style="@style/JavaCafeTextStyle"
-        android:id="@+id/textView"
-        android:text="@string/history_label"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:text="search_by" />
+
+    <RadioGroup
+        android:id="@+id/searchCriteria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="35dp">
+
+        <RadioButton
+            android:id="@+id/radio_subject"
+            style="@style/JavaCafeTextStyle"
+            android:checked="true"
+            android:text="Order Number" />
+
+        <AutoCompleteTextView
+            android:id="@+id/subject_entry"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLines="1"/>
+
+        <RadioButton
+            android:id="@+id/radio_date"
+            style="@style/JavaCafeTextStyle"
+            android:text="Date" />
+
+        <AutoCompleteTextView
+            android:id="@+id/date_entry"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:maxLines="1"
+            android:textSize="15sp"/>
+
+    </RadioGroup>
+    <!-- go button -->
+
+
+    <!-- db contents -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignStart="@id/searchCriteria"
+        android:layout_below="@id/searchCriteria">
+
+        <TextView
+            android:id="@+id/db_contents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp" />
+    </ScrollView>
+
+    <ImageButton
+        android:contentDescription="search_by"
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="28dp" />
+        android:layout_centerHorizontal="true"
+        android:onClick="showDataByColumn"
+        app:srcCompat="@android:drawable/ic_search_category_default" />
+
+
 </RelativeLayout>
