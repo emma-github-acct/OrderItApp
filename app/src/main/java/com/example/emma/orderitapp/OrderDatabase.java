@@ -7,7 +7,6 @@ package com.example.emma.orderitapp;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -100,25 +99,27 @@ public class OrderDatabase extends SQLiteOpenHelper {
      */
 
     public void insert(String date, String restaurant, String item, String quantity, String price, String orderNumber) {
-        long newId = -1;
-        try {
-            SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(DATE, date);
-            values.put(RESTAURANT, restaurant);
-            values.put(ITEM, item);
-            values.put(QUANTITY, quantity);
-            values.put(PRICE, price);
-            values.put(ORDERNUMBER, orderNumber);
 
-            newId = db.insert(HISTORY_TABLE, null, values);
-            db.close();
-        } catch (SQLException se) {
-            Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        if (newId != -1) {
-            Toast.makeText(appContext, item + " added to order!", Toast.LENGTH_LONG).show();
-        }
+                long newId = -1;
+                try {
+                    SQLiteDatabase db = this.getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put(DATE, date);
+                    values.put(RESTAURANT, restaurant);
+                    values.put(ITEM, item);
+                    values.put(QUANTITY, quantity);
+                    values.put(PRICE, price);
+                    values.put(ORDERNUMBER, orderNumber);
+
+                    newId = db.insert(HISTORY_TABLE, null, values);
+                    db.close();
+                } catch (SQLException se) {
+                    Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                if (newId != -1) {
+                    Toast.makeText(appContext, item + " added to order!", Toast.LENGTH_LONG).show();
+                }
+
     }
 
     /**
@@ -244,6 +245,8 @@ public class OrderDatabase extends SQLiteOpenHelper {
         }
         return quantity;
     }
+
+    // Autocomplete code for Order History Activity
 
     public ArrayAdapter<String> fillAutoCompleteTextFields(Context context, String column) {
 

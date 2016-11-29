@@ -7,7 +7,6 @@ package com.example.emma.orderitapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.util.MeasureUnit;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +24,6 @@ public class CheckoutActivity extends AppCompatActivity {
     private Order order;
     
     private LayoutManager layoutManager;
-    private SharedPreferences prefs;
-
     private String orderData; //Text display and email body of the order.
 
     @Override
@@ -35,7 +32,6 @@ public class CheckoutActivity extends AppCompatActivity {
         business = new Business(this);
         
         layoutManager = new LayoutManager();
-        //setContentView(R.layout.activity_checkout_java_cafe);
         setContentView( layoutManager.getCheckoutLayout( business.getName() ));
 
         customer = new Customer(this);
@@ -54,9 +50,6 @@ public class CheckoutActivity extends AppCompatActivity {
             orderData += i.getQuantity() + "\n";
         }
         orderDisplay.setText( orderData);
-
-        // New Order
-        //order.setOrderNumber();
     }
 
     /**

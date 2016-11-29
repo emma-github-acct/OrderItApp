@@ -32,7 +32,6 @@ public class LayoutManager {
 
         // adds layouts
         layouts.put( JAVA + WELCOME_TAG, R.layout.activity_welcome_page_java_cafe);
-        layouts.put( JAVA + SCAN_TAG, R.layout.activity_scan_java_cafe);
         layouts.put( JAVA + CHECKOUT_TAG, R.layout.activity_checkout_java_cafe);
         layouts.put( JAVA + HISTORY_TAG, R.layout.activity_history_java_cafe);
 
@@ -41,7 +40,6 @@ public class LayoutManager {
 
         // adds tags to array
         tags.add(WELCOME_TAG);
-        tags.add(SCAN_TAG);
         tags.add(CHECKOUT_TAG);
         tags.add(HISTORY_TAG);
     }

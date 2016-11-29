@@ -27,7 +27,6 @@
         <activity android:name=".CheckoutActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".OrderHistoryActivity" />
-        <activity android:name=".ScanActivity"></activity>
         <activity android:name=".QRCodeReaderBusiness"></activity>
         <activity android:name=".QRCodeReaderRestaurant"></activity>
 

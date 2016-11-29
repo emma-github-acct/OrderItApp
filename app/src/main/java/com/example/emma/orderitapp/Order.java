@@ -2,15 +2,10 @@ package com.example.emma.orderitapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.example.emma.orderitapp.MenuItem;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -91,13 +86,9 @@ public class Order {
         dbManager.insert(date, restaurant.getName(), newItem.getName(), newItem.getQuantity(), newItem.getPrice(), orderNumber);
     }
 
-    //public void updateItem(String item, String quantity, String price ){
-    //    dbManager.update(String item, String quantity, String price );
-    //}
 
     public void deleteItem(MenuItem item) {
         // remove item from list
-
     }
 
 

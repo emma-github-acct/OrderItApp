@@ -56,7 +56,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     }
 
     /**
-     * Search by Subject or Date
+     * Search by Order Number or Date (date not working now)
      * @param v
      */
 
@@ -86,7 +86,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 displayData( results);
             }
         }
-        // Search by Subject
+        // Search by Order Number
         else if ( rSubjectButton.isChecked( )){
             AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
             String columnValue = subjectEntry.getText( ).toString( );

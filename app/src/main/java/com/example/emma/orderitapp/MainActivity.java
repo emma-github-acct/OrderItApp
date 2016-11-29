@@ -30,12 +30,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void scanBusinessQR(View view) {
-        //instantiateBusinessInfo();
 
         startActivity(new Intent(this, QRCodeReaderBusiness.class));
 
-        // Where
-        //loadWelcomePage(null);
     }
 
     private void loadWelcomePage(View view) {
@@ -167,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
     }
 
 // End menu code
