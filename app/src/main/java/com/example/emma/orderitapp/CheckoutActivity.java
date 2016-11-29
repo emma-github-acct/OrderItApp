@@ -159,7 +159,7 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), ScanActivity.class));
+        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
     }
 
     public void startMain(View v) {

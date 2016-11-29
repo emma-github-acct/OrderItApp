@@ -153,9 +153,9 @@ public class OrderDatabase extends SQLiteOpenHelper {
      * @return
      */
 
-    public ArrayList<String> selectByColumn(String columnName, String columnValue) {
+    public ArrayList<MenuItem> selectByColumn(String columnName, String columnValue) {
 
-        ArrayList<String> historyList = new ArrayList<String>();
+        ArrayList<MenuItem> list = new ArrayList<>();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
 
@@ -164,18 +164,22 @@ public class OrderDatabase extends SQLiteOpenHelper {
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                String oneRecord = "";
-                for (int i = 1; i < cursor.getColumnCount(); i++) {
-                    oneRecord += cursor.getString(i) + "::";
-                }
-                historyList.add(oneRecord);
+                MenuItem item = new MenuItem();
+                item.setPrice(cursor.getString(4));
+                item.setName(cursor.getString(2));
+                item.setQuantity(cursor.getString(3));
+                list.add(item);
                 cursor.moveToNext();
             }
         } catch (SQLException se) {
             Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
         }
-        return historyList;
+        return list;
     }
+
+
+
+
 
     public String getPrice (String orderNumber) {
         String price = "";

@@ -108,41 +108,7 @@ public class Order {
      */
 
     public ArrayList<MenuItem> getOrder() {
-        items.clear();
-        ArrayList<String> itemsSA = new ArrayList<String>();
-        itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
+        return dbManager.selectByColumn("orderNumber", orderNumber);
+    }
 
-        for (String s : itemsSA) {
-            MenuItem item = new MenuItem();
-            String[] sa = s.split("::");
-            item.setPrice(sa[4]);
-            item.setName(sa[2]);
-            item.setQuantity(sa[3]);
-            items.add(item);
-        }
-        return items;
-
-
-        /*ArrayList<String> itemsSA = new ArrayList<String>();
-        itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
-        MenuItem item = new MenuItem();
-        items.clear();
-
-        /* This is where the problem is, because of how it's reading from the database,
-         *  it's just setting the same values to the items,
-         *  so we get two identical MenuItems.
-
-        for (int i = 0; i < itemsSA.size(); i++) {
-            item.setPrice(dbManager.getPrice(orderNumber));
-            item.setName(dbManager.getName(orderNumber));
-            item.setQuantity(dbManager.getQuantity(orderNumber));
-            /*
-            item.setName(sa[2]);
-            item.setQuantity(sa[3]);
-
-            items.add(item);
-
-        }
-        return items;
-    */}
 }
