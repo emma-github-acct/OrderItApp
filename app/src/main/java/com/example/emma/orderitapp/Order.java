@@ -86,9 +86,13 @@ public class Order {
         dbManager.insert(date, restaurant.getName(), newItem.getName(), newItem.getQuantity(), newItem.getPrice(), orderNumber);
     }
 
+    //public void updateItem(String item, String quantity, String price ){
+    //    dbManager.update(String item, String quantity, String price );
+    //}
 
     public void deleteItem(MenuItem item) {
         // remove item from list
+
     }
 
 
@@ -100,6 +104,29 @@ public class Order {
 
     public ArrayList<MenuItem> getOrder() {
         return dbManager.selectByColumn("orderNumber", orderNumber);
+
+        ArrayList<String> itemsSA = new ArrayList<String>();
+        itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
+        items.clear();
+
+        /* This is where the problem is, because of how it's reading from the database,
+         *  it's just setting the same values to the items,
+         *  so we get two identical MenuItems.
+         */
+        for (int i = 0; i < itemsSA.size(); i++) {
+            MenuItem item = new MenuItem();
+
+            item.setPrice(dbManager.getPrice(orderNumber));
+            item.setName(dbManager.getName(orderNumber));
+            item.setQuantity(dbManager.getQuantity(orderNumber));
+            /*
+            item.setName(sa[2]);
+            item.setQuantity(sa[3]);
+            */
+            items.add(item);
+
+        }
+        return items;
     }
 
 }
