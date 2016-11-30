@@ -4,27 +4,27 @@
         android:key="customer_preferences"
         android:title="Customer Preferences">
         <EditTextPreference
-            android:defaultValue="Jane Doe"
+            android:defaultValue="@string/default_name"
             android:inputType="text"
             android:key="name_preference"
             android:title="Customer Name" />
 
         <EditTextPreference
-            android:defaultValue="jDoe@gmail.com"
+            android:defaultValue="@string/default_email"
             android:inputType="text"
             android:key="email_preference"
             android:title="Customer Email" />
         <EditTextPreference
-            android:defaultValue="123 oak st."
+            android:defaultValue="@string/default_address"
             android:inputType="text"
             android:key="address_preference"
             android:title="Customer Address" />
 
         <EditTextPreference
-            android:defaultValue="111-1234"
+            android:defaultValue="@string/default_phone_number"
             android:inputType="text"
             android:key="phone_preference"
-            android:title="Customer Phone" />
+            android:title="Customer Phone Number" />
 
         <CheckBoxPreference
             android:defaultValue="false"

@@ -1,18 +1,22 @@
 package com.example.emma.orderitapp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -29,26 +33,18 @@ public class WelcomeActivity extends AppCompatActivity {
     private ArrayList<String> attributes;
     private LayoutManager layoutManager;
     private String businessName;
-    private Business business;
+    private Business businessObject;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
 
-        // ******** Get business Info Passed in Intent  ******** //
-        Bundle bundle = getIntent().getExtras();
-        String type = bundle.getString("Type");
-        if ( type.equals("Restaurant")){
-            business = new Restaurant(this);
-        }
-        business.setName( bundle.getString("Name") );
-        business.setPhone( bundle.getString("Phone") );
-        business.setAddress( bundle.getString("Address") );
-        business.setEmail( bundle.getString("Email") );
-        attributes = business.getAttributes();
+        Intent intent = getIntent();
+        businessObject= (Business) intent.getSerializableExtra("business");
+        this.attributes = businessObject.getAttributes();
 
         // Set business name for LayoutManager Keys
-        businessName = business.getName();
+        businessName = businessObject.getName();
 
         // Load correct Layout
         layoutManager = new LayoutManager();
@@ -105,21 +101,16 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    public void launchOrderingActivity( View view ) {
-
-        // check layout manager
-        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
-        System.out.println("Button Pressed");
-    }
-
-    public void launchMainActivity( View view ){
-        startActivity( new Intent( getApplicationContext( ), MainActivity.class));
-    }
-
-
     /**
      * The code below handles menus
      */
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_scan).setVisible(false);
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,9 +127,6 @@ public class WelcomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_start:
                 startMain(null);
-                return true;
-            case R.id.menu_scan:
-                startScan(null);
                 return true;
             case R.id.menu_checkout:
                 startCheckout(null);
@@ -161,25 +149,60 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param v
      */
     public void startSettings(View v) {
-        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        Intent i = new Intent( getApplicationContext(), SettingsActivity.class );
+        i.putExtra( "business", businessObject );
+        startActivity(i);
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+        Intent i = new Intent( getApplicationContext(), CheckoutActivity.class );
+        i.putExtra( "business", businessObject );
+        startActivity(i);
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+        Intent i = new Intent( getApplicationContext(), OrderHistoryActivity.class );
+        i.putExtra( "business", businessObject );
+        startActivity(i);
     }
 
     public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
+        Order orderObject = new Order();
+        Intent i = new Intent( getApplicationContext(), QRCodeReaderRestaurant.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startMain(View v) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        confirmAppRestart();
     }
 // End menu code
+
+    private void confirmAppRestart(){
+        final Dialog restartConfirmation = new Dialog(WelcomeActivity.this);
+        restartConfirmation.setContentView(R.layout.confirm_restart);
+        restartConfirmation.setTitle("Restarting App");
+        Button confirm = (Button) restartConfirmation.findViewById(R.id.restart_confirm);
+        Button cancel = (Button) restartConfirmation.findViewById(R.id.restart_cancel);
+
+        restartConfirmation.show();
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent( getApplicationContext(), MainActivity.class );
+                startActivity(i);
+                restartConfirmation.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartConfirmation.dismiss();
+            }
+        });
+    }
 
 
 

@@ -27,7 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="90dp"
         android:text="@string/launch_ordering_label"
-        android:onClick="launchOrderingActivity"/>
+        android:onClick="startScan"/>
 
     <Button
         style="@style/JavaCafeButtonStyle"
@@ -37,6 +37,6 @@
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:text="@string/back_button_label"
-        android:onClick="launchMainActivity"/>
+        android:onClick="startMain"/>
 
 </RelativeLayout>

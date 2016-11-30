@@ -14,9 +14,15 @@ import android.view.View;
  */
 public class SettingsActivity extends Activity{
 
+    private Business businessObject;
+    private Order orderObject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState);
+        Intent intent = getIntent();
+        this.businessObject= (Business) intent.getSerializableExtra("business");
+        this.orderObject= (Order) intent.getSerializableExtra("order");
 
         getFragmentManager( ).beginTransaction( )
                 .add( android.R.id.content, new SettingsFragment( ))

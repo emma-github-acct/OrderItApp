@@ -5,13 +5,16 @@ package com.example.emma.orderitapp;
  *
  */
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.audiofx.BassBoost;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +23,8 @@ import java.util.ArrayList;
 public class CheckoutActivity extends AppCompatActivity {
 
     private Customer customer;
-    private Business business;
-    private Order order;
+    private Business businessObject;
+    private Order orderObject;
     
     private LayoutManager layoutManager;
     private String orderData; //Text display and email body of the order.
@@ -29,27 +32,48 @@ public class CheckoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        business = new Business(this);
+
+        Intent intent = getIntent();
+        this.businessObject= (Business) intent.getSerializableExtra("business");
+        this.orderObject= (Order) intent.getSerializableExtra("order");
         
         layoutManager = new LayoutManager();
-        setContentView( layoutManager.getCheckoutLayout( business.getName() ));
+        setContentView( layoutManager.getCheckoutLayout( businessObject.getName() ));
 
         customer = new Customer(this);
-        order = new Order(this);
+        boolean inputSettings = confirmCustomerSettingsInput( customer );
+        if (!inputSettings){
+            Toast.makeText(this, R.string.settings_error, Toast.LENGTH_LONG).show();
+        }
+
 
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
-        orderData = "Restaurant: " + business.getName() + "  " + business.getEmail() + "\n\n";
+        orderData = "Restaurant: " + businessObject.getName() + "  " + businessObject.getEmail() + "\n\n";
         orderData += "Customer: " + customer.getName() + " " + customer.getEmail() +"\n\n";
-        orderData += "Order Number " + order.getOrderNumber() + "\n\n";
         orderData += "Item    Price    Quantity \n";
 
-        ArrayList<MenuItem> o = order.getOrder();
+        ArrayList<MenuItem> o = orderObject.getOrder();
         for (MenuItem i: o){
             orderData += i.getName() + "  ";
             orderData += i.getPrice() + "  ";
             orderData += i.getQuantity() + "\n";
         }
         orderDisplay.setText( orderData);
+    }
+
+    private boolean confirmCustomerSettingsInput( Customer customer ){
+        String name = getResources().getString(R.string.default_name);
+        String email = getResources().getString(R.string.default_email);
+        String phoneNumber = getResources().getString(R.string.default_phone_number);
+        String address = getResources().getString(R.string.default_address);
+
+        boolean validName = !(customer.getName().equals(name));
+        boolean validEmail = !(customer.getEmail().equals(email));
+        boolean validPhoneNumber = !(customer.getPhone().equals(phoneNumber));
+        boolean validAddress = !(customer.getAddress().equals(address));
+
+        return ( validName && validEmail && validPhoneNumber && validAddress );
+
     }
 
     /**
@@ -140,21 +164,55 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param v
      */
     public void startSettings(View v) {
-        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        Intent i = new Intent( getApplicationContext(), SettingsActivity.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+        Intent i = new Intent( getApplicationContext(), OrderHistoryActivity.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startScan(View v) {
-        startActivity(new Intent(getApplicationContext(), QRCodeReaderRestaurant.class));
+        Intent i = new Intent( getApplicationContext(), QRCodeReaderRestaurant.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startMain(View v) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        confirmAppRestart();
     }
 // End menu code
+
+    private void confirmAppRestart(){
+        final Dialog restartConfirmation = new Dialog(CheckoutActivity.this);
+        restartConfirmation.setContentView(R.layout.confirm_restart);
+        restartConfirmation.setTitle("Restarting App");
+        Button confirm = (Button) restartConfirmation.findViewById(R.id.restart_confirm);
+        Button cancel = (Button) restartConfirmation.findViewById(R.id.restart_cancel);
+
+        restartConfirmation.show();
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent( getApplicationContext(), MainActivity.class );
+                startActivity(i);
+                restartConfirmation.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartConfirmation.dismiss();
+            }
+        });
+    }
 
 
 

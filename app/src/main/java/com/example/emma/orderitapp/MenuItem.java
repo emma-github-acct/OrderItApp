@@ -1,10 +1,12 @@
 package com.example.emma.orderitapp;
 
+import java.io.Serializable;
+
 /**
  * Model for a menu item scanned.
  */
 
-public class MenuItem {
+public class MenuItem implements Serializable{
 
     private String name;
     private String description;

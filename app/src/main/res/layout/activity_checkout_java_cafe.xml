@@ -37,8 +37,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="sendOrder"
-        android:layout_marginStart="67dp"
-        android:layout_marginBottom="47dp"
-        android:layout_alignParentBottom="true"
-         />
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentBottom="true" />
+    <Button
+        style="@style/JavaCafeButtonStyle"
+        android:id="@+id/inputSettingsButton"
+        android:text="@string/settings_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startSettings"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
