@@ -3,7 +3,7 @@
 
     <!-- Main Activity -->
     <string name="welcome_activity_label">Business Information</string>
-    <string name="start_scanning">Scan Business QR Code</string>
+    <string name="start_scanning">Start Your Order</string>
 
     <!-- Welcome Activity -->
     <string name="launch_ordering_label">Click here to start ordering!</string>

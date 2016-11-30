@@ -24,6 +24,4 @@ public class SettingsActivity extends Activity{
 
     }
 
-
-
 }
