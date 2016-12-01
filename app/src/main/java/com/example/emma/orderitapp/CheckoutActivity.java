@@ -58,6 +58,7 @@ public class CheckoutActivity extends AppCompatActivity {
             orderData += i.getPrice() + "  ";
             orderData += i.getQuantity() + "\n";
         }
+        orderData += "Total " + orderObject.getTotal() + "\n";
         orderDisplay.setText( orderData);
     }
 
@@ -84,8 +85,12 @@ public class CheckoutActivity extends AppCompatActivity {
 
     public void sendOrder(View v) {
 
+        OrderDatabase orderDatabaseObject = new OrderDatabase(this);
+        orderDatabaseObject.insert(orderObject.getDate(), businessObject.getName(), orderObject.getTotal());
+
         new Thread(new Runnable() {
             public void run() {
+
                 String[] addresses = {"sengle64@gmail.com"}; //{restaurant.getEmail(), customer.getEmail()}
                 String subject = "TakeOut Order";
                 String body = orderData;

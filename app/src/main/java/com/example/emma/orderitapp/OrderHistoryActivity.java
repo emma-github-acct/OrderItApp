@@ -55,7 +55,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
             AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
             dateEntry.setAdapter(dateAdapter);
         }
-        ArrayAdapter subjectAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.ORDERNUMBER );
+        ArrayAdapter subjectAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.ID );
         if ( subjectAdapter !=  null ) {
             AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
             subjectEntry.setAdapter(subjectAdapter);
@@ -76,7 +76,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(getCurrentFocus( ).getWindowToken(), 0);
         }
 
-        ArrayList<MenuItem> results = new ArrayList<MenuItem>();
+        ArrayList<String> results;
         RadioButton rDateButton = (RadioButton)findViewById(R.id.radio_date);
         RadioButton rSubjectButton = (RadioButton)findViewById(R.id.radio_subject);
 
@@ -85,7 +85,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
             AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
             String columnValue = dateEntry.getText( ).toString( );
             if ( columnValue.isEmpty( ) ) {
-                Toast.makeText( this, "errorDate", Toast.LENGTH_LONG).show();
+                Toast.makeText( this, "error Date", Toast.LENGTH_LONG).show();
             } else {
                 results = dbManager.selectByColumn( OrderDatabase.DATE, columnValue);
                 String header = OrderDatabase.DATE.toUpperCase( ) + ": " + columnValue;
@@ -98,10 +98,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
             AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
             String columnValue = subjectEntry.getText( ).toString( );
             if ( columnValue.isEmpty( ) ) {
-                Toast.makeText( this, "errorSubject", Toast.LENGTH_LONG).show();
+                Toast.makeText( this, "error order number", Toast.LENGTH_LONG).show();
             } else {
-                results = dbManager.selectByColumn( OrderDatabase.ORDERNUMBER, columnValue);
-                String header = OrderDatabase.ORDERNUMBER.toUpperCase( ) + ": " + columnValue;
+                results = dbManager.selectByColumn( OrderDatabase.ID, columnValue);
+                String header = OrderDatabase.ID.toUpperCase( ) + ": " + columnValue;
                 //results.add( 0, header);
                 displayData( results);
             }
@@ -111,16 +111,16 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     /**
      * Display the search results.
-     * @param data
+     * @param
      */
 
-    public void displayData( ArrayList<MenuItem> data) {
+    public void displayData( ArrayList<String> orders) {
         TextView historyDisplay = (TextView) findViewById(R.id.db_contents);
-        String historyData = "";
-        for ( MenuItem s : data ) {
-            historyData += s.getName() + " " + s.getQuantity() + " " + s.getPrice() + "\n";
+        String historyString = "Order Date Restaurant Total\n";
+        for ( String s : orders ) {
+            historyString += s;
         }
-        historyDisplay.setText( historyData);
+        historyDisplay.setText( historyString);
     }
 
 

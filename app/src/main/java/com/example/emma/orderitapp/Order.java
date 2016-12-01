@@ -1,9 +1,8 @@
 package com.example.emma.orderitapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.view.Menu;
 
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +42,7 @@ public class Order implements Serializable{
 
     public void addItem(MenuItem item) {
         boolean isNewItem = true;
-
+        // Add to quantity if item already exists
         for( MenuItem oldItem : menuItems ) {
             String name = oldItem.getName();
             if (name.equals(item.getName())){
@@ -64,6 +63,21 @@ public class Order implements Serializable{
     }
 
 
+    public String getTotal(){
+        double total = 0;
+        for (MenuItem item: menuItems)
+        {
+            total += Double.parseDouble(item.getPrice()) * Double.parseDouble(item.getQuantity()) ;
+        }
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(total);
+    }
+
+
+
+    public String getDate(){return new SimpleDateFormat("yyyy-MM-dd").format(new Date());}
+
+
     /**
      * Method: getOrder
      *
@@ -73,5 +87,7 @@ public class Order implements Serializable{
     public ArrayList<MenuItem> getOrder() {
         return menuItems;
     }
+
+
 
 }
