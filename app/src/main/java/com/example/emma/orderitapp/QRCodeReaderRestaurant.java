@@ -49,13 +49,17 @@ public class QRCodeReaderRestaurant extends Activity {
     private SurfaceView cameraView;
     private SparseArray<Barcode> qrCodes;
     private OrderDatabase od;
-    private Order o;
+    private Order orderObject;
+    private Business businessObject;
     FileOutputStream fos;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.barcode_read_order);
 
+        Intent intent = getIntent();
+        this.businessObject= (Business) intent.getSerializableExtra("business");
+        this.orderObject = (Order) intent.getSerializableExtra("order");
         od = new OrderDatabase(this);
 
         cameraView = (SurfaceView) findViewById(R.id.camera_view);
@@ -108,9 +112,6 @@ public class QRCodeReaderRestaurant extends Activity {
 
         final CameraSource cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(1600, 1024).build();
-
-        o = new Order(QRCodeReaderRestaurant.this);
-        o.setOrderNumber();
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -171,7 +172,6 @@ public class QRCodeReaderRestaurant extends Activity {
                         Log.i("TRY: ", "In try 2");
                         final MenuItem item = mapper.readValue(jsonString, MenuItem.class);
                         Log.i("TRY: ", "In try 3");
-                        //final TextView test = (TextView) findViewById(R.id.code_info);
                         Log.i("TRY: ", "In try 4");
                         Log.i("ITEM: ", item.toString());
 
@@ -186,10 +186,6 @@ public class QRCodeReaderRestaurant extends Activity {
                                 final Dialog orderConfirmation = new Dialog(QRCodeReaderRestaurant.this);
                                 orderConfirmation.setContentView(R.layout.confirm_order_dialog);
                                 orderConfirmation.setTitle("Your Order:");
-
-                                //Calendar date = Calendar.getInstance(Locale.US);
-                                //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy", Locale.US);
-                                //final String today = dateFormat.format(date);
 
                                 final NumberPicker quantity
                                         = (NumberPicker) orderConfirmation.findViewById(R.id.picker);
@@ -211,7 +207,7 @@ public class QRCodeReaderRestaurant extends Activity {
                                     @Override
                                     public void onClick(View v) {
                                         item.setQuantity(String.valueOf(quantity.getValue()));
-                                        o.addItem(item);
+                                        orderObject.addItem(item);
                                         orderConfirmation.dismiss();
                                         try {
                                             cameraSource.start(cameraView.getHolder());
@@ -237,13 +233,9 @@ public class QRCodeReaderRestaurant extends Activity {
                     } catch (IOException ioe) {
                         ioe.getMessage();
                     }
-
                 }
-
             }
         });
-
-
     }
 
     /**
@@ -252,19 +244,53 @@ public class QRCodeReaderRestaurant extends Activity {
      * @param v
      */
     public void startSettings(View v) {
-        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        Intent i = new Intent( getApplicationContext(), SettingsActivity.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+        Intent i = new Intent( getApplicationContext(), CheckoutActivity.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+        Intent i = new Intent( getApplicationContext(), OrderHistoryActivity.class );
+        i.putExtra( "business", businessObject );
+        i.putExtra( "order", orderObject );
+        startActivity(i);
     }
 
     public void startMain(View v) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        confirmAppRestart();
+    }
+
+    private void confirmAppRestart(){
+        final Dialog restartConfirmation = new Dialog(QRCodeReaderRestaurant.this);
+        restartConfirmation.setContentView(R.layout.confirm_restart);
+        restartConfirmation.setTitle("Restarting App");
+        Button confirm = (Button) restartConfirmation.findViewById(R.id.restart_confirm);
+        Button cancel = (Button) restartConfirmation.findViewById(R.id.restart_cancel);
+
+        restartConfirmation.show();
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent( getApplicationContext(), MainActivity.class );
+                startActivity(i);
+                restartConfirmation.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartConfirmation.dismiss();
+            }
+        });
     }
 
 

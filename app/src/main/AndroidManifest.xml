@@ -21,14 +21,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WelcomeActivity"
-            android:label="@string/welcome_activity_label"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".CheckoutActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".OrderHistoryActivity" />
-        <activity android:name=".QRCodeReaderBusiness"></activity>
-        <activity android:name=".QRCodeReaderRestaurant"></activity>
+            android:name="com.example.emma.orderitapp.WelcomeActivity"
+            android:label="@string/welcome_activity_label" >
+            <intent-filter>
+                <action android:name="com.example.emma.orderitapp.WELCOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.emma.orderitapp.CheckoutActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.emma.orderitapp.CHECKOUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.emma.orderitapp.SettingsActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.emma.orderitapp.SettingsActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.emma.orderitapp.OrderHistoryActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.emma.orderitapp.HISTORY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.emma.orderitapp.QRCodeReaderBusiness"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.emma.orderitapp.READER_BUS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.emma.orderitapp.QRCodeReaderRestaurant"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.emma.orderitapp.READER_RES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -1,10 +1,12 @@
 package com.example.emma.orderitapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.Serializable;
 
 
 import static android.content.Context.MODE_PRIVATE;
@@ -18,82 +20,62 @@ import static android.content.Context.MODE_PRIVATE;
  * Item object with methods Item.getPrice, Item.getQuantity, etc.
  */
 
-public class Order {
+public class Order implements Serializable{
 
     // Order object is an arraylist of Menu Items.
     private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
 
     private OrderDatabase dbManager;
-    private Restaurant restaurant;
-    private String orderNumber;
-    private SharedPreferences prefs;
+    private Business businessObject;
+    private ArrayList<MenuItem> menuItems;
 
     /**
      * Constructor
      *
-     * @param c
+     * @param
      */
 
-    public Order(Context c) {
-        dbManager = new OrderDatabase(c);
-        restaurant = new Restaurant(c);
-
-        prefs = c.getSharedPreferences("businessPreferences", MODE_PRIVATE);
-        orderNumber = prefs.getString("order_number", "0");
+    public Order() {
+        this.menuItems = new ArrayList<MenuItem>();
     }
 
 
-    /**
-     * Method: setOrderNumber increments the Order Number plus one.
-     */
-
-    public void setOrderNumber() {
-        int o = Integer.parseInt(orderNumber);
-        o++;
-        orderNumber = Integer.toString(o);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("order_number", orderNumber);
-        editor.apply();
-    }
-
-    /**
-     * Method: getOrderNumber
-     *
-     * @return a string containing the current Order Number.
-     */
-
-    public String getOrderNumber() {
-        return prefs.getString("order_number","0");
-    }
-
-
-    public void addItem(MenuItem newItem) {
-
-        // if item is already in the database then increment quantity
-        items = getOrder();
-        for(MenuItem oldItem : items) {
+    public void addItem(MenuItem item) {
+        boolean isNewItem = true;
+        // Add to quantity if item already exists
+        for( MenuItem oldItem : menuItems ) {
             String name = oldItem.getName();
-            if (name.equals(newItem.getName())){
+            if (name.equals(item.getName())){
+                isNewItem = false;
                 int newQuantity =
-                        Integer.parseInt(oldItem.getQuantity()) + Integer.parseInt(newItem.getQuantity());
-                newItem.setQuantity(Integer.toString(newQuantity));
-                dbManager.changeQuantity(newItem, orderNumber);
-                return;
+                        Integer.parseInt(oldItem.getQuantity()) + Integer.parseInt(item.getQuantity());
+                oldItem.setQuantity(Integer.toString(newQuantity));
             }
         }
-        // else add the item to the database
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        dbManager.insert(date, restaurant.getName(), newItem.getName(), newItem.getQuantity(), newItem.getPrice(), orderNumber);
+        if ( isNewItem ) {
+            menuItems.add( item );
+        }
     }
 
-    //public void updateItem(String item, String quantity, String price ){
-    //    dbManager.update(String item, String quantity, String price );
-    //}
 
     public void deleteItem(MenuItem item) {
-        // remove item from list
-
+        menuItems.remove( item );
     }
+
+
+    public String getTotal(){
+        double total = 0;
+        for (MenuItem item: menuItems)
+        {
+            total += Double.parseDouble(item.getPrice()) * Double.parseDouble(item.getQuantity()) ;
+        }
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(total);
+    }
+
+
+
+    public String getDate(){return new SimpleDateFormat("yyyy-MM-dd").format(new Date());}
 
 
     /**
@@ -103,30 +85,9 @@ public class Order {
      */
 
     public ArrayList<MenuItem> getOrder() {
-        return dbManager.selectByColumn("orderNumber", orderNumber);
-
-        ArrayList<String> itemsSA = new ArrayList<String>();
-        itemsSA = dbManager.selectByColumn("orderNumber", orderNumber);
-        items.clear();
-
-        /* This is where the problem is, because of how it's reading from the database,
-         *  it's just setting the same values to the items,
-         *  so we get two identical MenuItems.
-         */
-        for (int i = 0; i < itemsSA.size(); i++) {
-            MenuItem item = new MenuItem();
-
-            item.setPrice(dbManager.getPrice(orderNumber));
-            item.setName(dbManager.getName(orderNumber));
-            item.setQuantity(dbManager.getQuantity(orderNumber));
-            /*
-            item.setName(sa[2]);
-            item.setQuantity(sa[3]);
-            */
-            items.add(item);
-
-        }
-        return items;
+        return menuItems;
     }
+
+
 
 }

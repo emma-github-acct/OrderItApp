@@ -38,6 +38,7 @@ public class QRCodeReaderBusiness extends Activity {
     private SurfaceView cameraView;
     private SparseArray<Barcode> qrCodes;
     private OrderDatabase od;
+    private Business businessObject;
     FileOutputStream fos;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,18 +117,10 @@ public class QRCodeReaderBusiness extends Activity {
                         Log.i("TRY: ", "In try 1");
                         final String jsonString = qrCodes.valueAt(0).displayValue;
                         Log.i("TRY: ", "In try 2");
-                        BusinessModel business = mapper.readValue(jsonString, BusinessModel.class);
+                        businessObject = mapper.readValue(jsonString, Business.class);
                         Log.i("TRY: ", "In try 3");
-                        Log.i("ITEM: ", business.toString());
 
-                        Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );
-                        i.putExtra("Type", business.getType());
-                        i.putExtra("Name", business.getName());
-                        i.putExtra("Phone", business.getPhone());
-                        i.putExtra("Address", business.getAddress());
-                        i.putExtra("Email", business.getEmail());
-                        startActivity(i);
-
+                        startWelcome(null);
 
                     } catch (IOException ioe) {
                         ioe.getMessage();
@@ -137,20 +130,18 @@ public class QRCodeReaderBusiness extends Activity {
 
             }
         });
-
-
     }
 
-    public void startSettings(View v) {
-        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+    public void startWelcome(View v) {
+        Intent i = new Intent( getApplicationContext(), WelcomeActivity.class );
+        i.putExtra( "business", businessObject );
+        startActivity(i);
     }
 
     public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
-    }
-
-    public void startHistory(View v) {
-        startActivity(new Intent(getApplicationContext(), OrderHistoryActivity.class));
+        Intent i = new Intent( getApplicationContext(), CheckoutActivity.class );
+        i.putExtra( "business", businessObject );
+        startActivity(i);
     }
 
     public void startMain(View v) {

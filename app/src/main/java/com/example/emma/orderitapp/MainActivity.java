@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.RectShape;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showTitle();
-        business = new Business(this);
     }
 
     public void scanBusinessQR(View view) {
@@ -35,27 +34,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadWelcomePage(View view) {
-        Intent i = new Intent(getApplicationContext(), WelcomeActivity.class);
-        i.putExtra("Type", business.getType());
-        i.putExtra("Name", business.getName());
-        i.putExtra("Phone", business.getPhone());
-        i.putExtra("Address", business.getAddress());
-        i.putExtra("Email", business.getEmail());
-        startActivity(i);
-    }
-
     private void showTitle() {
         // Create ShapeDrawable title circle
-        ShapeDrawable titleCircle = new ShapeDrawable(new OvalShape());
-        titleCircle.setIntrinsicHeight(300);
+        ShapeDrawable titleCircle = new ShapeDrawable(new RectShape());
+        titleCircle.setIntrinsicHeight(1400);
         titleCircle.setIntrinsicWidth(900);
 
         // Create Paint for MAGIC 8 BALL
         Paint ballPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         int blue = getResources().getColor(R.color.blue);
         int darkBlue = getResources().getColor(R.color.darkBlue);
-        RadialGradient radGrad = new RadialGradient(450, 150, 100, blue, darkBlue, Shader.TileMode.MIRROR);
+        RadialGradient radGrad = new RadialGradient(450, 700, 100, blue, darkBlue, Shader.TileMode.MIRROR);
         ballPaint.setShader(radGrad);
         titleCircle.getPaint().set(ballPaint);
 
@@ -63,20 +52,20 @@ public class MainActivity extends AppCompatActivity {
         ImageView tc = (ImageView) findViewById(R.id.titleCircle);
         tc.setImageDrawable(titleCircle);
 
-        // Shake Title
-        shakeTitle();
+        // Shake Button
+        shakeButton();
     }
 
 
     // Shake Title Circle
-    private void shakeTitle() {
-        performImageAnimation(R.anim.shake, R.id.titleCircle);
+    private void shakeButton() {
+        performImageAnimation(R.anim.shake, R.id.LaunchButton);
     }
 
     private void performImageAnimation(int animationResourceID, int viewID) {
         Animation an = AnimationUtils.loadAnimation(this, animationResourceID);
         an.setAnimationListener(new TweenAnimationListener());
-        ImageView image = (ImageView) findViewById(viewID);
+        Button image = (Button) findViewById(viewID);
         image.startAnimation(an);
     }
 

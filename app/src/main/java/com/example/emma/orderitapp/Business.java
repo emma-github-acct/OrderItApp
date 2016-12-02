@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -18,7 +19,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Uses shared preferences to store data
  */
 
-public class Business {
+public class Business implements Serializable {
 
     private String type;
     private String name;
@@ -29,66 +30,47 @@ public class Business {
     private SharedPreferences prefs;
 
     // Constructor
-    public Business(Context c) {
-
-        prefs = c.getSharedPreferences("businessPreferences", MODE_PRIVATE);
+    public Business() {
         attributes = new ArrayList<String>();
-    }
-
-    public void setType(String type1) {
-        type = type1;
     }
 
     public String getType() {
         return type;
     }
 
-
     public void setName(String name) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("business_name", name);
-        editor.apply();
         this.name = name;
     }
 
     public String getName() {
-        return prefs.getString("business_name", "Java Cafe");
+        return this.name;
     }
 
 
     public void setEmail(String email) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("business_email", email);
-        editor.apply();
         this.email = email;
     }
 
     public String getEmail() {
-        return prefs.getString("business_email", "javacafe@gmail.com");
+        return this.email;
     }
 
 
     public void setAddress(String address) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("business_address", address);
-        editor.apply();
         this.address = address;
     }
 
     public String getAddress() {
-        return prefs.getString("business_address", "123 Elm st");
+        return this.address;
     }
 
 
     public void setPhone(String phone) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("business_phone", phone);
-        editor.apply();
         this.phone = phone;
     }
 
     public String getPhone() {
-        return prefs.getString("business_phone", "867-5309");
+        return this.phone;
     }
 
 
