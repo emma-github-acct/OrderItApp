@@ -62,7 +62,6 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private boolean confirmCustomerSettingsInput( Customer customer ){
-        Button sendButton = (Button) findViewById(R.id.sendButton);
         String name = getResources().getString(R.string.default_name);
         String email = getResources().getString(R.string.default_email);
         String phoneNumber = getResources().getString(R.string.default_phone_number);
@@ -113,6 +112,7 @@ public class CheckoutActivity extends AppCompatActivity {
             }).start();
 
             Toast.makeText(this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
 
