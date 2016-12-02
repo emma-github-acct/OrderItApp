@@ -59,19 +59,16 @@
 
 
     <!-- db contents -->
-    <ScrollView
+    <ListView
+        android:id="@android:id/list"
+        android:layout_marginStart="12dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignStart="@id/searchCriteria"
-        android:layout_below="@id/searchCriteria">
-
-        <TextView
-            android:id="@+id/db_contents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp" />
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:divider="@color/colorPrimary"
+        android:dividerHeight="1sp"
+        android:footerDividersEnabled="true"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@id/searchCriteria"/>
 
     <ImageButton
         android:contentDescription="search_by"

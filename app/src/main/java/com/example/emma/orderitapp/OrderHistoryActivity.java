@@ -9,15 +9,16 @@ package com.example.emma.orderitapp;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,10 +31,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private Business businessObject;
     private Order orderObject;
     private LayoutManager layoutManager;
-    private OrderDatabase dbManager;
     private ArrayAdapter dateAdapter;
     private ArrayAdapter restaurantAdapter;
-
+    private SharedPreferences prefs;
+    private ListView historyList;
+    private Cursor historyCursor;
+    OrderDatabase dbManager;
 
     /**
      * onCreate
@@ -51,6 +54,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         this.orderObject = (Order) intent.getSerializableExtra("order");
 
         dbManager = new OrderDatabase( this );
+        historyCursor = dbManager.getCursor();
 
         dateAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.DATE );
         if ( dateAdapter != null ) {
@@ -106,7 +110,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
             if ( columnValue.isEmpty( ) ) {
                 Toast.makeText( this, "error Restaurant Name", Toast.LENGTH_LONG).show();
             } else {
-                results = dbManager.selectByColumn( OrderDatabase.RESTAURANT, columnValue);
+                historyCursor = dbManager.getFilteredCursor(OrderDatabase.DATE, columnValue);
+                results = dbManager.selectByColumn( OrderDatabase.ID, columnValue);
+                String header = OrderDatabase.ID.toUpperCase( ) + ": " + columnValue;
+                //results.add( 0, header);
+                //results = dbManager.selectByColumn( OrderDatabase.RESTAURANT, columnValue);
                 displayData( results);
             }
         }
@@ -144,6 +152,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
         }
         historyDisplay.setText( allHistory );
     }
+
+
 
     private void hideKeyboard(){
         InputMethodManager imm = ( InputMethodManager )getSystemService( INPUT_METHOD_SERVICE );

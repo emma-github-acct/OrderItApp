@@ -30,7 +30,6 @@ public class OrderDatabase extends SQLiteOpenHelper {
     private final int DATE_INDEX = 1;
     private final int RESTAURANT_INDEX = 2;
     private final int TOTAL_INDEX = 3;
-    private final int ORDERNUMBER_INDEX = 0;
     private Context appContext;
 
 
@@ -74,11 +73,11 @@ public class OrderDatabase extends SQLiteOpenHelper {
      */
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 
     /**
      * Insert an order.
-     *
      */
 
     public void insert(String date, String restaurant, String total) {
@@ -118,7 +117,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
                 o = (cursor.getString(0)) + " ";
                 o += (cursor.getString(1)) + " ";
                 o += (cursor.getString(2)) + " ";
-                o += (cursor.getString(3))  + "\n";
+                o += (cursor.getString(3)) + "\n";
                 orders.add(o);
                 cursor.moveToNext();
             }
@@ -159,6 +158,84 @@ public class OrderDatabase extends SQLiteOpenHelper {
         return adapter;
     }
 
+    public Cursor getFilteredCursor(String name, String value) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.query(ORDER_TABLE, null, name + "=?",
+                new String[]{value}, null, null, name);
+
+        return c;
+    }
+
+    public Cursor getCursor() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "Select * from " + ORDER_TABLE;
+        Cursor c = db.rawQuery(query, null);
+
+        return c;
+    }
+
+    public String getTotal(Long id) {
+        String price = "";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor c = db.query(ORDER_TABLE, new String[]{ID, DATE, RESTAURANT, TOTAL}, ID + "=" + id,
+                    null, null, null, null);
+
+            c.moveToFirst();
+
+            price = c.getString(TOTAL_INDEX);
+
+            c.close();
+        } catch (SQLException sqe) {
+            Toast.makeText(appContext, sqe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return price;
+    }
+
+    public String getRestaurant(Long id) {
+        String restaurant = "";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor c = db.query(ORDER_TABLE, new String[]{ID, DATE, RESTAURANT, TOTAL}, ID + "=" + id,
+                    null, null, null, null);
+
+            c.moveToFirst();
+
+            restaurant = c.getString(RESTAURANT_INDEX);
+
+            c.close();
+        } catch (SQLException sqe) {
+            Toast.makeText(appContext, sqe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return restaurant;
+    }
+
+    public String getDate(Long id) {
+        String date = "";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor c = db.query(ORDER_TABLE, new String[]{ID, DATE, RESTAURANT, TOTAL}, ID + "=" + id,
+                    null, null, null, null);
+
+            c.moveToFirst();
+
+            date = c.getString(DATE_INDEX);
+
+            c.close();
+        } catch (SQLException sqe) {
+            Toast.makeText(appContext, sqe.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return date;
+
+    }
+
     /** selectAll method
      *
      * @return ArrayList of records retrieved
@@ -180,13 +257,12 @@ public class OrderDatabase extends SQLiteOpenHelper {
                 }
                 historyList.add( oneRecord );
                 cursor.moveToNext();
+                }
             }
-        }
         catch ( SQLException se ) {
             Toast.makeText( appContext, se.getMessage( ), Toast.LENGTH_LONG).show();
         }
 
         return historyList;
     }
-
 }
