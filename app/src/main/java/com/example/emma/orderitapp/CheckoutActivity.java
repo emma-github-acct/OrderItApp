@@ -94,22 +94,15 @@ public class CheckoutActivity extends AppCompatActivity {
             OrderDatabase orderDatabaseObject = new OrderDatabase(this);
             orderDatabaseObject.insert(orderObject.getDate(), businessObject.getName(), orderObject.getTotal());
 
-            new Thread(new Runnable() {
-                public void run() {
-
-                    String[] addresses = {"sengle64@gmail.com"}; //{restaurant.getEmail(), customer.getEmail()}
-                    String subject = "TakeOut Order";
-                    String body = orderData;
-
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-                    if (emailIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(emailIntent, 1);
-                    }
-                }
-            }).start();
+            String[] addresses = {businessObject.getEmail(), customer.getEmail()};
+            String subject = "TakeOut Order";
+            String body = orderData;
+             Intent emailIntent = new Intent();
+            emailIntent.setAction(Intent.ACTION_SEND);
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+            startActivity(Intent.createChooser(emailIntent, "Sending email now") );
 
             Toast.makeText(this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));

@@ -22,6 +22,7 @@
     <string name="order_data">Order Data</string>
     <string name="email_label">Send Order</string>
     <string name="settings_label">Input Settings</string>
+    <string name="cancel_label">Cancel Order</string>
 
     <!-- Preferences -->
     <string name="business_name_default">Java Cafe</string>

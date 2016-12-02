@@ -31,13 +31,23 @@
         android:layout_marginTop="15dp" />
 
     <Button
+    style="@style/JavaCafeButtonStyle"
+    android:id="@+id/sendButton"
+    android:text="@string/email_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="sendOrder"
+    android:layout_marginBottom="70dp"
+    android:layout_alignParentBottom="true" />
+
+    <Button
         style="@style/JavaCafeButtonStyle"
-        android:id="@+id/sendButton"
-        android:text="@string/email_label"
+        android:id="@+id/cancelButton"
+        android:text="@string/cancel_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="sendOrder"
-        android:layout_marginBottom="70dp"
+        android:onClick="startMain"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true" />
-    \
+
 </RelativeLayout>
