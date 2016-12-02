@@ -28,4 +28,9 @@ public class MenuItem implements Serializable{
     public void  setQuantity(String quantity){this.quantity = quantity;}
     public String getQuantity() {return quantity;}
 
+    public String toString() {
+        return "Menu Item: " + name + "\nDescription: " + description + "\nPrice: " + price;
+    }
+
+
 }

@@ -63,6 +63,7 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private boolean confirmCustomerSettingsInput( Customer customer ){
+        Button sendButton = (Button) findViewById(R.id.sendButton);
         String name = getResources().getString(R.string.default_name);
         String email = getResources().getString(R.string.default_email);
         String phoneNumber = getResources().getString(R.string.default_phone_number);
@@ -73,7 +74,16 @@ public class CheckoutActivity extends AppCompatActivity {
         boolean validPhoneNumber = !(customer.getPhone().equals(phoneNumber));
         boolean validAddress = !(customer.getAddress().equals(address));
 
-        return ( validName && validEmail && validPhoneNumber && validAddress );
+        if (validName && validEmail && validAddress && validPhoneNumber) {
+            sendButton.setEnabled(true);
+            return true;
+        }
+        else {
+            sendButton.setEnabled(false);
+            return false;
+        }
+
+        //return ( validName && validEmail && validPhoneNumber && validAddress );
 
     }
 
@@ -96,7 +106,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 String body = orderData;
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 emailIntent.putExtra(Intent.EXTRA_TEXT, body);
@@ -161,7 +170,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     /**
      * Below are the handlers that start new activities

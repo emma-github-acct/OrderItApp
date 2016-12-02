@@ -11,6 +11,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -64,24 +65,18 @@ public class QRCodeReaderBusiness extends Activity {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
                 if (ActivityCompat.checkSelfPermission(QRCodeReaderBusiness.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    Log.w("PERMISSIONS", "Permission request");
-
+                    Toast.makeText(null, "Camera permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+                }
+                else {
                     ActivityCompat.requestPermissions(QRCodeReaderBusiness.this, new String[]{Manifest.permission.CAMERA}, 0);
+
+                    try {
+                        Log.w("CAMERA SOURCE", "Camera started");
+                        cameraSource.start(surfaceHolder);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                try {
-                    Log.w("CAMERA SOURCE", "Camera started");
-                    cameraSource.start(surfaceHolder);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                /*
-                cameraSource.release();
-                try{
-                    startCameraSource();
-                } catch (SecurityException se) {
-                    Log.e("CAMERA PERMISSIONS", se.getMessage());
-                }
-                */
             }
 
 

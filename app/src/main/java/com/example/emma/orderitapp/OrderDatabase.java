@@ -79,7 +79,6 @@ public class OrderDatabase extends SQLiteOpenHelper {
     /**
      * Insert an order.
      *
-     * @return
      */
 
     public void insert(String date, String restaurant, String total) {
@@ -103,7 +102,6 @@ public class OrderDatabase extends SQLiteOpenHelper {
      *
      * @param columnName
      * @param columnValue
-     * @return
      */
 
     public ArrayList<String> selectByColumn(String columnName, String columnValue) {
@@ -129,7 +127,6 @@ public class OrderDatabase extends SQLiteOpenHelper {
         }
         return orders;
     }
-
 
     // Autocomplete code for Order History Activity
 

@@ -29,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void scanBusinessQR(View view) {
-
         startActivity(new Intent(this, QRCodeReaderBusiness.class));
-
     }
 
     private void showTitle() {

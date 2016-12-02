@@ -69,7 +69,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     public void showDataByColumn( View v ) {
 
-
         //hide keyboard
         InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         if ( imm.isAcceptingText()) {
@@ -122,10 +121,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         }
         historyDisplay.setText( historyString);
     }
-
-
-
-
 
     /**
      *The code below handles menus

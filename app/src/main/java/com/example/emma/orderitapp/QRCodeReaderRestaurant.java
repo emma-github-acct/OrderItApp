@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -127,14 +128,6 @@ public class QRCodeReaderRestaurant extends Activity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                /*
-                cameraSource.release();
-                try{
-                    startCameraSource();
-                } catch (SecurityException se) {
-                    Log.e("CAMERA PERMISSIONS", se.getMessage());
-                }
-                */
             }
 
 
@@ -190,7 +183,7 @@ public class QRCodeReaderRestaurant extends Activity {
                                 final NumberPicker quantity
                                         = (NumberPicker) orderConfirmation.findViewById(R.id.picker);
                                 quantity.setMaxValue(10);
-                                quantity.setMinValue(0);
+                                quantity.setMinValue(1);
 
                                 final TextView orderContent
                                         = (TextView) orderConfirmation.findViewById(R.id.orderContent);
@@ -252,15 +245,20 @@ public class QRCodeReaderRestaurant extends Activity {
 
     public void startCheckout(View v) {
         Intent i = new Intent( getApplicationContext(), CheckoutActivity.class );
-        i.putExtra( "business", businessObject );
-        i.putExtra( "order", orderObject );
-        startActivity(i);
+        if (businessObject != null && orderObject != null) {
+            i.putExtra("business", businessObject);
+            i.putExtra("order", orderObject);
+            startActivity(i);
+        }
+        else {
+            Toast.makeText(this, "Please scan a code to start the ordering process", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void startHistory(View v) {
         Intent i = new Intent( getApplicationContext(), OrderHistoryActivity.class );
-        i.putExtra( "business", businessObject );
-        i.putExtra( "order", orderObject );
+        i.putExtra("business", businessObject);
+        i.putExtra("order", orderObject);
         startActivity(i);
     }
 
@@ -281,6 +279,8 @@ public class QRCodeReaderRestaurant extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent( getApplicationContext(), MainActivity.class );
+                i.putExtra("business", businessObject);
+                i.putExtra("order", orderObject);
                 startActivity(i);
                 restartConfirmation.dismiss();
             }
