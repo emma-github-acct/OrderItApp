@@ -157,8 +157,36 @@ public class OrderDatabase extends SQLiteOpenHelper {
             Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
         }
         return adapter;
+    }
 
+    /** selectAll method
+     *
+     * @return ArrayList of records retrieved
+     */
+    public ArrayList<String> selectAll( ) {
 
+        ArrayList<String> historyList = new ArrayList<String>( );
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            String query = "Select * from " + ORDER_TABLE;
+            Cursor cursor = db.rawQuery( query, null);
+
+            cursor.moveToFirst();
+            while ( !cursor.isAfterLast() ) {
+                String oneRecord = "";
+                for ( int i = 1; i < cursor.getColumnCount(); i++) {
+                    oneRecord += cursor.getString(i) + " ";
+                }
+                historyList.add( oneRecord );
+                cursor.moveToNext();
+            }
+        }
+        catch ( SQLException se ) {
+            Toast.makeText( appContext, se.getMessage( ), Toast.LENGTH_LONG).show();
+        }
+
+        return historyList;
     }
 
 }

@@ -30,8 +30,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private Business businessObject;
     private Order orderObject;
     private LayoutManager layoutManager;
-    private SharedPreferences prefs;
-    OrderDatabase dbManager;
+    private OrderDatabase dbManager;
+    private ArrayAdapter dateAdapter;
+    private ArrayAdapter restaurantAdapter;
+
 
     /**
      * onCreate
@@ -50,16 +52,17 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         dbManager = new OrderDatabase( this );
 
-        ArrayAdapter dateAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.DATE );
+        dateAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.DATE );
         if ( dateAdapter != null ) {
             AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
             dateEntry.setAdapter(dateAdapter);
         }
-        ArrayAdapter subjectAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.ID );
-        if ( subjectAdapter !=  null ) {
-            AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
-            subjectEntry.setAdapter(subjectAdapter);
+        restaurantAdapter = dbManager.fillAutoCompleteTextFields( this, OrderDatabase.RESTAURANT );
+        if ( restaurantAdapter !=  null ) {
+            AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.restaurant_entry);
+            subjectEntry.setAdapter(restaurantAdapter);
         }
+        showDatabaseContents();
     }
 
     /**
@@ -68,6 +71,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
      */
 
     public void showDataByColumn( View v ) {
+        AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
+        AutoCompleteTextView restaurantEntry = (AutoCompleteTextView)findViewById(R.id.restaurant_entry);
+
 
         //hide keyboard
         InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
@@ -75,37 +81,35 @@ public class OrderHistoryActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(getCurrentFocus( ).getWindowToken(), 0);
         }
 
+        hideKeyboard();
+
         ArrayList<String> results;
         RadioButton rDateButton = (RadioButton)findViewById(R.id.radio_date);
-        RadioButton rSubjectButton = (RadioButton)findViewById(R.id.radio_subject);
+        RadioButton rResButton = (RadioButton)findViewById(R.id.radio_restaurant);
 
         // Search by Date
         if ( rDateButton.isChecked( )) {
-            AutoCompleteTextView dateEntry = (AutoCompleteTextView)findViewById(R.id.date_entry);
             String columnValue = dateEntry.getText( ).toString( );
+            restaurantEntry.setText("");
             if ( columnValue.isEmpty( ) ) {
                 Toast.makeText( this, "error Date", Toast.LENGTH_LONG).show();
             } else {
                 results = dbManager.selectByColumn( OrderDatabase.DATE, columnValue);
-                String header = OrderDatabase.DATE.toUpperCase( ) + ": " + columnValue;
-                //results.add( 0, header);
-                displayData( results);
+                displayData( results );
             }
         }
         // Search by Order Number
-        else if ( rSubjectButton.isChecked( )){
-            AutoCompleteTextView subjectEntry = (AutoCompleteTextView)findViewById(R.id.subject_entry);
-            String columnValue = subjectEntry.getText( ).toString( );
+        else if ( rResButton.isChecked( )){
+            String columnValue = restaurantEntry.getText().toString();
+            dateEntry.setText("");
+
             if ( columnValue.isEmpty( ) ) {
-                Toast.makeText( this, "error order number", Toast.LENGTH_LONG).show();
+                Toast.makeText( this, "error Restaurant Name", Toast.LENGTH_LONG).show();
             } else {
-                results = dbManager.selectByColumn( OrderDatabase.ID, columnValue);
-                String header = OrderDatabase.ID.toUpperCase( ) + ": " + columnValue;
-                //results.add( 0, header);
+                results = dbManager.selectByColumn( OrderDatabase.RESTAURANT, columnValue);
                 displayData( results);
             }
         }
-
     }
 
     /**
@@ -127,6 +131,27 @@ public class OrderHistoryActivity extends AppCompatActivity {
      *
      */
 
+    public void showDatabaseContents( ) {
+        hideKeyboard();
+
+        TextView historyDisplay = ( TextView ) findViewById( R.id.db_contents );
+        String allHistory = "";
+
+        ArrayList<String> allRecords = dbManager.selectAll( );
+
+        for ( String s : allRecords ) {
+            allHistory += s + "\n";
+        }
+        historyDisplay.setText( allHistory );
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager imm = ( InputMethodManager )getSystemService( INPUT_METHOD_SERVICE );
+        if ( imm.isAcceptingText() ){
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -143,7 +168,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         switch (item.getItemId()) {
@@ -152,9 +176,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_scan:
                 startScan(null);
-                return true;
-            case R.id.menu_checkout:
-                startCheckout(null);
                 return true;
             case R.id.menu_settings:
                 startSettings(null);
@@ -171,13 +192,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
      */
     public void startSettings(View v) {
         Intent i = new Intent( getApplicationContext(), SettingsActivity.class );
-        i.putExtra( "business", businessObject );
-        i.putExtra( "order", orderObject );
-        startActivity(i);
-    }
-
-    public void startCheckout(View v) {
-        Intent i = new Intent( getApplicationContext(), CheckoutActivity.class );
         i.putExtra( "business", businessObject );
         i.putExtra( "order", orderObject );
         startActivity(i);

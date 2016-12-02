@@ -18,7 +18,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
-        android:text="search_by" />
+        android:text="@string/search_by_label" />
 
     <RadioGroup
         android:id="@+id/searchCriteria"
@@ -29,16 +29,16 @@
         android:layout_marginTop="35dp">
 
         <RadioButton
-            android:id="@+id/radio_subject"
+            android:id="@+id/radio_restaurant"
             style="@style/JavaCafeTextStyle"
             android:checked="true"
-            android:text="Order Number" />
+            android:text="Restaurant" />
 
         <AutoCompleteTextView
-            android:id="@+id/subject_entry"
+            android:id="@+id/restaurant_entry"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="textAutoComplete"
             android:maxLines="1"/>
 
         <RadioButton

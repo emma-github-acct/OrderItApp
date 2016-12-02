@@ -42,17 +42,11 @@ import java.util.Locale;
  * Created by Hannah on 11/11/16.
  */
 public class QRCodeReaderRestaurant extends Activity {
-    private Barcode barcode;
     private BarcodeDetector barcodeDetector;
-    //public CameraSource cameraSource;
-    private FileWriter fileWriter;
-    private File file;
     private SurfaceView cameraView;
     private SparseArray<Barcode> qrCodes;
-    private OrderDatabase od;
     private Order orderObject;
     private Business businessObject;
-    FileOutputStream fos;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +55,6 @@ public class QRCodeReaderRestaurant extends Activity {
         Intent intent = getIntent();
         this.businessObject= (Business) intent.getSerializableExtra("business");
         this.orderObject = (Order) intent.getSerializableExtra("order");
-        od = new OrderDatabase(this);
 
         cameraView = (SurfaceView) findViewById(R.id.camera_view);
 
@@ -91,9 +84,6 @@ public class QRCodeReaderRestaurant extends Activity {
         switch (item.getItemId()) {
             case R.id.menu_start:
                 startMain(null);
-                return true;
-            case R.id.menu_checkout:
-                startCheckout(null);
                 return true;
             case R.id.menu_history:
                 startHistory(null);

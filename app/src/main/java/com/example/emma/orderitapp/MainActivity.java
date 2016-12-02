@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.menu_start).setVisible(false);
+        menu.findItem(R.id.menu_scan).setVisible(false);
         return true;
     }
 
@@ -117,9 +118,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_scan:
                 startScan(null);
-                return true;
-            case R.id.menu_checkout:
-                startCheckout(null);
                 return true;
             case R.id.menu_history:
                 startHistory(null);
@@ -140,10 +138,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startSettings(View v) {
         startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-    }
-
-    public void startCheckout(View v) {
-        startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
     public void startHistory(View v) {

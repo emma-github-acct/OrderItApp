@@ -26,11 +26,6 @@
             android:key="phone_preference"
             android:title="Customer Phone Number" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="allergy_preference"
-            android:summary="Do you have allergies?"
-            android:title="Allergy" />
     </PreferenceCategory>
 
 </PreferenceScreen>

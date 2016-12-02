@@ -16,15 +16,19 @@
 
     <!-- History Activity -->
     <string name="history_label">Order History</string>
+    <string name="search_by_label">Search By:</string>
 
     <!-- Checkout Activity -->
     <string name="order_data">Order Data</string>
-    <string name="email_label">Email Order</string>
+    <string name="email_label">Send Order</string>
     <string name="settings_label">Input Settings</string>
 
     <!-- Preferences -->
     <string name="business_name_default">Java Cafe</string>
-    <string name="settings_error">You must input user settings!</string>
+    <string name="settings_error">Input user settings!</string>
+    <string name="checkout">Checkout</string>
+    <string name="history">History</string>
+
 
     <!-- Error Strings-->
     <string name="layout_error">Sorry! This Business is not registered</string>

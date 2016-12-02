@@ -5,28 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/orderContent"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="75dp"
         android:layout_marginBottom="30dp"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"/>
 
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/orderContent"
         android:id="@+id/picker"
         android:layout_gravity="center"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:layout_below="@id/orderContent">
     </NumberPicker>
-
 
     <Button
         android:layout_width="wrap_content"

@@ -128,9 +128,6 @@ public class WelcomeActivity extends AppCompatActivity {
             case R.id.menu_start:
                 startMain(null);
                 return true;
-            case R.id.menu_checkout:
-                startCheckout(null);
-                return true;
             case R.id.menu_history:
                 startHistory(null);
                 return true;
@@ -150,12 +147,6 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public void startSettings(View v) {
         Intent i = new Intent( getApplicationContext(), SettingsActivity.class );
-        i.putExtra( "business", businessObject );
-        startActivity(i);
-    }
-
-    public void startCheckout(View v) {
-        Intent i = new Intent( getApplicationContext(), CheckoutActivity.class );
         i.putExtra( "business", businessObject );
         startActivity(i);
     }

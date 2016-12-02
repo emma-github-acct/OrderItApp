@@ -34,18 +34,17 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        this.businessObject= (Business) intent.getSerializableExtra("business");
-        this.orderObject= (Order) intent.getSerializableExtra("order");
-        
+        this.businessObject = (Business) intent.getSerializableExtra("business");
+        this.orderObject = (Order) intent.getSerializableExtra("order");
+
         layoutManager = new LayoutManager();
-        setContentView( layoutManager.getCheckoutLayout( businessObject.getName() ));
+        setContentView(layoutManager.getCheckoutLayout(businessObject.getName()));
+
+        loadCheckoutData();
+    }
+    public void loadCheckoutData() {
 
         customer = new Customer(this);
-        boolean inputSettings = confirmCustomerSettingsInput( customer );
-        if (!inputSettings){
-            Toast.makeText(this, R.string.settings_error, Toast.LENGTH_LONG).show();
-        }
-
 
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
         orderData = "Restaurant: " + businessObject.getName() + "  " + businessObject.getEmail() + "\n\n";
@@ -74,17 +73,7 @@ public class CheckoutActivity extends AppCompatActivity {
         boolean validPhoneNumber = !(customer.getPhone().equals(phoneNumber));
         boolean validAddress = !(customer.getAddress().equals(address));
 
-        if (validName && validEmail && validAddress && validPhoneNumber) {
-            sendButton.setEnabled(true);
-            return true;
-        }
-        else {
-            sendButton.setEnabled(false);
-            return false;
-        }
-
-        //return ( validName && validEmail && validPhoneNumber && validAddress );
-
+        return (validName && validEmail && validPhoneNumber && validAddress);
     }
 
     /**
@@ -94,33 +83,48 @@ public class CheckoutActivity extends AppCompatActivity {
      */
 
     public void sendOrder(View v) {
+        boolean inputSettings = confirmCustomerSettingsInput( customer );
 
-        OrderDatabase orderDatabaseObject = new OrderDatabase(this);
-        orderDatabaseObject.insert(orderObject.getDate(), businessObject.getName(), orderObject.getTotal());
+        // If no Costumer info from settings
+        if (!inputSettings){
+            Toast.makeText(this, R.string.settings_error, Toast.LENGTH_LONG).show();
+            startSettings(null);
+        }
+        // Else send order
+        else {
+            OrderDatabase orderDatabaseObject = new OrderDatabase(this);
+            orderDatabaseObject.insert(orderObject.getDate(), businessObject.getName(), orderObject.getTotal());
 
-        new Thread(new Runnable() {
-            public void run() {
+            new Thread(new Runnable() {
+                public void run() {
 
-                String[] addresses = {"sengle64@gmail.com"}; //{restaurant.getEmail(), customer.getEmail()}
-                String subject = "TakeOut Order";
-                String body = orderData;
+                    String[] addresses = {"sengle64@gmail.com"}; //{restaurant.getEmail(), customer.getEmail()}
+                    String subject = "TakeOut Order";
+                    String body = orderData;
 
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-                if (emailIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(emailIntent, 1);
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+                    if (emailIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(emailIntent, 1);
+                    }
                 }
-            }
-        }).start();
+            }).start();
 
-        Toast.makeText( this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        loadCheckoutData();
     }
 
 
     /**
-     * Start Receipt activity
+     * onActivityResult
      *
      * @param requestCode
      * @param resultCode
@@ -130,17 +134,9 @@ public class CheckoutActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
-
     /**
      * The code below handles menus
      */
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.menu_checkout).setVisible(false);
-        return true;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
