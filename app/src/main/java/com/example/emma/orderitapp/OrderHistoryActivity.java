@@ -110,11 +110,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
             if ( columnValue.isEmpty( ) ) {
                 Toast.makeText( this, "error Restaurant Name", Toast.LENGTH_LONG).show();
             } else {
-                historyCursor = dbManager.getFilteredCursor(OrderDatabase.DATE, columnValue);
-                results = dbManager.selectByColumn( OrderDatabase.ID, columnValue);
-                String header = OrderDatabase.ID.toUpperCase( ) + ": " + columnValue;
-                //results.add( 0, header);
-                //results = dbManager.selectByColumn( OrderDatabase.RESTAURANT, columnValue);
+                results = dbManager.selectByColumn( OrderDatabase.RESTAURANT, columnValue);
                 displayData( results);
             }
         }

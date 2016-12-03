@@ -2,7 +2,6 @@ package com.example.emma.orderitapp;
 
 /**
  * Controller to display, confirm and email the Take Out Order.
- *
  */
 
 import android.app.Dialog;
@@ -25,7 +24,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private Customer customer;
     private Business businessObject;
     private Order orderObject;
-    
+
     private LayoutManager layoutManager;
     private String orderData; //Text display and email body of the order.
 
@@ -42,26 +41,27 @@ public class CheckoutActivity extends AppCompatActivity {
 
         loadCheckoutData();
     }
+
     public void loadCheckoutData() {
 
         customer = new Customer(this);
 
         TextView orderDisplay = (TextView) findViewById(R.id.order_items);
         orderData = "Restaurant: " + businessObject.getName() + "  " + businessObject.getEmail() + "\n\n";
-        orderData += "Customer: " + customer.getName() + " " + customer.getEmail() +"\n\n";
+        orderData += "Customer: " + customer.getName() + " " + customer.getEmail() + "\n\n";
         orderData += "Item    Price    Quantity \n";
 
         ArrayList<MenuItem> o = orderObject.getOrder();
-        for (MenuItem i: o){
+        for (MenuItem i : o) {
             orderData += i.getName() + "  ";
             orderData += i.getPrice() + "  ";
             orderData += i.getQuantity() + "\n";
         }
         orderData += "Total " + orderObject.getTotal() + "\n";
-        orderDisplay.setText( orderData);
+        orderDisplay.setText(orderData);
     }
 
-    private boolean confirmCustomerSettingsInput( Customer customer ){
+    private boolean confirmCustomerSettingsInput(Customer customer) {
         String name = getResources().getString(R.string.default_name);
         String email = getResources().getString(R.string.default_email);
         String phoneNumber = getResources().getString(R.string.default_phone_number);
@@ -78,14 +78,15 @@ public class CheckoutActivity extends AppCompatActivity {
     /**
      * Send order by email
      * Threaded. Starts Receipt activity on result code.
+     *
      * @param v
      */
 
     public void sendOrder(View v) {
-        boolean inputSettings = confirmCustomerSettingsInput( customer );
+        boolean inputSettings = confirmCustomerSettingsInput(customer);
 
         // If no Costumer info from settings
-        if (!inputSettings){
+        if (!inputSettings) {
             Toast.makeText(this, R.string.settings_error, Toast.LENGTH_LONG).show();
             startSettings(null);
         }
@@ -94,23 +95,26 @@ public class CheckoutActivity extends AppCompatActivity {
             OrderDatabase orderDatabaseObject = new OrderDatabase(this);
             orderDatabaseObject.insert(orderObject.getDate(), businessObject.getName(), orderObject.getTotal());
 
-            String[] addresses = {businessObject.getEmail(), customer.getEmail()};
-            String subject = "TakeOut Order";
-            String body = orderData;
-             Intent emailIntent = new Intent();
-            emailIntent.setAction(Intent.ACTION_SEND);
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-            startActivity(Intent.createChooser(emailIntent, "Sending email now") );
+                    String[] addresses = {businessObject.getEmail(), customer.getEmail()};
+                    String subject = "TakeOut Order";
+                    String body = orderData;
 
-            Toast.makeText(this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                    emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+            try {
+                startActivityForResult(emailIntent, 1);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         loadCheckoutData();
     }
@@ -124,6 +128,7 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param data
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {Toast.makeText(this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();}
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
@@ -166,23 +171,23 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param v
      */
     public void startSettings(View v) {
-        Intent i = new Intent( getApplicationContext(), SettingsActivity.class );
-        i.putExtra( "business", businessObject );
-        i.putExtra( "order", orderObject );
+        Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+        i.putExtra("business", businessObject);
+        i.putExtra("order", orderObject);
         startActivity(i);
     }
 
     public void startHistory(View v) {
-        Intent i = new Intent( getApplicationContext(), OrderHistoryActivity.class );
-        i.putExtra( "business", businessObject );
-        i.putExtra( "order", orderObject );
+        Intent i = new Intent(getApplicationContext(), OrderHistoryActivity.class);
+        i.putExtra("business", businessObject);
+        i.putExtra("order", orderObject);
         startActivity(i);
     }
 
     public void startScan(View v) {
-        Intent i = new Intent( getApplicationContext(), QRCodeReaderRestaurant.class );
-        i.putExtra( "business", businessObject );
-        i.putExtra( "order", orderObject );
+        Intent i = new Intent(getApplicationContext(), QRCodeReaderRestaurant.class);
+        i.putExtra("business", businessObject);
+        i.putExtra("order", orderObject);
         startActivity(i);
     }
 
@@ -191,7 +196,7 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 // End menu code
 
-    private void confirmAppRestart(){
+    private void confirmAppRestart() {
         final Dialog restartConfirmation = new Dialog(CheckoutActivity.this);
         restartConfirmation.setContentView(R.layout.confirm_restart);
         restartConfirmation.setTitle("Restarting App");
@@ -203,7 +208,7 @@ public class CheckoutActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent( getApplicationContext(), MainActivity.class );
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 restartConfirmation.dismiss();
             }
@@ -215,7 +220,6 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }
