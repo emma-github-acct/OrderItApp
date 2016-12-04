@@ -13,14 +13,14 @@
 
     <!-- Header -->
     <ImageView
-        android:id="@+id/titleCircle"
+        android:id="@+id/backdrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"/>
 
     <TextView
-        android:id="@+id/Welcome"
+        android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/lightBlue"
@@ -32,10 +32,10 @@
 
     <!-- Start Scanning Button -->
     <Button
-        android:id="@+id/LaunchButton"
+        android:id="@+id/launch_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Welcome"
+        android:layout_below="@+id/welcome_text"
         android:text="@string/start_scanning"
         android:textSize="30sp"
         android:onClick="scanBusinessQR"
@@ -51,7 +51,7 @@
         android:layout_height="50dp"
         android:src="@drawable/ic_feedback_white_24dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/LaunchButton"
+        android:layout_below="@id/launch_button"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -15,14 +15,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.content.SharedPreferences;
 import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private String businessType;
-    private SharedPreferences prefs;
-    private Business business;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTitle() {
-        // Create ShapeDrawable title circle
+        // Create ShapeDrawable
         ShapeDrawable titleCircle = new ShapeDrawable(new RectShape());
         titleCircle.setIntrinsicHeight(1400);
         titleCircle.setIntrinsicWidth(900);
 
-        // Create Paint for MAGIC 8 BALL
+        // Create Paint
         Paint ballPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         int blue = getResources().getColor(R.color.blue);
         int darkBlue = getResources().getColor(R.color.darkBlue);
@@ -68,17 +64,20 @@ public class MainActivity extends AppCompatActivity {
         titleCircle.getPaint().set(ballPaint);
 
         // Set to ImageView
-        ImageView tc = (ImageView) findViewById(R.id.titleCircle);
+        ImageView tc = (ImageView) findViewById(R.id.backdrop);
         tc.setImageDrawable(titleCircle);
 
         // Shake Button
         shakeButton();
+        shakeTitle();
     }
 
-
-    // Shake Title Circle
     private void shakeButton() {
-        performImageAnimation(R.anim.shake, R.id.LaunchButton);
+        performImageAnimation(R.anim.shake, R.id.launch_button);
+    }
+
+    private void shakeTitle() {
+        performTextAnimation(R.anim.shake, R.id.welcome_text);
     }
 
     private void performImageAnimation(int animationResourceID, int viewID) {
@@ -86,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
         an.setAnimationListener(new TweenAnimationListener());
         Button image = (Button) findViewById(viewID);
         image.startAnimation(an);
+    }
+
+    private void performTextAnimation(int animationResourceID, int viewID) {
+        Animation an = AnimationUtils.loadAnimation(this, animationResourceID);
+        an.setAnimationListener(new TweenAnimationListener());
+        TextView textview = (TextView) findViewById(viewID);
+        textview.startAnimation(an);
     }
 
     class TweenAnimationListener implements Animation.AnimationListener {
@@ -105,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void enableButtons(boolean enabledState) {
-            final Button scanButton = (Button) findViewById(R.id.LaunchButton);
+            final Button scanButton = (Button) findViewById(R.id.launch_button);
             scanButton.setEnabled(enabledState);
 
         }

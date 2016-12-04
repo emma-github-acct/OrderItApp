@@ -7,13 +7,17 @@ package com.example.emma.orderitapp;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.media.audiofx.BassBoost;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +28,19 @@ public class CheckoutActivity extends AppCompatActivity {
     private Customer customer;
     private Business businessObject;
     private Order orderObject;
+    private LinearLayout businessLayout;
+    private LinearLayout orderLayout;
+    private LinearLayout customerLayout;
+    private LinearLayout.LayoutParams params;
+    private int COLUMN_COUNT = 1;
+    private int windowWidth;
+    private String TOTAL = "Total: ";
+    private ArrayList<String> businessAttributes;
+    private ArrayList<String> customerAttributes;
+    private ArrayList<String> orderAttributes;
 
     private LayoutManager layoutManager;
-    private String orderData; //Text display and email body of the order.
+    private String orderData; //email body of the order
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +49,98 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.businessObject = (Business) intent.getSerializableExtra("business");
         this.orderObject = (Order) intent.getSerializableExtra("order");
+        this.customer = new Customer(this);
 
         layoutManager = new LayoutManager();
         setContentView(layoutManager.getCheckoutLayout(businessObject.getName()));
 
-        loadCheckoutData();
+        loadOrderDataForEmail();
     }
 
-    public void loadCheckoutData() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupLayout();
+    }
 
-        customer = new Customer(this);
+    private void assignAttributes() {
+        this.businessAttributes = new ArrayList<String>();
+        this.orderAttributes = new ArrayList<String>();
+        this.customerAttributes = new ArrayList<String>();
 
-        TextView orderDisplay = (TextView) findViewById(R.id.order_items);
-        orderData = "Restaurant: " + businessObject.getName() + "  " + businessObject.getEmail() + "\n\n";
+        // Business
+        this.businessAttributes.add(businessObject.getName());
+        this.businessAttributes.add(businessObject.getPhone());
+        this.businessAttributes.add(businessObject.getAddress());
+
+        // Order
+        ArrayList<MenuItem> o = orderObject.getOrder();
+        for (MenuItem i : o) {
+            String orderEntry = i.getName() + "  " + i.getPrice() + "  " + i.getQuantity();
+            this.orderAttributes.add( orderEntry );
+        }
+        this.orderAttributes.add(TOTAL + orderObject.getTotal());
+
+        // Customer
+        this.customerAttributes.add(customer.getName());
+        this.customerAttributes.add(customer.getEmail());
+        this.customerAttributes.add(customer.getPhone());
+    }
+
+    //  Set Up General Layout
+    private void setupLayout() {
+        assignAttributes();
+
+        businessLayout = (LinearLayout) findViewById( R.id.business_info_view );
+        customerLayout = (LinearLayout) findViewById( R.id.customer_info_view );
+        orderLayout = (LinearLayout) findViewById( R.id.order_info_view );
+
+        params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT );
+
+        // Get width of screen
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        int paddingLeft = businessLayout.getPaddingLeft();
+        int paddingRight = businessLayout.getPaddingRight();
+        windowWidth = size.x - paddingLeft - paddingRight;
+
+        // Programmatically Show Info
+        setupCheckoutInfo(businessAttributes, businessLayout);
+        setupCheckoutInfo(orderAttributes, orderLayout);
+        setupCheckoutInfo(customerAttributes, customerLayout);
+    }
+
+
+    private void setupCheckoutInfo( ArrayList<String> attr, LinearLayout layout){
+        layout.removeAllViews();
+        GridLayout infoGrid;
+        infoGrid = new GridLayout( this );
+        infoGrid.setPadding( 10, 10, 10, 10 );
+        infoGrid.setColumnCount( COLUMN_COUNT );
+        infoGrid.setRowCount( attr.size() );
+
+        try {
+            for (int i = 0; i < attr.size(); i++) {
+
+                TextView t = new TextView( this );
+                t.setText( attr.get( i ));
+                t.setTextAppearance( layoutManager.getSubTextStyle( businessObject.getName() ));
+                infoGrid.addView( t, windowWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
+            infoGrid.setLayoutParams( params );
+            layout.addView( infoGrid );
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public void loadOrderDataForEmail() {
+        this.orderData = "";
+        orderData = "Restaurant: " + businessObject.getName() +  "\n\n";
         orderData += "Customer: " + customer.getName() + " " + customer.getEmail() + "\n\n";
         orderData += "Item    Price    Quantity \n";
 
@@ -58,7 +151,6 @@ public class CheckoutActivity extends AppCompatActivity {
             orderData += i.getQuantity() + "\n";
         }
         orderData += "Total " + orderObject.getTotal() + "\n";
-        orderDisplay.setText(orderData);
     }
 
     private boolean confirmCustomerSettingsInput(Customer customer) {
@@ -95,15 +187,15 @@ public class CheckoutActivity extends AppCompatActivity {
             OrderDatabase orderDatabaseObject = new OrderDatabase(this);
             orderDatabaseObject.insert(orderObject.getDate(), businessObject.getName(), orderObject.getTotal());
 
-                    String[] addresses = {businessObject.getEmail(), customer.getEmail()};
-                    String subject = "TakeOut Order";
-                    String body = orderData;
+            String[] addresses = {businessObject.getEmail(), customer.getEmail()};
+            String subject = "TakeOut Order";
+            String body = orderData;
 
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                    emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
             try {
                 startActivityForResult(emailIntent, 1);
@@ -113,13 +205,6 @@ public class CheckoutActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadCheckoutData();
-    }
-
-
     /**
      * onActivityResult
      *
@@ -128,8 +213,11 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param data
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {Toast.makeText(this, "Sending Order, pick up in 30 minutes", Toast.LENGTH_LONG).show();}
+        if (resultCode == RESULT_OK) {
+            Toast.makeText(this, R.string.order_sent, Toast.LENGTH_LONG).show();
+        }
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        Toast.makeText(this, R.string.order_sent, Toast.LENGTH_LONG).show();
     }
 
     /**

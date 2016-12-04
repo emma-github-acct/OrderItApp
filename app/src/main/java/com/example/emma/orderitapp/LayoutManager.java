@@ -15,6 +15,7 @@ public class LayoutManager {
     private final String CHECKOUT_TAG = "_Checkout";
     private final String HISTORY_TAG = "_History";
     private final String TEXT_STYLE_TAG = "_TextStyle";
+    private final String SUB_TEXT_STYLE_TAG = "_SubTextStyle";
     private ArrayList<String> tags;
     // Names of Businesses
     private final String JAVA = "Keke's";
@@ -37,26 +38,12 @@ public class LayoutManager {
 
         // adds styles
         styles.put( JAVA + TEXT_STYLE_TAG, R.style.JavaCafeTextStyle );
+        styles.put( JAVA + SUB_TEXT_STYLE_TAG, R.style.JavaCafeSubTextStyle );
 
         // adds tags to array
         tags.add(WELCOME_TAG);
         tags.add(CHECKOUT_TAG);
         tags.add(HISTORY_TAG);
-    }
-
-
-    /**
-     * hasTextStyle
-     * @param businessName -- business Name
-     * @return boolean
-     */
-    public boolean hasTextStyle( String businessName ) {
-        String k = businessName + TEXT_STYLE_TAG;
-        if ( styles.get( k ) == null ){
-            return false;
-        } else {
-            return true;
-        }
     }
 
     /**
@@ -123,6 +110,21 @@ public class LayoutManager {
      */
     public int getTextStyle( String businessName ) {
         String k = businessName + TEXT_STYLE_TAG;
+        if ( styles.get( k ) == null ){
+            return R.style.AppTheme;
+
+        } else {
+            return styles.get( k );
+        }
+    }
+
+    /**
+     * getSubTextStyle
+     * @param businessName -- business Name
+     * @return int -- value of style id
+     */
+    public int getSubTextStyle( String businessName ) {
+        String k = businessName + SUB_TEXT_STYLE_TAG;
         if ( styles.get( k ) == null ){
             return R.style.AppTheme;
 
