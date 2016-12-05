@@ -64,11 +64,11 @@ public class QRCodeReaderBusiness extends Activity {
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
-    //            if (ActivityCompat.checkSelfPermission(QRCodeReaderBusiness.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-    //                Toast.makeText(null, "Camera permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
-     //           }
-     //           else {
-//                    ActivityCompat.requestPermissions(QRCodeReaderBusiness.this, new String[]{Manifest.permission.CAMERA}, 0);
+                if (ActivityCompat.checkSelfPermission(QRCodeReaderBusiness.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(null, "Camera permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+               }
+                else {
+                    ActivityCompat.requestPermissions(QRCodeReaderBusiness.this, new String[]{Manifest.permission.CAMERA}, 0);
 
                     try {
                         Log.w("CAMERA SOURCE", "Camera started");
@@ -76,7 +76,7 @@ public class QRCodeReaderBusiness extends Activity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-             //   }
+                }
             }
 
 
