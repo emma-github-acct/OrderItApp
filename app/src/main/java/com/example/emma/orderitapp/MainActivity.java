@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.menu_start).setVisible(false);
         menu.findItem(R.id.menu_scan).setVisible(false);
+        menu.findItem(R.id.menu_history).setVisible(false);
         return true;
     }
 
