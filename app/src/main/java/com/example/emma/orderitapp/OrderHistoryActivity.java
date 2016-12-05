@@ -225,15 +225,23 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     public void startSettings(View v) {
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-        i.putExtra("business", businessObject);
-        i.putExtra("order", orderObject);
+        if ( businessObject != null ) {
+            i.putExtra("business", businessObject);
+        }
+        if ( orderObject != null ){
+            i.putExtra("order", orderObject);
+        }
         startActivity(i);
     }
 
     public void startScan(View v) {
         Intent i = new Intent(getApplicationContext(), QRCodeReaderRestaurant.class);
-        i.putExtra("business", businessObject);
-        i.putExtra("order", orderObject);
+        if ( businessObject != null ) {
+            i.putExtra("business", businessObject);
+        }
+        if ( orderObject != null ){
+            i.putExtra("order", orderObject);
+        }
         startActivity(i);
     }
 
