@@ -80,7 +80,7 @@ public class OrderDatabase extends SQLiteOpenHelper {
      * Insert an order.
      */
 
-    public void insert(String date, String restaurant, String total) {
+    public void insert(final String date, final String restaurant, final String total) {
 
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -93,7 +93,9 @@ public class OrderDatabase extends SQLiteOpenHelper {
         } catch (SQLException se) {
             Toast.makeText(appContext, se.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
+
 
 
     /**
