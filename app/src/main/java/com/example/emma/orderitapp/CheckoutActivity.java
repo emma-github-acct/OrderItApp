@@ -217,7 +217,6 @@ public class CheckoutActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.order_sent, Toast.LENGTH_LONG).show();
         }
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        Toast.makeText(this, R.string.order_sent, Toast.LENGTH_LONG).show();
     }
 
     /**

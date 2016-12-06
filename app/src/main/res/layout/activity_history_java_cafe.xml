@@ -36,7 +36,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/restaurant_entry"
-            android:layout_width="50dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"
             android:maxLines="1"/>

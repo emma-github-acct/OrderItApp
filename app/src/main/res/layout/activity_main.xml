@@ -45,13 +45,5 @@
         android:backgroundTint="@color/lightBlue"
         android:layout_margin="50dp"/>
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_feedback_white_24dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/launch_button"
-        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
