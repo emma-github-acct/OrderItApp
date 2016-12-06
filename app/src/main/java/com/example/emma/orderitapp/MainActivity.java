@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       if ( checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
-        requestPermissions(new String[]{Manifest.permission.CAMERA}, 10);}
+        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 10);
+        }
         showTitle();
     }
 

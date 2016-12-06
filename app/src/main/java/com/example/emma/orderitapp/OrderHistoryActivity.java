@@ -1,8 +1,8 @@
 package com.example.emma.orderitapp;
 
 /**
- *  Controller for the Order History view.
- *  Database operations are threaded.
+ * Controller for the Order History view.
+ * Database operations are threaded.
  */
 
 
@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 
@@ -56,11 +57,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
      * @param
      */
 
-    public void autoFillThreaded(){
+    public void autoFillThreaded() {
 
         new Thread(new Runnable() {
             @Override
-            public  void run(){
+            public void run() {
                 final ArrayAdapter dateAdapter
                         = dbManager.fillAutoCompleteTextFields(OrderHistoryActivity.this, OrderDatabase.DATE);
                 final ArrayAdapter restaurantAdapter
@@ -101,9 +102,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
             String columnValue = dateEntry.getText().toString();
             dateEntry.setText("");
             if (columnValue.isEmpty()) {
-                Toast.makeText(this, "Please enter a date", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.dateError, Toast.LENGTH_LONG).show();
             } else {
-               selectByColumnThreaded(OrderDatabase.DATE, columnValue);
+                selectByColumnThreaded(OrderDatabase.DATE, columnValue);
             }
         }
         // Search by Restaurant
@@ -111,9 +112,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
             String columnValue = restaurantEntry.getText().toString();
             restaurantEntry.setText("");
             if (columnValue.isEmpty()) {
-                Toast.makeText(this, "Please enter a restaurant", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.restaurantError, Toast.LENGTH_LONG).show();
             } else {
-               selectByColumnThreaded(OrderDatabase.RESTAURANT, columnValue);
+                selectByColumnThreaded(OrderDatabase.RESTAURANT, columnValue);
             }
         }
     }
@@ -125,15 +126,15 @@ public class OrderHistoryActivity extends AppCompatActivity {
      *
      */
 
-    public void selectByColumnThreaded(final String columnName, final String columnValue){
+    public void selectByColumnThreaded(final String columnName, final String columnValue) {
 
         final TextView historyDisplay = (TextView) findViewById(R.id.db_contents);
 
         new Thread(new Runnable() {
             @Override
-            public  void run(){
+            public void run() {
                 ArrayList<String> results = dbManager.selectByColumn(columnName, columnValue);
-                String historyString = "ORDER DATE RESTAURANT TOTAL\n";
+                String historyString = getString(R.string.historyHeader);
                 for (String r : results) {
                     historyString += r;
                 }
@@ -225,10 +226,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     public void startSettings(View v) {
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-        if ( businessObject != null ) {
+        if (businessObject != null) {
             i.putExtra("business", businessObject);
         }
-        if ( orderObject != null ){
+        if (orderObject != null) {
             i.putExtra("order", orderObject);
         }
         startActivity(i);
@@ -236,9 +237,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     public void startScan(View v) {
         Intent i;
-        if ( businessObject != null ) {
+        if (businessObject != null) {
             i = new Intent(getApplicationContext(), QRCodeReaderRestaurant.class);
-        }else {i = new Intent(getApplicationContext(), QRCodeReaderBusiness.class);}
+        } else {
+            i = new Intent(getApplicationContext(), QRCodeReaderBusiness.class);
+        }
         i.putExtra("business", businessObject);
         i.putExtra("order", orderObject);
         startActivity(i);

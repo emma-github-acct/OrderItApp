@@ -151,6 +151,9 @@ public class CheckoutActivity extends AppCompatActivity {
             orderData += i.getQuantity() + "\n";
         }
         orderData += "Total " + orderObject.getTotal() + "\n";
+        if (orderObject.getTotal().equals("$0.00")){
+            Toast.makeText(this, "Your order is empty!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean confirmCustomerSettingsInput(Customer customer) {
@@ -200,7 +203,7 @@ public class CheckoutActivity extends AppCompatActivity {
             try {
                 startActivityForResult(emailIntent, 1);
             } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.noEmailError, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -213,9 +216,8 @@ public class CheckoutActivity extends AppCompatActivity {
      * @param data
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.order_sent, Toast.LENGTH_LONG).show();
-        }
+
+        Toast.makeText(this, R.string.order_sent, Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 

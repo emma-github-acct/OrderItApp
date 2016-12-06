@@ -46,6 +46,10 @@
     <string name="default_phone_number">123-444-5555</string>
     <string name="default_email">JaneDoe@gmail.com</string>
     <string name="default_address">123 Main Street Hollywood CA</string>
+    <string name="dateError">Please enter a date</string>
+    <string name="restaurantError">Please enter a restaurant</string>
+    <string name="historyHeader">ORDER DATE RESTAURANT TOTAL\n</string>
+    <string name="noEmailError">There is no email client installed.</string>
 
 
 </resources>
